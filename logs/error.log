@@ -1,0 +1,9 @@
+{"date":"2023-03-22T15:56:33.047Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-03-22T15:57:25.325Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}
+{"date":"2023-03-22T15:58:12.038Z","level":"error","message":"Permission denied, wrong credentials","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-03-22T16:01:12.627Z","level":"error","message":"resetPasswordToken is not defined","method":"POST","service":"user-service","url":"/forgotPassword"}
+{"date":"2023-03-22T16:01:38.147Z","level":"error","message":"Permission denied, wrong credentials","method":"POST","service":"user-service","url":"/forgotPassword"}
+{"date":"2023-03-22T16:05:01.557Z","level":"error","message":"Invalid token","method":"PUT","service":"user-service","url":"/resetPassword"}
+{"date":"2023-03-22T16:05:03.496Z","level":"error","message":"Invalid token","method":"PUT","service":"user-service","url":"/resetPassword"}
+{"date":"2023-03-22T16:05:10.903Z","level":"error","message":"Permission denied, wrong credentials","method":"POST","service":"user-service","url":"/forgotPassword"}
+{"date":"2023-03-22T16:05:24.258Z","level":"error","message":"New password can not be same as old password","method":"PUT","service":"user-service","url":"/resetPassword"}
