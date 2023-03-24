@@ -304,6 +304,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "bandName": {
+                  "example": "any"
+                },
                 "country": {
                   "example": "any"
                 },
@@ -331,16 +334,13 @@
                 "nationality": {
                   "example": "any"
                 },
-                "occupation": {
-                  "example": "any"
-                },
-                "investmentExperience": {
-                  "example": "any"
-                },
                 "musicGenres": {
                   "example": "any"
                 },
-                "reference": {
+                "socialMediaLinks": {
+                  "example": "any"
+                },
+                "website": {
                   "example": "any"
                 },
                 "termsAndConditions": {
@@ -496,6 +496,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "bandName": {
+                  "example": "any"
+                },
                 "country": {
                   "example": "any"
                 },
@@ -523,16 +526,13 @@
                 "nationality": {
                   "example": "any"
                 },
-                "occupation": {
-                  "example": "any"
-                },
-                "investmentExperience": {
-                  "example": "any"
-                },
                 "musicGenres": {
                   "example": "any"
                 },
-                "reference": {
+                "socialMediaLinks": {
+                  "example": "any"
+                },
+                "website": {
                   "example": "any"
                 },
                 "termsAndConditions": {
