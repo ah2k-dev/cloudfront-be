@@ -19,6 +19,9 @@
   "paths": {
     "/auth/logout": {
       "get": {
+        "tags": [
+          "auth"
+        ],
         "description": "",
         "parameters": [],
         "responses": {}
@@ -26,6 +29,9 @@
     },
     "/auth/register": {
       "post": {
+        "tags": [
+          "auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -34,7 +40,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "middleName": {
+                  "example": "any"
+                },
+                "title": {
                   "example": "any"
                 },
                 "email": {
@@ -55,6 +70,9 @@
     },
     "/auth/login": {
       "post": {
+        "tags": [
+          "auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -78,6 +96,9 @@
     },
     "/auth/requestEmailToken": {
       "post": {
+        "tags": [
+          "auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -98,6 +119,9 @@
     },
     "/auth/verifyEmail": {
       "post": {
+        "tags": [
+          "auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -125,6 +149,9 @@
     },
     "/auth/forgotPassword": {
       "post": {
+        "tags": [
+          "auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -145,6 +172,9 @@
     },
     "/auth/resetPassword": {
       "put": {
+        "tags": [
+          "auth"
+        ],
         "description": "",
         "parameters": [
           {
@@ -169,8 +199,175 @@
         "responses": {}
       }
     },
-    "/auth/updatePassword": {
+    "/user/": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/completeInvestorProfile": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "country": {
+                  "example": "any"
+                },
+                "state": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "streetAddress": {
+                  "example": "any"
+                },
+                "postalCode": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                },
+                "dob": {
+                  "example": "any"
+                },
+                "preferredLanguage": {
+                  "example": "any"
+                },
+                "nationality": {
+                  "example": "any"
+                },
+                "occupation": {
+                  "example": "any"
+                },
+                "investmentExperience": {
+                  "example": "any"
+                },
+                "musicGenres": {
+                  "example": "any"
+                },
+                "reference": {
+                  "example": "any"
+                },
+                "termsAndConditions": {
+                  "example": "any"
+                },
+                "privacyPolicy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/completeCreatorProfile": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "country": {
+                  "example": "any"
+                },
+                "state": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "streetAddress": {
+                  "example": "any"
+                },
+                "postalCode": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                },
+                "dob": {
+                  "example": "any"
+                },
+                "preferredLanguage": {
+                  "example": "any"
+                },
+                "nationality": {
+                  "example": "any"
+                },
+                "occupation": {
+                  "example": "any"
+                },
+                "investmentExperience": {
+                  "example": "any"
+                },
+                "musicGenres": {
+                  "example": "any"
+                },
+                "reference": {
+                  "example": "any"
+                },
+                "termsAndConditions": {
+                  "example": "any"
+                },
+                "privacyPolicy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/updatePassword": {
       "put": {
+        "tags": [
+          "user"
+        ],
         "description": "",
         "parameters": [
           {
@@ -188,6 +385,285 @@
                   "example": "any"
                 },
                 "newPassword": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/updateInvestorProfile": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "country": {
+                  "example": "any"
+                },
+                "state": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "streetAddress": {
+                  "example": "any"
+                },
+                "postalCode": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                },
+                "dob": {
+                  "example": "any"
+                },
+                "preferredLanguage": {
+                  "example": "any"
+                },
+                "nationality": {
+                  "example": "any"
+                },
+                "occupation": {
+                  "example": "any"
+                },
+                "investmentExperience": {
+                  "example": "any"
+                },
+                "musicGenres": {
+                  "example": "any"
+                },
+                "reference": {
+                  "example": "any"
+                },
+                "termsAndConditions": {
+                  "example": "any"
+                },
+                "privacyPolicy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/user/updateCreatorProfile": {
+      "put": {
+        "tags": [
+          "user"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "country": {
+                  "example": "any"
+                },
+                "state": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "streetAddress": {
+                  "example": "any"
+                },
+                "postalCode": {
+                  "example": "any"
+                },
+                "phoneNumber": {
+                  "example": "any"
+                },
+                "dob": {
+                  "example": "any"
+                },
+                "preferredLanguage": {
+                  "example": "any"
+                },
+                "nationality": {
+                  "example": "any"
+                },
+                "occupation": {
+                  "example": "any"
+                },
+                "investmentExperience": {
+                  "example": "any"
+                },
+                "musicGenres": {
+                  "example": "any"
+                },
+                "reference": {
+                  "example": "any"
+                },
+                "termsAndConditions": {
+                  "example": "any"
+                },
+                "privacyPolicy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/chat/getChats": {
+      "get": {
+        "tags": [
+          "chat"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/chat/getChat/{id}": {
+      "get": {
+        "tags": [
+          "chat"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/chat/createChat": {
+      "post": {
+        "tags": [
+          "chat"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "users": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/chat/sendMessage": {
+      "post": {
+        "tags": [
+          "chat"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "example": "any"
+                },
+                "chatId": {
                   "example": "any"
                 }
               }

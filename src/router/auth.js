@@ -13,6 +13,5 @@ router.route("/verifyEmail").post(auth.verifyEmail);
 router.route("/forgotPassword").post(auth.forgotPassword);
 //put
 router.route("/resetPassword").put(auth.resetPassword);
-router.route("/updatePassword").put(isAuthenticated, auth.updatePassword);
 
 module.exports = router;

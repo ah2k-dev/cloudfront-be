@@ -6,7 +6,19 @@ const dotenv = require("dotenv");
 const validator = require("validator");
 dotenv.config({ path: ".././src/config/config.env" });
 const userSchema = new Schema({
-  name: {
+  title: {
+    type: String,
+    required: true,
+  },
+  firstName: {
+    type: String,
+    required: true,
+  },
+  middleName: {
+    type: String,
+    required: true,
+  },
+  lastname: {
     type: String,
     required: true,
   },
@@ -77,6 +89,6 @@ userSchema.methods.comparePassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-const user = mongoose.model("user", userSchema);
+const User = mongoose.model("user", userSchema);
 
-module.exports = user;
+module.exports = User;

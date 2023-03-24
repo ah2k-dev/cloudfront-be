@@ -10,6 +10,7 @@ const doc = {
     schemes: ["http"],
     consumes: ["application/json"],
     produces: ["application/json"],
+    tags: [],
   };
   
   const outputFile = "./swagger_output.json"; // Generated Swagger file

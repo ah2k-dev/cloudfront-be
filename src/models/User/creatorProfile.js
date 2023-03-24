@@ -1,0 +1,76 @@
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+
+const creatorProfileSchema = new Schema({
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: "user",
+  },
+  investors: {
+    type: [Schema.Types.ObjectId],
+    ref: "user",
+  },
+  bandName: {
+    type: String,
+    required: true,
+  },
+  country: {
+    type: String,
+    required: true,
+  },
+  state: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  streetAddress: {
+    type: String,
+    required: true,
+  },
+  postalCode: {
+    type: Number,
+    required: true,
+  },
+  phoneNumber: {
+    type: Number,
+    required: true,
+  },
+  dob: {
+    type: String,
+    required: true,
+  },
+  preferredLanguage: {
+    type: String,
+    required: true,
+  },
+  nationality: {
+    type: String,
+    required: true,
+  },
+  musicGenres: {
+    type: [String],
+    required: true,
+  },
+  socialMediaLinks: {
+    type: [String],
+    // required: true
+  },
+  website: {
+    type: String,
+  },
+  termsAndConditions: {
+    type: String,
+    required: true,
+  },
+  privacyPolicy: {
+    type: String,
+    required: true,
+  },
+});
+
+const creatorProfile = mongoose.model("creatorProfile", creatorProfileSchema);
+
+module.exports = creatorProfile;
