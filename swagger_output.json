@@ -679,6 +679,362 @@
           }
         }
       }
+    },
+    "/campaign/create": {
+      "post": {
+        "tags": [
+          "campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "shortDesc": {
+                  "example": "any"
+                },
+                "detailedDesc": {
+                  "example": "any"
+                },
+                "fundingGoal": {
+                  "example": "any"
+                },
+                "duration": {
+                  "example": "any"
+                },
+                "projectCategory": {
+                  "example": "any"
+                },
+                "imageUrl": {
+                  "example": "any"
+                },
+                "videoUrl": {
+                  "example": "any"
+                },
+                "rewards": {
+                  "example": "any"
+                },
+                "creatorBio": {
+                  "example": "any"
+                },
+                "socialMediaLinks": {
+                  "example": "any"
+                },
+                "additionalImageUrls": {
+                  "example": "any"
+                },
+                "termsAndConditions": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/campaign/update": {
+      "put": {
+        "tags": [
+          "campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "title": {
+                  "example": "any"
+                },
+                "shortDesc": {
+                  "example": "any"
+                },
+                "detailedDesc": {
+                  "example": "any"
+                },
+                "fundingGoal": {
+                  "example": "any"
+                },
+                "duration": {
+                  "example": "any"
+                },
+                "projectCategory": {
+                  "example": "any"
+                },
+                "imageUrl": {
+                  "example": "any"
+                },
+                "videoUrl": {
+                  "example": "any"
+                },
+                "rewards": {
+                  "example": "any"
+                },
+                "creatorBio": {
+                  "example": "any"
+                },
+                "socialMediaLinks": {
+                  "example": "any"
+                },
+                "additionalImageUrls": {
+                  "example": "any"
+                },
+                "termsAndConditions": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/campaign/getAll": {
+      "post": {
+        "tags": [
+          "campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusFilter": {
+                  "example": "any"
+                },
+                "searchFilter": {
+                  "example": "any"
+                },
+                "search": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/campaign/getMine": {
+      "post": {
+        "tags": [
+          "campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusFilter": {
+                  "example": "any"
+                },
+                "searchFilter": {
+                  "example": "any"
+                },
+                "search": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/campaign/getInvested": {
+      "post": {
+        "tags": [
+          "campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusFilter": {
+                  "example": "any"
+                },
+                "searchFilter": {
+                  "example": "any"
+                },
+                "search": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/admin/approveCampaign/{id}": {
+      "put": {
+        "tags": [
+          "admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/admin/getCampaigns": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusFilter": {
+                  "example": "any"
+                },
+                "searchFilter": {
+                  "example": "any"
+                },
+                "search": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
     }
   }
 }
