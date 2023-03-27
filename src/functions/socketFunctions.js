@@ -19,13 +19,11 @@ const removeUser = async (socket) => {
   console.log("removed user", removedUser);
 };
 
-const sendMessageHelper = async (user, message, count) => {
+const sendMessageHelper = async (user, message) => {
   try {
     global.onlineUsers.forEach((user2) => {
       if (user2.user == user) {
-        global.io
-          .to(user2.socket)
-          .emit("newMessage", { message: message, count: count });
+        global.io.to(user2.socket).emit("newMessage", { message: message });
       }
     });
   } catch (error) {

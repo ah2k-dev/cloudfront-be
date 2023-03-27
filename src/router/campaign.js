@@ -4,12 +4,18 @@ const {
   creatorAuth,
   investorAuth,
 } = require("../middleware/auth");
-const campaign = require('../controllers/campaignController.js')
+const campaign = require("../controllers/campaignController.js");
 
-router.route('/create').post(isAuthenticated, creatorAuth, campaign.create)
-router.route('/update').put(isAuthenticated, creatorAuth, campaign.update)
-router.route('/getAll').post(isAuthenticated, campaign.getAll)
-router.route('/getMine').post(isAuthenticated, creatorAuth, campaign.getMine)
-router.route('/getInvested').post(isAuthenticated, investorAuth, campaign.getInvested)
+router.route("/create").post(isAuthenticated, creatorAuth, campaign.create);
+router.route("/update").put(isAuthenticated, creatorAuth, campaign.update);
+router.route("/getAll").post(isAuthenticated, campaign.getAll);
+router.route("/getMine").post(isAuthenticated, creatorAuth, campaign.getMine);
+router
+  .route("/getInvested")
+  .post(isAuthenticated, investorAuth, campaign.getInvested);
+router.route("/getFeatured").get(isAuthenticated, campaign.getFeatured);
+router
+  .route("/getEditorPicks")
+  .get(isAuthenticated, investorAuth, campaign.getEditorPicks);
 
 module.exports = router;

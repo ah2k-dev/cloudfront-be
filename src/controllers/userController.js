@@ -4,6 +4,7 @@ const User = require("../models/User/user");
 const investorProfile = require("../models/User/investorProfile");
 const creatorProfile = require("../models/User/creatorProfile");
 const { findOneAndUpdate } = require("../models/User/user");
+const Project = require("../models/Campaign/projects");
 const updatePassword = async (req, res) => {
   // #swagger.tags = ['user']
   try {
@@ -304,6 +305,76 @@ const getProfile = async (req, res) => {
   }
 };
 
+const globalSearch = async (req, res) => {
+  // #swagger.tags = ['user']
+  try {
+    const { search } = req.body;
+    const searchFilter_1 = search
+      ? {
+          $or: [
+            {
+              title: {
+                $regex: search,
+                $options: "i",
+              },
+            },
+            {
+              firstName: {
+                $regex: search,
+                $options: "i",
+              },
+            },
+            {
+              middleName: {
+                $regex: search,
+                $options: "i",
+              },
+            },
+            {
+              lastName: {
+                $regex: search,
+                $options: "i",
+              },
+            },
+          ],
+        }
+      : {};
+    const searchFilter_2 = search
+      ? {
+          title: {
+            $regex: search,
+            $options: "i",
+          },
+        }
+      : {};
+
+    const campaigns = await Project.find({
+      ...searchFilter_2,
+    })
+      .populate("investment")
+      .populate("creator", "title firstName lastName middleName profilePic")
+      .sort({ title: 1 });
+
+    const userProfiles = await User.find({
+      ...searchFilter_1,
+      role: req.user.role == "investor" ? "creator" : "investor",
+    })
+      .select("firstName title lastName middleName profilePic email")
+      .sort({ title: 1 });
+
+    if (!campaigns || !userProfiles) {
+      return ErrorHandler(`Error fetching data!`, 400, req, res);
+    }
+    return SuccessHandler(
+      { message: `Data fetched successfully!`, campaigns, userProfiles },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   updatePassword,
   completeInvestorProfile,
@@ -311,4 +382,5 @@ module.exports = {
   updateCreatorProfile,
   updateInvestorProfile,
   getProfile,
+  globalSearch,
 };

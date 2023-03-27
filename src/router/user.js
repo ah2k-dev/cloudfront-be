@@ -11,6 +11,7 @@ router
 router
   .route("/completeCreatorProfile")
   .post(isAuthenticated, user.completeCreatorProfile);
+router.route("/globalSearch").post(isAuthenticated, user.globalSearch)
 // put
 router.route("/updatePassword").put(isAuthenticated, user.updatePassword);
 router

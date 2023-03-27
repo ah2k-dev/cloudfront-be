@@ -108,13 +108,14 @@ const sendMessage = async (req, res) => {
   try {
     const { message, chatId } = req.body;
     const chat = await Chat.findById(chatId);
+    const isNewChat = chat.lastMessage ? false : true;
     if (!chat) {
       return ErrorHandler("Chat not found", 404, req, res);
     }
-    let newChat = false;
-    if (chat.lastMessage !== null) {
-      newChat = true;
-    }
+    // let newChat = false;
+    // if (chat.lastMessage !== null) {
+    //   newChat = true;
+    // }
     const newMessage = new Message({
       message,
       chat: chatId,
@@ -131,16 +132,15 @@ const sendMessage = async (req, res) => {
       }
     );
     // send message socket helper here
-    // await newMessage.populate("sender", "name email");
-    // const userToNotify = chat.users.filter(
-    //   (user) => user.toString() !== req.user._id.toString()
-    // )[0];
-    // console.log(userToNotify, newMessage)
-    // sendMessageHelper(userToNotify, {
-    //   newMessage: newMessage,
-    //   chat: chat,
-    //   newChat: newChat,
-    // });
+    await newMessage.populate("sender", "name email");
+    const userToNotify = chat.users.filter(
+      (user) => user.toString() !== req.user._id.toString()
+    )[0];
+    sendMessageHelper(userToNotify, {
+      newMessage: newMessage,
+      chat: chat,
+      isNewChat,
+    });
     return SuccessHandler(
       {
         message: "Message sent successfully",
