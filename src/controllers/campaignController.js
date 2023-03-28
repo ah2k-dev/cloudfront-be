@@ -121,6 +121,7 @@ const getAll = async (req, res) => {
     const campaigns = await Project.find({
       ...statusFilter,
       ...searchFilter,
+      isActive: true,
     })
       .populate({
         path: "user",
@@ -168,6 +169,7 @@ const getMine = async (req, res) => {
       ...statusFilter,
       ...searchFilter,
       creator: user,
+      isActive: true,
     })
       .populate({
         path: "user",
@@ -210,6 +212,7 @@ const getInvested = async (req, res) => {
       investments: { $in: investments },
       ...statusFilter,
       ...searchFilter,
+      isActive: true,
     })
       .populate({
         path: "user",
@@ -228,11 +231,14 @@ const getInvested = async (req, res) => {
 const getFeatured = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
-    const freshCampaigns = await Project.find().sort({ createdAt: 1 }).limit(5);
+    const freshCampaigns = await Project.find({ isActive: true })
+      .sort({ createdAt: 1 })
+      .limit(5);
     const nearlyThere = await Project.aggregate([
       // match projects that have at least 80% of their target budget completed
       {
         $match: {
+          isActive: true,
           $expr: {
             $gte: [
               { $divide: [{ $sum: "$investments.amount" }, "$target"] },
@@ -295,10 +301,12 @@ const getEditorPicks = async (req, res) => {
     }).distinct("_id");
     const investedCampaigns = await Project.find({
       investments: { $in: investments },
+      isActive: true,
     }).distinct("category");
 
     const editorPicks = await Project.find({
       category: { $in: investedCampaigns },
+      isActive: true,
     });
     if (!campaigns) {
       return ErrorHandler("Error fetching data!", 400, req, res);

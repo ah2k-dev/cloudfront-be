@@ -42,6 +42,9 @@ const userSchema = new Schema({
     enum: ["creator", "admin", "investor"],
     // default: "user",
   },
+  profilePic: {
+    type: String,
+  },
   createdAt: {
     type: Date,
     default: Date.now(),

@@ -62,7 +62,7 @@ const projectSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ["pending", "approved", "closed"],
+    enum: ["pending", "approved", "closed", "rejected"],
     default: "pending",
   },
   creator: {
@@ -72,10 +72,15 @@ const projectSchema = new Schema({
   investment: {
     type: [Schema.Types.ObjectId],
     ref: "investment",
+    default: [],
   },
   createdAt: {
     type: Date,
     default: Date.now(),
+  },
+  isActive: {
+    type: Boolean,
+    default: true,
   },
 });
 

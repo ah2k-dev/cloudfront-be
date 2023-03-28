@@ -101,7 +101,9 @@ const login = async (req, res) => {
   // #swagger.tags = ['auth']
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email }).select("+password");
+    const user = await User.findOne({ email, isActive: true }).select(
+      "+password"
+    );
     if (!user) {
       return ErrorHandler("User does not exist", req, 400, res);
     }
@@ -139,7 +141,7 @@ const forgotPassword = async (req, res) => {
   // #swagger.tags = ['auth']
   try {
     const { email } = req.body;
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email, isActive: true });
     if (!user) {
       return ErrorHandler("User does not exist", 400, req, res);
     }
@@ -190,8 +192,6 @@ const resetPassword = async (req, res) => {
     return ErrorHandler(error.message, 500, req, res);
   }
 };
-
-
 
 module.exports = {
   register,

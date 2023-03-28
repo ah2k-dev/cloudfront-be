@@ -350,6 +350,7 @@ const globalSearch = async (req, res) => {
 
     const campaigns = await Project.find({
       ...searchFilter_2,
+      isActive: true,
     })
       .populate("investment")
       .populate("creator", "title firstName lastName middleName profilePic")
@@ -358,6 +359,7 @@ const globalSearch = async (req, res) => {
     const userProfiles = await User.find({
       ...searchFilter_1,
       role: req.user.role == "investor" ? "creator" : "investor",
+      isActive: true,
     })
       .select("firstName title lastName middleName profilePic email")
       .sort({ title: 1 });
