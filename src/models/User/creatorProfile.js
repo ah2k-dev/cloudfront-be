@@ -69,6 +69,10 @@ const creatorProfileSchema = new Schema({
     type: String,
     required: true,
   },
+  iban: {
+    type: String,
+    default: null,
+  },
 });
 
 const creatorProfile = mongoose.model("creatorProfile", creatorProfileSchema);

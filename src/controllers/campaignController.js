@@ -3,6 +3,13 @@ const Project = require("../models/Campaign/projects");
 const User = require("../models/User/user");
 const ErrorHandler = require("../utils/ErrorHandler");
 const SuccessHandler = require("../utils/SuccessHandler");
+const dotenv = require("dotenv");
+
+dotenv.config({
+  path: "./src/config/config.env",
+});
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const create = async (req, res) => {
   // #swagger.tags = ['campaign']
@@ -317,6 +324,52 @@ const getEditorPicks = async (req, res) => {
   }
 };
 
+const invest = async (req, res) => {
+  // #swagger.tags = ['campaign']
+  try {
+    const { campaign, amount, currency, stripeToken } = req.body;
+    const user = req.user._id;
+    const amountInCents = amount * 100;
+
+    const charge = await stripe.charges.create({
+      amount: amountInCents,
+      currency: currency,
+      source: stripeToken,
+      capture: true, // false for holding payment. conflict here. explanation for capture:false
+    });
+
+    if (charge) {
+      const chargeId = charge.id;
+      if (charge.status == "succeeded") {
+        const newInvestment = new Investment({
+          investor: user,
+          amount: amount,
+          currency: currency,
+          chargeId: chargeId,
+        });
+        const investment = await newInvestment.save();
+        if (investment) {
+          await Project.findByIdAndUpdate(campaign, {
+            $push: { investment: investment._id },
+          });
+          return SuccessHandler(
+            { message: "Invested successfully", charge, investment },
+            201,
+            res
+          );
+        }
+      } else {
+        console.log(charge);
+        return ErrorHandler("Payment failed", 400, req, res);
+      }
+    } else {
+      return ErrorHandler("Error creating a charge", 400, req, res);
+    }
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   create,
   getAll,
@@ -325,4 +378,5 @@ module.exports = {
   update,
   getFeatured,
   getEditorPicks,
+  invest,
 };

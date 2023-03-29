@@ -21,6 +21,8 @@ router
   .route("/deleteCampaign/:id")
   .delete(isAuthenticated, adminAuth, admin.deleteCampaign);
 
+router.route('/releaseFunds/:id').get(isAuthenticated, adminAuth, admin.releaseFunds)
+
 // investors
 router
   .route("/getInvestors")
@@ -43,6 +45,13 @@ router
   .route("/deleteCreator/:id")
   .delete(isAuthenticated, adminAuth, admin.deleteCreator);
 
-router.route('/dashboard').post(isAuthenticated, adminAuth, admin.dashboard)
+// dashboard
+router.route("/dashboard").post(isAuthenticated, adminAuth, admin.dashboard);
+
+// web details
+router
+  .route("/webDetails/addUpdate")
+  .post(isAuthenticated, adminAuth, admin.addUpdateWebDetails);
+router.route("/weDetails/get").get(admin.getAllWebDetails);
 
 module.exports = router;

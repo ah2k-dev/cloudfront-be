@@ -117,6 +117,7 @@ const completeCreatorProfile = async (req, res) => {
       website,
       termsAndConditions,
       privacyPolicy,
+      iban,
     } = req.body;
 
     const prvProfile = await creatorProfile.findOne({ creator: req.user._id });
@@ -145,6 +146,7 @@ const completeCreatorProfile = async (req, res) => {
       website,
       termsAndConditions,
       privacyPolicy,
+      iban,
     });
     await newProfile.save();
     return SuccessHandler("Profile created!", 201, res);
@@ -223,25 +225,33 @@ const updateCreatorProfile = async (req, res) => {
       website,
       termsAndConditions,
       privacyPolicy,
+      iban,
     } = req.body;
-    const updated = await findOneAndUpdate({
-      creator: req.user._id,
-      bandName,
-      country,
-      state,
-      city,
-      streetAddress,
-      postalCode,
-      phoneNumber,
-      dob,
-      preferredLanguage,
-      nationality,
-      musicGenres,
-      socialMediaLinks,
-      website,
-      termsAndConditions,
-      privacyPolicy,
-    });
+    const updated = await findOneAndUpdate(
+      {
+        creator: req.user._id,
+      },
+      {
+        $set: {
+          bandName,
+          country,
+          state,
+          city,
+          streetAddress,
+          postalCode,
+          phoneNumber,
+          dob,
+          preferredLanguage,
+          nationality,
+          musicGenres,
+          socialMediaLinks,
+          website,
+          termsAndConditions,
+          privacyPolicy,
+          iban,
+        },
+      }
+    );
     if (!updated) {
       return ErrorHandler("Error updating profile", 400, req, res);
     }

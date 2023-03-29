@@ -5,6 +5,15 @@ const User = require("../models/User/user");
 const investorProfile = require("../models/User/investorProfile");
 const Investment = require("../models/Campaign/investments");
 const creatorProfile = require("../models/User/creatorProfile");
+const WebDetails = require("../models/Website/webDetails");
+
+const dotenv = require("dotenv");
+
+dotenv.config({
+  path: "./src/config/config.env",
+});
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 // campaigns
 
@@ -148,6 +157,73 @@ const deleteCampaign = async (req, res) => {
       return ErrorHandler("Error deleting campaign", 400, req, res);
     }
     return SuccessHandler({ message: "Campaign deleted!", deleted }, 200, res);
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
+const releaseFunds = async (req, res) => {
+  // #swagger.tags = ['admin']
+  try {
+    const { id } = req.params;
+    const campaign = await Project.findById(id).populate("investment");
+    const creatorProfile = await creatorProfile.findOne({
+      creator: campaign.creator,
+    });
+    if (creatorProfile.iban) {
+      const investments = campaign.investment;
+      if (investments.length > 0) {
+        await Promise.all(
+          investments.map(async (val, ind) => {
+            // capture charge
+            // const capturedCharge = await stripe.charges.capture(val.chargeId); conflict here. explanation for capture:false
+
+            // create payment to IBAN
+            const payout = await stripe.payouts.create({
+              amount: val.amount * 100,
+              currency: val.currency,
+              method: "standrd",
+              destination: {
+                iban: creatorProfile.iban,
+              },
+              metaData: {
+                chargeId: val.chargeId,
+              },
+            });
+
+            if (payout.status == "paid") {
+              const updated = await Investment.findByIdAndUpdate(val._id, {
+                $set: {
+                  payout: payout,
+                  payoutStatus: true,
+                  payoutAt: Date.now(),
+                },
+              });
+              return updated;
+            }
+          })
+        )
+          .then((result) => {
+            return SuccessHandler(
+              { message: "Payments released", result },
+              200,
+              res
+            );
+          })
+          .catch((error) => {
+            return ErrorHandler(error.message, 400, req, res);
+          });
+      } else {
+        return ErrorHandler(
+          "No investments on this campaign found!",
+          400,
+          req,
+          res
+        );
+      }
+    } else {
+      return ErrorHandler("IBAN not found in creator profile!", 400, req, res);
+    }
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
@@ -512,12 +588,64 @@ const dashboard = async (req, res) => {
   }
 };
 
+//web details
+const addUpdateWebDetails = async (req, res) => {
+  // #swagger.tags = ['admin']
+  try {
+    const { logo, socialLinks, termsAndConditions, privacyPolicy } = req.body;
+    if (req.body.id) {
+      const updated = await WebDetails.findByIdAndUpdate(req.body.id, {
+        $set: {
+          logo,
+          socialLinks,
+          termsAndConditions,
+          privacyPolicy,
+        },
+      });
+      if (!updated) {
+        return ErrorHandler("Error updating info!", 400, req, res);
+      }
+      return SuccessHandler("Data updated!", 201, res);
+    } else {
+      const newWebDetials = new WebDetails({
+        logo,
+        socialLinks,
+        termsAndConditions,
+        privacyPolicy,
+      });
+      await newWebDetials.save();
+      return SuccessHandler("Web details addedd", 201, res);
+    }
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
+const getAllWebDetails = async (req, res) => {
+  // #swagger.tags = ['admin']
+  try {
+    const webDetails = await WebDetails.find();
+    if (webDetails) {
+      return SuccessHandler(
+        { message: "Details fetched", webDetails },
+        200,
+        res
+      );
+    } else {
+      return ErrorHandler("Error fetching data!", 400, req, res);
+    }
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   approveCampaign,
   getCampaigns,
   rejectCampaign,
   editCampaign,
   deleteCampaign,
+  releaseFunds,
   getInvestors,
   updateInvestor,
   deleteInvestor,
@@ -525,4 +653,6 @@ module.exports = {
   updateCreator,
   deleteCreator,
   dashboard,
+  addUpdateWebDetails,
+  getAllWebDetails,
 };

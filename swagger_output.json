@@ -5,7 +5,7 @@
     "description": "Cloudfront api endpoints",
     "version": "1.0.0"
   },
-  "host": "https://cloudfront-be-staging.up.railway.app/",
+  "host": "https://cloudfront-be-staging.up.railway.app",
   "basePath": "/",
   "schemes": [
     "http"
@@ -348,6 +348,9 @@
                 },
                 "privacyPolicy": {
                   "example": "any"
+                },
+                "iban": {
+                  "example": "any"
                 }
               }
             }
@@ -574,6 +577,9 @@
                   "example": "any"
                 },
                 "privacyPolicy": {
+                  "example": "any"
+                },
+                "iban": {
                   "example": "any"
                 }
               }
@@ -1044,6 +1050,53 @@
         }
       }
     },
+    "/campaign/invest": {
+      "post": {
+        "tags": [
+          "campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "campaign": {
+                  "example": "any"
+                },
+                "amount": {
+                  "example": "any"
+                },
+                "currency": {
+                  "example": "any"
+                },
+                "stripeToken": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/admin/approveCampaign/{id}": {
       "put": {
         "tags": [
@@ -1231,6 +1284,38 @@
     },
     "/admin/deleteCampaign/{id}": {
       "delete": {
+        "tags": [
+          "admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/admin/releaseFunds/{id}": {
+      "get": {
         "tags": [
           "admin"
         ],
@@ -1597,6 +1682,66 @@
             "description": "Internal Server Error"
           }
         }
+      }
+    },
+    "/admin/webDetails/addUpdate": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "example": "any"
+                },
+                "logo": {
+                  "example": "any"
+                },
+                "socialLinks": {
+                  "example": "any"
+                },
+                "termsAndConditions": {
+                  "example": "any"
+                },
+                "privacyPolicy": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/admin/weDetails/get": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
       }
     }
   }

@@ -18,6 +18,27 @@ const investmentSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  // capture: {
+  //   type: Boolean,
+  //   default: false,
+  // },
+  chargeId: {
+    type: String,
+  },
+  payout: {
+    type: Schema.Types.Mixed,
+  },
+  payoutAt: {
+    type: Date,
+  },
+  payoutStatus: {
+    type: Boolean,
+    default: false,
+  },
+  // success: {
+  //   type: Boolean,
+  //   default: false,
+  // },
 });
 
 const Investment = mongoose.model("investment", investmentSchema);

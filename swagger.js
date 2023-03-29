@@ -5,7 +5,7 @@ const doc = {
       description: "Cloudfront api endpoints",
       version: "1.0.0",
     },
-    host: "https://cloudfront-be-staging.up.railway.app/",
+    host: "https://cloudfront-be-staging.up.railway.app",
     basePath: "/",
     schemes: ["http"],
     consumes: ["application/json"],
