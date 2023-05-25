@@ -7,3 +7,25 @@
 {"date":"2023-03-22T16:05:03.496Z","level":"error","message":"Invalid token","method":"PUT","service":"user-service","url":"/resetPassword"}
 {"date":"2023-03-22T16:05:10.903Z","level":"error","message":"Permission denied, wrong credentials","method":"POST","service":"user-service","url":"/forgotPassword"}
 {"date":"2023-03-22T16:05:24.258Z","level":"error","message":"New password can not be same as old password","method":"PUT","service":"user-service","url":"/resetPassword"}
+{"date":"2023-05-24T15:07:28.162Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-24T15:07:56.576Z","level":"error","message":"user validation failed: lastname: Path `lastname` is required., title: Path `title` is required., middleName: Path `middleName` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-24T15:08:18.993Z","level":"error","message":"user validation failed: lastname: Path `lastname` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-24T15:08:39.489Z","level":"error","message":"user validation failed: lastname: Path `lastname` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-24T15:08:50.625Z","level":"error","message":"user validation failed: lastname: Path `lastname` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-24T15:09:09.286Z","level":"error","message":"user validation failed: lastname: Path `lastname` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-24T15:10:47.678Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-24T15:11:39.333Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}
+{"date":"2023-05-24T15:12:04.897Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}
+{"date":"2023-05-24T15:12:23.223Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}
+{"date":"2023-05-25T13:51:33.864Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-25T13:52:16.389Z","level":"error","message":"middleName is not defined","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-25T13:52:58.695Z","level":"error","message":"user validation failed: role: `Zub@45678` is not a valid enum value for path `role`.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-25T14:24:27.766Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-25T14:29:50.028Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-25T14:30:39.490Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-25T14:33:14.157Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-25T14:39:47.138Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-05-25T14:41:05.476Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}
+{"date":"2023-05-25T14:41:51.591Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}
+{"date":"2023-05-25T14:44:06.797Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}
+{"date":"2023-05-25T14:54:06.757Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}

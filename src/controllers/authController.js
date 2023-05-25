@@ -6,7 +6,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const register = async (req, res) => {
   // #swagger.tags = ['auth']
   try {
-    const { firstName, lastName, middleName, title, email, password, role } =
+    const { firstName, lastName, email, password, role } =
       req.body;
     if (
       !password.match(
@@ -27,8 +27,8 @@ const register = async (req, res) => {
     const newUser = await User.create({
       firstName,
       lastName,
-      middleName,
-      title,
+      // middleName,
+      // title,
       email,
       password,
       role,
