@@ -29,3 +29,40 @@
 {"date":"2023-05-25T14:41:51.591Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}
 {"date":"2023-05-25T14:44:06.797Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}
 {"date":"2023-05-25T14:54:06.757Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}
+{"date":"2023-06-10T09:01:01.079Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:01:01.623Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:05:54.766Z","level":"error","message":"user validation failed: firstName: Path `firstName` is required., lastName: Path `lastName` is required., role: `Mustafa12@` is not a valid enum value for path `role`.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:05:55.163Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:09:02.430Z","level":"error","message":"user validation failed: firstName: Path `firstName` is required., lastName: Path `lastName` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:09:03.250Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:13:18.210Z","level":"error","message":"user validation failed: firstName: Path `firstName` is required., lastName: Path `lastName` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:13:18.632Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:13:48.907Z","level":"error","message":"user validation failed: firstName: Path `firstName` is required., lastName: Path `lastName` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:13:49.315Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:15:55.055Z","level":"error","message":"user validation failed: firstName: Path `firstName` is required., lastName: Path `lastName` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:15:55.391Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:16:58.490Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:16:58.503Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:21:47.453Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:24:51.986Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:27:07.503Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:27:53.441Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:30:09.730Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:31:51.412Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:33:04.089Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:16:44.731Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:16:59.860Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:17:12.775Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:17:16.233Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:17:24.436Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:17:43.886Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:35:16.669Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:35:24.656Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:35:29.571Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:37:15.558Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:48:21.085Z","level":"error","message":"Invalid token","method":"POST","service":"user-service","url":"/verifyEmail"}
+{"date":"2023-06-10T10:52:21.223Z","level":"error","message":"secretOrPrivateKey must have a value","method":"POST","service":"user-service","url":"/verifyEmail"}
+{"date":"2023-06-10T11:52:24.255Z","level":"error","message":"Cast to string failed for value \"{ email: 'mustafaghouri22@gmail.com' }\" (type Object) at path \"email\" for model \"user\"","method":"PUT","service":"user-service","url":"/resetPassword"}
+{"date":"2023-06-10T11:52:35.377Z","level":"error","message":"Cast to string failed for value \"{ email: 'mustafaghouri22@gmail.com' }\" (type Object) at path \"email\" for model \"user\"","method":"PUT","service":"user-service","url":"/resetPassword"}
+{"date":"2023-06-10T11:53:10.901Z","level":"error","message":"Cast to string failed for value \"{ email: 'mustafaghouri22@gmail.com' }\" (type Object) at path \"email\" for model \"user\"","method":"PUT","service":"user-service","url":"/resetPassword"}
+{"date":"2023-06-10T11:58:33.237Z","level":"error","message":"Invalid token","method":"PUT","service":"user-service","url":"/resetPassword"}

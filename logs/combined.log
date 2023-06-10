@@ -417,3 +417,129 @@
 {"date":"2023-05-25T14:53:33.859Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
 {"date":"2023-05-25T14:54:06.225Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/login"}
 {"date":"2023-05-25T14:54:06.757Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}
+{"date":"2023-06-10T08:35:47.549Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/"}
+{"date":"2023-06-10T08:35:47.619Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui.css"}
+{"date":"2023-06-10T08:35:47.629Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-10T08:35:47.634Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-10T08:35:47.639Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}
+{"date":"2023-06-10T08:35:49.101Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/favicon-32x32.png"}
+{"date":"2023-06-10T08:37:08.630Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/"}
+{"date":"2023-06-10T08:37:08.772Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui.css"}
+{"date":"2023-06-10T08:37:08.887Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-10T08:37:08.892Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-10T08:37:09.603Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}
+{"date":"2023-06-10T08:37:10.057Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/favicon-32x32.png"}
+{"date":"2023-06-10T08:37:11.078Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/favicon-32x32.png"}
+{"date":"2023-06-10T08:53:54.058Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-10T08:53:54.063Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui.css"}
+{"date":"2023-06-10T08:53:54.075Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-10T08:53:54.099Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}
+{"date":"2023-06-10T08:53:54.545Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/favicon-32x32.png"}
+{"date":"2023-06-10T09:01:01.064Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:01:01.079Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:01:01.114Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T09:01:01.623Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:05:54.325Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:05:54.766Z","level":"error","message":"user validation failed: firstName: Path `firstName` is required., lastName: Path `lastName` is required., role: `Mustafa12@` is not a valid enum value for path `role`.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:05:54.793Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T09:05:55.163Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:09:02.025Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:09:02.430Z","level":"error","message":"user validation failed: firstName: Path `firstName` is required., lastName: Path `lastName` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:09:02.849Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T09:09:03.250Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:13:17.873Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:13:18.210Z","level":"error","message":"user validation failed: firstName: Path `firstName` is required., lastName: Path `lastName` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:13:18.228Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T09:13:18.632Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:13:48.502Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:13:48.907Z","level":"error","message":"user validation failed: firstName: Path `firstName` is required., lastName: Path `lastName` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:13:48.926Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T09:13:49.315Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:15:54.654Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:15:55.055Z","level":"error","message":"user validation failed: firstName: Path `firstName` is required., lastName: Path `lastName` is required.","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:15:55.104Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T09:15:55.391Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:16:50.322Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:16:55.579Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T09:16:55.962Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T09:16:58.490Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:16:58.503Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-10T09:19:54.699Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:19:56.002Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T09:19:56.009Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T09:21:47.078Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:21:47.453Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:24:51.772Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:24:51.986Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:27:07.281Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:27:07.503Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:27:52.955Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:27:53.441Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:30:09.494Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:30:09.730Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:31:51.198Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:31:51.412Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:33:03.697Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T09:33:04.089Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T09:59:55.610Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-10T09:59:55.803Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui.css"}
+{"date":"2023-06-10T09:59:55.878Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-10T09:59:56.085Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}
+{"date":"2023-06-10T10:16:44.729Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T10:16:44.731Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:16:59.858Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T10:16:59.860Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:17:12.774Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T10:17:12.775Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:17:16.232Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T10:17:16.233Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:17:24.433Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T10:17:24.436Z","level":"error","message":"Password must contain atleast one uppercase letter, one special character and one number","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:17:43.589Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T10:17:43.886Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:35:16.367Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T10:35:16.669Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:35:24.354Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T10:35:24.656Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:35:29.268Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T10:35:29.571Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:37:15.330Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T10:37:15.558Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-10T10:37:52.778Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-10T10:37:53.577Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T10:37:53.582Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T10:43:46.240Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/verifyEmail"}
+{"date":"2023-06-10T10:47:06.778Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/verifyEmail"}
+{"date":"2023-06-10T10:48:20.787Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/verifyEmail"}
+{"date":"2023-06-10T10:48:21.085Z","level":"error","message":"Invalid token","method":"POST","service":"user-service","url":"/verifyEmail"}
+{"date":"2023-06-10T10:51:16.725Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T10:52:06.996Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-10T10:52:20.922Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/verifyEmail"}
+{"date":"2023-06-10T10:52:21.223Z","level":"error","message":"secretOrPrivateKey must have a value","method":"POST","service":"user-service","url":"/verifyEmail"}
+{"date":"2023-06-10T10:59:05.646Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/verifyEmail"}
+{"date":"2023-06-10T11:04:02.794Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui.css"}
+{"date":"2023-06-10T11:04:02.797Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-10T11:04:02.799Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-10T11:04:02.801Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}
+{"date":"2023-06-10T11:04:03.278Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/favicon-32x32.png"}
+{"date":"2023-06-10T11:08:46.726Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/login"}
+{"date":"2023-06-10T11:09:34.188Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/login"}
+{"date":"2023-06-10T11:10:41.450Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/login"}
+{"date":"2023-06-10T11:11:28.566Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/login"}
+{"date":"2023-06-10T11:18:29.530Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/login"}
+{"date":"2023-06-10T11:19:23.488Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/login"}
+{"date":"2023-06-10T11:21:03.231Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/login"}
+{"date":"2023-06-10T11:42:42.590Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/forgotPassword"}
+{"date":"2023-06-10T11:43:35.104Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/forgotPassword"}
+{"date":"2023-06-10T11:43:42.745Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/forgotPassword"}
+{"date":"2023-06-10T11:44:59.694Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/forgotPassword"}
+{"date":"2023-06-10T11:52:24.246Z","level":"info","message":"Request received","method":"PUT","service":"user-service","url":"/auth/resetPassword"}
+{"date":"2023-06-10T11:52:24.255Z","level":"error","message":"Cast to string failed for value \"{ email: 'mustafaghouri22@gmail.com' }\" (type Object) at path \"email\" for model \"user\"","method":"PUT","service":"user-service","url":"/resetPassword"}
+{"date":"2023-06-10T11:52:35.375Z","level":"info","message":"Request received","method":"PUT","service":"user-service","url":"/auth/resetPassword"}
+{"date":"2023-06-10T11:52:35.377Z","level":"error","message":"Cast to string failed for value \"{ email: 'mustafaghouri22@gmail.com' }\" (type Object) at path \"email\" for model \"user\"","method":"PUT","service":"user-service","url":"/resetPassword"}
+{"date":"2023-06-10T11:53:10.899Z","level":"info","message":"Request received","method":"PUT","service":"user-service","url":"/auth/resetPassword"}
+{"date":"2023-06-10T11:53:10.901Z","level":"error","message":"Cast to string failed for value \"{ email: 'mustafaghouri22@gmail.com' }\" (type Object) at path \"email\" for model \"user\"","method":"PUT","service":"user-service","url":"/resetPassword"}
+{"date":"2023-06-10T11:58:32.940Z","level":"info","message":"Request received","method":"PUT","service":"user-service","url":"/auth/resetPassword"}
+{"date":"2023-06-10T11:58:33.237Z","level":"error","message":"Invalid token","method":"PUT","service":"user-service","url":"/resetPassword"}
+{"date":"2023-06-10T11:58:47.525Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/forgotPassword"}
+{"date":"2023-06-10T11:59:30.830Z","level":"info","message":"Request received","method":"PUT","service":"user-service","url":"/auth/resetPassword"}

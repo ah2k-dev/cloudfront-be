@@ -6,7 +6,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const register = async (req, res) => {
   // #swagger.tags = ['auth']
   try {
-    const { firstName, lastName, email, password, role } =
+    const { firstname, lastname, email, password, role } =
       req.body;
     if (
       !password.match(
@@ -24,9 +24,11 @@ const register = async (req, res) => {
     if (user) {
       return ErrorHandler("User already exists", 400, req, res);
     }
+
+    console.log(req.body)
     const newUser = await User.create({
-      firstName,
-      lastName,
+      firstName: firstname,
+      lastName: lastname,
       // middleName,
       // title,
       email,
@@ -115,8 +117,15 @@ const login = async (req, res) => {
       return ErrorHandler("Email not verified", 400, req, res);
     }
     jwtToken = user.getJWTToken();
+    let userData = {
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      role: user.role,
+      _id: user._id,
+    };
     return SuccessHandler(
-      { message: "Logged in successfully", token: jwtToken },
+      { message: "Logged in successfully", token: jwtToken, userData: userData },
       200,
       res
     );
