@@ -373,9 +373,16 @@ const invest = async (req, res) => {
 const getLive = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
-    const campaigns = await Project.find({ 
+    const categoryFilter = req.body.category
+      ? {
+          category: req.body.category,
+        }
+      : {};
+    const campaigns = await Project.find({
       investment: { $exists: true, $ne: [] },
-     })
+      isActive: true,
+      ...categoryFilter,
+    })
       .populate({
         path: "user",
         select: "firstName middleName lastName profilePic email",
