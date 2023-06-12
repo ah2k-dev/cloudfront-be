@@ -19,5 +19,6 @@ router
   .get(isAuthenticated, investorAuth, campaign.getEditorPicks);
 
 router.route("/invest").post(isAuthenticated, investorAuth, campaign.invest);
+router.route("/getLive").get(isAuthenticated, campaign.getLive);
 
 module.exports = router;

@@ -370,6 +370,31 @@ const invest = async (req, res) => {
   }
 };
 
+const getLive = async (req, res) => {
+  // #swagger.tags = ['campaign']
+  try {
+    const campaigns = await Project.find({ 
+      investment: { $exists: true, $ne: [] },
+     })
+      .populate({
+        path: "user",
+        select: "firstName middleName lastName profilePic email",
+      })
+      .populate("investment");
+    if (!campaigns) {
+      return ErrorHandler("Error fetching campaigns", 400, req, res);
+    }
+
+    return SuccessHandler(
+      { message: "Campaigns fetched!", campaigns },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   create,
   getAll,
@@ -379,4 +404,5 @@ module.exports = {
   getFeatured,
   getEditorPicks,
   invest,
+  getLive,
 };
