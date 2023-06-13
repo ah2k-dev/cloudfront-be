@@ -543,3 +543,8 @@
 {"date":"2023-06-10T11:58:33.237Z","level":"error","message":"Invalid token","method":"PUT","service":"user-service","url":"/resetPassword"}
 {"date":"2023-06-10T11:58:47.525Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/forgotPassword"}
 {"date":"2023-06-10T11:59:30.830Z","level":"info","message":"Request received","method":"PUT","service":"user-service","url":"/auth/resetPassword"}
+{"date":"2023-06-12T14:41:54.572Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/"}
+{"date":"2023-06-12T14:41:54.618Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui.css"}
+{"date":"2023-06-12T14:41:54.626Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-12T14:41:54.628Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-12T14:41:54.634Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}

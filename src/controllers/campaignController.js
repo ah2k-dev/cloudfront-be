@@ -402,6 +402,44 @@ const getLive = async (req, res) => {
   }
 };
 
+const getCompleted = async (req, res) => {
+  // #swagger.tags = ['campaign']
+  try {
+    const aggregationPipeline = [
+      {
+        $lookup: {
+          from: "investments",
+          localField: "investment",
+          foreignField: "_id",
+          as: "investments"
+        }
+      },
+      {
+        $addFields: {
+          totalInvestmentAmount: { $sum: "$investments.amount" }
+        }
+      },
+      {
+        $match: {
+          fundingGoal: { $lte: "$totalInvestmentAmount" }
+        }
+      }
+    ]
+
+    const campaigns = await Project.aggregate(aggregationPipeline);
+    if (!campaigns) {
+      return ErrorHandler("Error fetching campaigns", 400, req, res);
+    }
+    return SuccessHandler(
+      { message: "Campaigns fetched!", campaigns },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   create,
   getAll,
