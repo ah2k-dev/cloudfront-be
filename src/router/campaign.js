@@ -13,12 +13,13 @@ router.route("/getMine").post(isAuthenticated, creatorAuth, campaign.getMine);
 router
   .route("/getInvested")
   .post(isAuthenticated, investorAuth, campaign.getInvested);
-router.route("/getFeatured").get(isAuthenticated, campaign.getFeatured);
+router.route("/getFeatured").get(campaign.getFeatured);
 router
   .route("/getEditorPicks")
   .get(isAuthenticated, investorAuth, campaign.getEditorPicks);
 
 router.route("/invest").post(isAuthenticated, investorAuth, campaign.invest);
-router.route("/getLive").get(isAuthenticated, campaign.getLive);
+router.route("/getLive").get(campaign.getLive);
+router.route("/getCompleted").get(campaign.getCompleted)
 
 module.exports = router;

@@ -450,4 +450,5 @@ module.exports = {
   getEditorPicks,
   invest,
   getLive,
+  getCompleted,
 };
