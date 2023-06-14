@@ -22,12 +22,12 @@ const create = async (req, res) => {
       duration,
       projectCategory,
       imageUrl,
-      videoUrl,
+      // videoUrl,
       rewards,
-      creatorBio,
-      socialMediaLinks,
-      additionalImageUrls,
-      termsAndConditions,
+      // creatorBio,
+      // socialMediaLinks,
+      // additionalImageUrls,
+      // termsAndConditions,
     } = req.body;
     const user = req.user._id;
     const newProject = new Project({
@@ -38,12 +38,12 @@ const create = async (req, res) => {
       duration,
       projectCategory,
       imageUrl,
-      videoUrl,
+      // videoUrl,
       rewards,
-      creatorBio,
-      socialMediaLinks,
-      additionalImageUrls,
-      termsAndConditions,
+      // creatorBio,
+      // socialMediaLinks,
+      // additionalImageUrls,
+      // termsAndConditions,
       creator: user,
     });
     await newProject.save();
@@ -69,12 +69,12 @@ const update = async (req, res) => {
       duration,
       projectCategory,
       imageUrl,
-      videoUrl,
+      // videoUrl,
       rewards,
-      creatorBio,
-      socialMediaLinks,
-      additionalImageUrls,
-      termsAndConditions,
+      // creatorBio,
+      // socialMediaLinks,
+      // additionalImageUrls,
+      // termsAndConditions,
     } = req.body;
     const updated = await Project.findByIdAndUpdate(id, {
       $set: {
@@ -85,12 +85,12 @@ const update = async (req, res) => {
         duration,
         projectCategory,
         imageUrl,
-        videoUrl,
+        // videoUrl,
         rewards,
-        creatorBio,
-        socialMediaLinks,
-        additionalImageUrls,
-        termsAndConditions,
+        // creatorBio,
+        // socialMediaLinks,
+        // additionalImageUrls,
+        // termsAndConditions,
       },
     });
     if (!updated) {

@@ -19,7 +19,7 @@ const projectSchema = new Schema({
     required: true,
   },
   duration: {
-    type: Number,
+    type: [Date],
     required: true,
   },
   projectCategory: {
@@ -30,7 +30,7 @@ const projectSchema = new Schema({
     type: String,
     required: true,
   },
-  videoUrl: String,
+  // videoUrl: String,
   rewards: [
     {
       minCotribution: {
@@ -47,13 +47,13 @@ const projectSchema = new Schema({
       },
     },
   ],
-  creatorBio: {
-    type: String,
-    required: true,
-  },
-  socialMediaLinks: {
-    type: [String],
-  },
+  // creatorBio: {
+  //   type: String,
+  //   // required: true,
+  // },
+  // socialMediaLinks: {
+  //   type: [String],
+  // },
   additionalImageUrls: {
     type: [String],
   },

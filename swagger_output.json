@@ -40,10 +40,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "firstName": {
+                "firstname": {
                   "example": "any"
                 },
-                "lastName": {
+                "lastname": {
                   "example": "any"
                 },
                 "email": {
@@ -754,22 +754,7 @@
                 "imageUrl": {
                   "example": "any"
                 },
-                "videoUrl": {
-                  "example": "any"
-                },
                 "rewards": {
-                  "example": "any"
-                },
-                "creatorBio": {
-                  "example": "any"
-                },
-                "socialMediaLinks": {
-                  "example": "any"
-                },
-                "additionalImageUrls": {
-                  "example": "any"
-                },
-                "termsAndConditions": {
                   "example": "any"
                 }
               }
@@ -831,22 +816,7 @@
                 "imageUrl": {
                   "example": "any"
                 },
-                "videoUrl": {
-                  "example": "any"
-                },
                 "rewards": {
-                  "example": "any"
-                },
-                "creatorBio": {
-                  "example": "any"
-                },
-                "socialMediaLinks": {
-                  "example": "any"
-                },
-                "additionalImageUrls": {
-                  "example": "any"
-                },
-                "termsAndConditions": {
                   "example": "any"
                 }
               }
@@ -1001,21 +971,8 @@
           "campaign"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+        "parameters": [],
+        "responses": {}
       }
     },
     "/campaign/getEditorPicks": {
@@ -1089,6 +1046,26 @@
             "description": "Internal Server Error"
           }
         }
+      }
+    },
+    "/campaign/getLive": {
+      "get": {
+        "tags": [
+          "campaign"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/campaign/getCompleted": {
+      "get": {
+        "tags": [
+          "campaign"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
       }
     },
     "/admin/approveCampaign/{id}": {
@@ -1736,6 +1713,20 @@
         "description": "",
         "parameters": [],
         "responses": {}
+      }
+    },
+    "/uploader/": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
       }
     }
   }
