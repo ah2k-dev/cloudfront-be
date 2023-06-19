@@ -7,6 +7,7 @@ dotenv.config({ path: ".././src/config/config.env" });
 const isAuthenticated = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
+    console.log(token)
     if (!token) {
       return res.status(401).json({ success: false, message: "Not logged in" });
     }
@@ -43,6 +44,7 @@ const investorAuth = (req, res, next) => {
 };
 
 const creatorAuth = (req, res, next) => {
+  console.log(req.user.role)
   if (req.user.role == "creator") {
     next();
   }

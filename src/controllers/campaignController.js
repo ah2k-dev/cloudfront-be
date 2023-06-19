@@ -66,56 +66,56 @@ const update = async (req, res) => {
       shortDesc,
       detailedDesc,
       fundingGoal,
-      duration,
-      projectCategory,
-      imageUrl,
-      // videoUrl,
-      rewards,
-      // creatorBio,
-      // socialMediaLinks,
-      // additionalImageUrls,
-      // termsAndConditions,
-    } = req.body;
-    const updated = await Project.findByIdAndUpdate(id, {
-      $set: {
-        title,
-        shortDesc,
-        detailedDesc,
-        fundingGoal,
         duration,
         projectCategory,
         imageUrl,
         // videoUrl,
         rewards,
-        // creatorBio,
-        // socialMediaLinks,
-        // additionalImageUrls,
-        // termsAndConditions,
-      },
-    });
-    if (!updated) {
-      return ErrorHandler("Error updating campaign!", 400, req, res);
-    }
-    return SuccessHandler("Campaign Updated!", 201, res);
-  } catch (error) {
-    return ErrorHandler(error.message, 500, req, res);
+      // creatorBio,
+      // socialMediaLinks,
+      // additionalImageUrls,
+      // termsAndConditions,
+    } = req.body;
+  const updated = await Project.findByIdAndUpdate(id, {
+    $set: {
+      title,
+      shortDesc,
+      detailedDesc,
+      fundingGoal: Number(fundingGoal),
+      duration,
+      projectCategory,
+      imageUrl,
+      // videoUrl,
+      rewards:JSON.parse(rewards),
+      // creatorBio,
+      // socialMediaLinks,
+      // additionalImageUrls,
+      // termsAndConditions,
+    },
+  });
+  if (!updated) {
+    return ErrorHandler("Error updating campaign!", 400, req, res);
   }
+  return SuccessHandler("Campaign Updated!", 201, res);
+} catch (error) {
+  return ErrorHandler(error.message, 500, req, res);
+}
 };
 const getAll = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
     const statusFilter = req.body.statusFilter
       ? {
-          status: req.body.statusFilter,
-        }
+        status: req.body.statusFilter,
+      }
       : {};
     const searchFilter = req.body.searchFilter
       ? {
-          title: {
-            $regex: req.body.search,
-            $options: "i",
-          },
-        }
+        title: {
+          $regex: req.body.search,
+          $options: "i",
+        },
+      }
       : {};
     // const pipeLine = [
     //   {
@@ -152,16 +152,16 @@ const getMine = async (req, res) => {
   try {
     const statusFilter = req.body.statusFilter
       ? {
-          status: req.body.statusFilter,
-        }
+        status: req.body.statusFilter,
+      }
       : {};
     const searchFilter = req.body.searchFilter
       ? {
-          title: {
-            $regex: req.body.search,
-            $options: "i",
-          },
-        }
+        title: {
+          $regex: req.body.search,
+          $options: "i",
+        },
+      }
       : {};
     const user = req.user._id;
     // const pipeLine = [
@@ -201,16 +201,16 @@ const getInvested = async (req, res) => {
     const user = req.user._id;
     const statusFilter = req.body.statusFilter
       ? {
-          status: req.body.statusFilter,
-        }
+        status: req.body.statusFilter,
+      }
       : {};
     const searchFilter = req.body.searchFilter
       ? {
-          title: {
-            $regex: req.body.search,
-            $options: "i",
-          },
-        }
+        title: {
+          $regex: req.body.search,
+          $options: "i",
+        },
+      }
       : {};
     const investments = await Investment.find({
       investor: user,
@@ -375,8 +375,8 @@ const getLive = async (req, res) => {
   try {
     const categoryFilter = req.body.category
       ? {
-          category: req.body.category,
-        }
+        category: req.body.category,
+      }
       : {};
     const campaigns = await Project.find({
       investment: { $exists: true, $ne: [] },

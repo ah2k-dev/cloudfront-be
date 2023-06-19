@@ -58,6 +58,7 @@ const requestEmailToken = async (req, res) => {
     await user.save();
     const message = `Your email verification token is ${emailVerificationToken} and it expires in 10 minutes`;
     const subject = `Email verification token`;
+    console.log(emailVerificationToken);
     await sendMail(email, subject, message);
     return SuccessHandler(
       `Email verification token sent to ${email}`,
@@ -70,7 +71,7 @@ const requestEmailToken = async (req, res) => {
 };
 
 //verify email token
-const verifyEmail = async (req, res) => {
+const verifyEmail = async (req, res) => { 
   // #swagger.tags = ['auth']
   try {
     const { email, emailVerificationToken } = req.body;
