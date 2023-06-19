@@ -7,7 +7,7 @@ dotenv.config({ path: ".././src/config/config.env" });
 const isAuthenticated = async (req, res, next) => {
   try {
     const token = req.headers.authorization;
-    console.log(token)
+    console.log(token);
     if (!token) {
       return res.status(401).json({ success: false, message: "Not logged in" });
     }
@@ -25,33 +25,33 @@ const isAuthenticated = async (req, res, next) => {
 
 const adminAuth = (req, res, next) => {
   if (req.user.role == "admin") {
-    next();
+    res.status(403).json({
+      success: false,
+      message: "You are not authendicated as admin",
+    });
   }
-  res.status(403).json({
-    success: false,
-    message: "You are not authendicated as admin",
-  });
+  next();
 };
 
 const investorAuth = (req, res, next) => {
-  if (req.user.role == "investor") {
-    next();
+  if (!req.user.role == "investor") {
+    res.status(403).json({
+      success: false,
+      message: "You are not authendicated as investor",
+    });
   }
-  res.status(403).json({
-    success: false,
-    message: "You are not authendicated as investor",
-  });
+  next();
 };
 
 const creatorAuth = (req, res, next) => {
-  console.log(req.user.role)
-  if (req.user.role == "creator") {
-    next();
+  console.log(req.user.role);
+  if (!req.user.role == "creator") {
+    res.status(403).json({
+      success: false,
+      message: "You are not authenticated as creator",
+    });
   }
-  res.status(403).json({
-    success: false,
-    message: "You are not authenticated as creator",
-  });
+  next();
 };
 
 module.exports = { isAuthenticated, adminAuth, creatorAuth, investorAuth };
