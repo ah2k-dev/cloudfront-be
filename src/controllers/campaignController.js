@@ -107,6 +107,11 @@ const getAll = async (req, res) => {
         },
       }
       : {};
+    const categoryFilter = req.body.categoryFilter
+      ? {
+        projectCategory: req.body.categoryFilter,
+      }
+      : {};
     // const pipeLine = [
     //   {
     //     $match: {
@@ -118,10 +123,11 @@ const getAll = async (req, res) => {
     const campaigns = await Project.find({
       ...statusFilter,
       ...searchFilter,
+      ...categoryFilter,
       isActive: true,
     })
       .populate({
-        path: "user",
+        path: "creator",
         select: "firstName middleName lastName profilePic email",
       })
       .populate({
@@ -132,7 +138,10 @@ const getAll = async (req, res) => {
     if (!campaigns) {
       return ErrorHandler("Error fetching campaigns", 400, req, res);
     }
-    return SuccessHandler("Campaiigns fetched!", 200, res);
+    return SuccessHandler({
+      message: "Campaiigns fetched!",
+      campaigns,
+    }, 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }

@@ -9,10 +9,11 @@ router.post("/", (req, res) => {
   const filePath = `/uploads/${files.name}`;
   files.mv(path.join(__dirname, `../../uploads`, files.name), (err) => {
     if (err) {
-      res.json({ err }); 
+      console.log(err);
+      return res.json({ err }); 
     }
   });
-  res.json({ filePath });
+  return res.json({ filePath });
 });
  
 module.exports = router;  
