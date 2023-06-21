@@ -25,7 +25,7 @@ app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 app.use("/", router);
 
 app.get("/", (req, res) => {
-  res.send("cloudfront api v1.0.0");
+  res.send("cloudfront api v1.0.1");
 });
 
 // send back a 404 error for any unknown api request
