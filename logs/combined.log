@@ -716,3 +716,157 @@
 {"date":"2023-06-19T14:23:44.460Z","level":"error","message":"project validation failed: fundingGoal: Cast to Number failed for value \"1000,000\" (type string) at path \"fundingGoal\", rewards: Cast to embedded failed for value \"klsljflfo\" (type string) at path \"rewards\" because of \"ObjectParameterError\"","method":"POST","service":"user-service","url":"/create"}
 {"date":"2023-06-19T14:26:00.057Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
 {"date":"2023-06-19T14:26:00.310Z","level":"error","message":"project validation failed: rewards: Cast to embedded failed for value \"klsljflfo\" (type string) at path \"rewards\" because of \"ObjectParameterError\"","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-19T14:30:27.680Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-19T14:30:27.911Z","level":"error","message":"project validation failed: rewards: Cast to embedded failed for value \"klsljflfo \" (type string) at path \"rewards\" because of \"ObjectParameterError\"","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-19T14:40:21.482Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-19T14:40:21.744Z","level":"error","message":"project validation failed: rewards: Cast to embedded failed for value \"1000\" (type string) at path \"rewards\" because of \"ObjectParameterError\"","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-19T14:50:28.652Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui.css"}
+{"date":"2023-06-19T14:50:28.659Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-19T14:50:28.663Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}
+{"date":"2023-06-19T14:50:28.667Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-19T15:00:31.496Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-19T15:00:58.952Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-19T15:01:08.434Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-19T15:01:08.746Z","level":"error","message":"project validation failed: rewards: Cast to embedded failed for value \"1000\" (type number) at path \"rewards\" because of \"ObjectParameterError\"","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-19T15:02:14.744Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-19T15:02:14.966Z","level":"error","message":"project validation failed: rewards: Cast to embedded failed for value \"1000\" (type number) at path \"rewards\" because of \"ObjectParameterError\"","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-19T15:04:30.515Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/"}
+{"date":"2023-06-19T15:04:30.588Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui.css"}
+{"date":"2023-06-19T15:04:30.592Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-19T15:04:30.594Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-19T15:04:30.598Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}
+{"date":"2023-06-19T15:04:31.374Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/favicon-32x32.png"}
+{"date":"2023-06-21T07:25:44.413Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/"}
+{"date":"2023-06-21T07:25:44.712Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui.css"}
+{"date":"2023-06-21T07:25:44.771Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-21T07:25:44.873Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-21T07:25:44.923Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}
+{"date":"2023-06-21T07:25:46.627Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/favicon-32x32.png"}
+{"date":"2023-06-21T07:25:49.181Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/"}
+{"date":"2023-06-21T07:25:49.236Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui.css"}
+{"date":"2023-06-21T07:25:49.270Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-21T07:25:49.297Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-21T07:25:49.374Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}
+{"date":"2023-06-21T07:25:49.431Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}
+{"date":"2023-06-21T07:25:49.465Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-21T07:25:49.592Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-21T07:25:49.670Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/favicon-32x32.png"}
+{"date":"2023-06-21T07:25:50.405Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/favicon-32x32.png"}
+{"date":"2023-06-21T07:57:00.483Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T08:20:03.562Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/"}
+{"date":"2023-06-21T08:20:03.595Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui.css"}
+{"date":"2023-06-21T08:20:03.597Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-21T08:20:03.602Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-21T08:20:03.604Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}
+{"date":"2023-06-21T08:20:03.637Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-standalone-preset.js"}
+{"date":"2023-06-21T08:20:03.640Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-bundle.js"}
+{"date":"2023-06-21T08:20:03.643Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/swagger-ui-init.js"}
+{"date":"2023-06-21T08:20:04.399Z","level":"info","message":"Request received","method":"GET","service":"user-service","url":"/api-docs/favicon-32x32.png"}
+{"date":"2023-06-21T08:36:53.419Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-21T08:36:54.062Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2023-06-21T08:37:33.088Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/register"}
+{"date":"2023-06-21T08:37:33.871Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-21T08:37:33.879Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/requestEmailToken"}
+{"date":"2023-06-21T08:37:35.739Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-21T08:37:35.746Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-06-21T08:39:27.438Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/verifyEmail"}
+{"date":"2023-06-21T08:41:02.306Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/verifyEmail"}
+{"date":"2023-06-21T08:41:30.290Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/auth/login"}
+{"date":"2023-06-21T08:42:13.687Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T08:42:14.332Z","level":"error","message":"project validation failed: rewards: Cast to embedded failed for value \"1000\" (type string) at path \"rewards\" because of \"ObjectParameterError\", imageUrl: Path `imageUrl` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T08:47:08.233Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T08:47:08.472Z","level":"error","message":"project validation failed: rewards: Cast to embedded failed for value \"\"1000\"\" (type string) at path \"rewards\" because of \"ObjectParameterError\", imageUrl: Path `imageUrl` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T08:49:11.738Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T08:49:12.268Z","level":"error","message":"project validation failed: rewards: Cast to embedded failed for value \"\"1000\"\" (type string) at path \"rewards\" because of \"ObjectParameterError\", imageUrl: Path `imageUrl` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T08:50:56.458Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T08:50:56.742Z","level":"error","message":"project validation failed: rewards: Cast to embedded failed for value \"[\"1000\",\"asdafff\",\"2023-06-29\"]\" (type string) at path \"rewards\" because of \"ObjectParameterError\"","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T08:57:13.416Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T08:57:13.658Z","level":"error","message":"project validation failed: rewards: Cast to embedded failed for value \"1000\" (type string) at path \"rewards\" because of \"ObjectParameterError\"","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T09:01:45.179Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T09:01:45.455Z","level":"error","message":"project validation failed: rewards.0.deliveryDate: Path `deliveryDate` is required., rewards.0.desc: Path `desc` is required., rewards.1.deliveryDate: Path `deliveryDate` is required., rewards.1.minCotribution: Path `minCotribution` is required., rewards.2.desc: Path `desc` is required., rewards.2.minCotribution: Path `minCotribution` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T09:03:59.821Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T09:04:00.047Z","level":"error","message":"project validation failed: rewards.0.deliveryDate: Path `deliveryDate` is required., rewards.0.desc: Path `desc` is required., rewards.1.deliveryDate: Path `deliveryDate` is required., rewards.1.minCotribution: Path `minCotribution` is required., rewards.2.desc: Path `desc` is required., rewards.2.minCotribution: Path `minCotribution` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T09:04:33.969Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T09:04:34.196Z","level":"error","message":"project validation failed: rewards: Cast to embedded failed for value \"1000\" (type string) at path \"rewards\" because of \"ObjectParameterError\"","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T09:07:45.504Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T09:07:48.338Z","level":"error","message":"project validation failed: rewards: Cast to embedded failed for value \"1000\" (type string) at path \"rewards\" because of \"ObjectParameterError\"","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T09:09:45.493Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T09:09:45.744Z","level":"error","message":"project validation failed: rewards.0.deliveryDate: Path `deliveryDate` is required., rewards.0.desc: Path `desc` is required., rewards.1.deliveryDate: Path `deliveryDate` is required., rewards.1.minCotribution: Path `minCotribution` is required., rewards.2.desc: Path `desc` is required., rewards.2.minCotribution: Path `minCotribution` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T09:13:07.600Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T09:13:07.934Z","level":"error","message":"project validation failed: rewards.0.deliveryDate: Path `deliveryDate` is required., rewards.0.desc: Path `desc` is required., rewards.1.deliveryDate: Path `deliveryDate` is required., rewards.1.minCotribution: Path `minCotribution` is required., rewards.2.desc: Path `desc` is required., rewards.2.minCotribution: Path `minCotribution` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T09:17:48.028Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T09:17:48.268Z","level":"error","message":"project validation failed: rewards.0.deliveryDate: Path `deliveryDate` is required., rewards.0.desc: Path `desc` is required., rewards.0.minCotribution: Path `minCotribution` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T09:18:58.227Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T09:18:58.931Z","level":"error","message":"project validation failed: rewards.0.deliveryDate: Path `deliveryDate` is required., rewards.0.desc: Path `desc` is required., rewards.0.minCotribution: Path `minCotribution` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T09:32:11.818Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T10:00:24.041Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:03:21.035Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:04:57.465Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:15:55.612Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:15:55.648Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T10:15:56.403Z","level":"error","message":"project validation failed: title: Path `title` is required., shortDesc: Path `shortDesc` is required., detailedDesc: Path `detailedDesc` is required., projectCategory: Path `projectCategory` is required., rewards.0.deliveryDate: Path `deliveryDate` is required., rewards.0.desc: Path `desc` is required., rewards.0.minCotribution: Path `minCotribution` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T10:17:53.339Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:17:53.373Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T10:17:53.594Z","level":"error","message":"project validation failed: title: Path `title` is required., shortDesc: Path `shortDesc` is required., detailedDesc: Path `detailedDesc` is required., projectCategory: Path `projectCategory` is required., rewards.0.minCotribution: Path `minCotribution` is required., rewards.0.desc: Path `desc` is required., rewards.0.deliveryDate: Path `deliveryDate` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T10:20:26.734Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:20:26.765Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T10:20:27.027Z","level":"error","message":"project validation failed: title: Path `title` is required., shortDesc: Path `shortDesc` is required., detailedDesc: Path `detailedDesc` is required., projectCategory: Path `projectCategory` is required., rewards.0.minCotribution: Path `minCotribution` is required., rewards.0.desc: Path `desc` is required., rewards.0.deliveryDate: Path `deliveryDate` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T10:20:39.469Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:20:39.513Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T10:20:39.729Z","level":"error","message":"project validation failed: title: Path `title` is required., shortDesc: Path `shortDesc` is required., detailedDesc: Path `detailedDesc` is required., projectCategory: Path `projectCategory` is required., rewards.0.minCotribution: Path `minCotribution` is required., rewards.0.desc: Path `desc` is required., rewards.0.deliveryDate: Path `deliveryDate` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T10:21:54.322Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:21:54.369Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T10:21:54.707Z","level":"error","message":"project validation failed: title: Path `title` is required., shortDesc: Path `shortDesc` is required., detailedDesc: Path `detailedDesc` is required., projectCategory: Path `projectCategory` is required., rewards.0.minCotribution: Path `minCotribution` is required., rewards.0.desc: Path `desc` is required., rewards.0.deliveryDate: Path `deliveryDate` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T10:24:46.944Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:24:46.978Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T10:24:47.253Z","level":"error","message":"project validation failed: title: Path `title` is required., shortDesc: Path `shortDesc` is required., detailedDesc: Path `detailedDesc` is required., projectCategory: Path `projectCategory` is required., rewards.0.minCotribution: Path `minCotribution` is required., rewards.0.desc: Path `desc` is required., rewards.0.deliveryDate: Path `deliveryDate` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T10:26:53.590Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T10:26:54.131Z","level":"error","message":"project validation failed: title: Path `title` is required., shortDesc: Path `shortDesc` is required., detailedDesc: Path `detailedDesc` is required., projectCategory: Path `projectCategory` is required., rewards.0.minCotribution: Path `minCotribution` is required., rewards.0.desc: Path `desc` is required., rewards.0.deliveryDate: Path `deliveryDate` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T10:27:35.653Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:27:35.724Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T10:27:35.962Z","level":"error","message":"project validation failed: title: Path `title` is required., shortDesc: Path `shortDesc` is required., detailedDesc: Path `detailedDesc` is required., projectCategory: Path `projectCategory` is required., rewards.0.minCotribution: Path `minCotribution` is required., rewards.0.desc: Path `desc` is required., rewards.0.deliveryDate: Path `deliveryDate` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T10:28:07.990Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:28:08.049Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T10:28:08.267Z","level":"error","message":"project validation failed: title: Path `title` is required., shortDesc: Path `shortDesc` is required., detailedDesc: Path `detailedDesc` is required., projectCategory: Path `projectCategory` is required., rewards.0.minCotribution: Path `minCotribution` is required., rewards.0.desc: Path `desc` is required., rewards.0.deliveryDate: Path `deliveryDate` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T10:30:31.360Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader"}
+{"date":"2023-06-21T10:31:24.482Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader"}
+{"date":"2023-06-21T10:36:23.534Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader"}
+{"date":"2023-06-21T10:37:00.015Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader"}
+{"date":"2023-06-21T10:37:11.645Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader"}
+{"date":"2023-06-21T10:39:31.769Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader"}
+{"date":"2023-06-21T10:41:09.115Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader"}
+{"date":"2023-06-21T10:42:07.029Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:42:44.768Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:44:32.755Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T10:58:47.232Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T11:02:39.008Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T11:04:06.602Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T11:06:51.012Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T11:08:20.026Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T11:14:00.280Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T11:19:41.054Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T11:25:53.578Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T11:40:32.031Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T11:42:06.631Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T11:42:06.839Z","level":"error","message":"project validation failed: projectCategory: Path `projectCategory` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T11:42:30.653Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T11:42:30.922Z","level":"error","message":"project validation failed: rewards.0.deliveryDate: Path `deliveryDate` is required., rewards.0.desc: Path `desc` is required., rewards.0.minCotribution: Path `minCotribution` is required.","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-06-21T11:44:11.998Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T11:46:32.014Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T11:53:51.733Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T11:56:21.401Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T11:59:35.538Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:03:54.322Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:13:27.890Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:18:11.644Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:18:54.660Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:21:10.466Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:24:43.306Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:25:59.245Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:37:29.374Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:39:11.559Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:43:41.042Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:44:41.939Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:45:39.533Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/uploader/"}
+{"date":"2023-06-21T12:45:54.901Z","level":"info","message":"Request received","method":"POST","service":"user-service","url":"/campaign/create"}
+{"date":"2023-06-21T12:45:55.869Z","level":"error","message":"project validation failed: rewards.0.deliveryDate: Path `deliveryDate` is required., rewards.0.desc: Path `desc` is required., rewards.0.minCotribution: Path `minCotribution` is required.","method":"POST","service":"user-service","url":"/create"}
