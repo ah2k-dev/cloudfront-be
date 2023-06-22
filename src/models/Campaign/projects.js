@@ -42,7 +42,7 @@ const projectSchema = new Schema({
         required: true,
       },
       deliveryDate: {
-        type: Date,
+        type: String,
         required: true,
       },
     },
