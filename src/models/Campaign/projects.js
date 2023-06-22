@@ -33,7 +33,7 @@ const projectSchema = new Schema({
   // videoUrl: String,
   rewards: [
     {
-      minCotribution: {
+      minContribution: {
         type: String,
         required: true,
       },
