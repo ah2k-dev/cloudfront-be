@@ -844,11 +844,6 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
             "name": "body",
             "in": "body",
             "schema": {
@@ -870,14 +865,7 @@
             }
           }
         ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+        "responses": {}
       }
     },
     "/campaign/getMine": {
@@ -902,9 +890,6 @@
                   "example": "any"
                 },
                 "searchFilter": {
-                  "example": "any"
-                },
-                "search": {
                   "example": "any"
                 }
               }
