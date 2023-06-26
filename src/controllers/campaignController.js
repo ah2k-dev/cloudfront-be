@@ -149,6 +149,7 @@ const getAll = async (req, res) => {
 const getMine = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
+    console.log(req.body);
     const statusFilter = req.body.statusFilter
       ? {
         status: req.body.statusFilter,
@@ -178,7 +179,7 @@ const getMine = async (req, res) => {
       isActive: true,
     })
       .populate({
-        path: "user",
+        path: "creator",
         select: "firstName middleName lastName profilePic email",
       })
       .populate({
@@ -189,7 +190,10 @@ const getMine = async (req, res) => {
     if (!campaigns) {
       return ErrorHandler("Error fetching campaigns", 400, req, res);
     }
-    return SuccessHandler("Campaiigns fetched!", 200, res);
+    return SuccessHandler({
+      message: "Campaiigns fetched!",
+      campaigns,
+    }, 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
