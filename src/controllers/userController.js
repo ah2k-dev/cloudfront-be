@@ -197,6 +197,7 @@ const updateInvestorProfile = async (req, res) => {
         },
       }
     );
+    console.log(updated);
     if (!updated) {
       return ErrorHandler("Error updating profile", 400, req, res);
     }
@@ -252,6 +253,7 @@ const updateCreatorProfile = async (req, res) => {
         },
       }
     );
+    console.log(updated);
     if (!updated) {
       return ErrorHandler("Error updating profile", 400, req, res);
     }
