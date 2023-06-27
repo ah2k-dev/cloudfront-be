@@ -3,7 +3,7 @@ const user = require("../controllers/userController");
 const router = require("express").Router();
 
 // get
-router.route("/").get(user.getProfile);
+router.route("/").get(isAuthenticated, user.getProfile);
 // post
 router
   .route("/completeInvestorProfile")
