@@ -266,7 +266,7 @@ const getProfile = async (req, res) => {
           investor: req.user._id,
         })
         .populate({
-          path: "user",
+          path: "investor",
           select: "firstName lastName email role createdAt",
         });
       if (!profile) {
@@ -289,7 +289,7 @@ const getProfile = async (req, res) => {
           investor: req.user._id,
         })
         .populate({
-          path: "user",
+          path: "creator",
           select: "firstName lastName middleName email role createdAt",
         });
       if (!profile) {
