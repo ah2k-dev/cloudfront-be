@@ -285,7 +285,7 @@ const getProfile = async (req, res) => {
         })
         .populate({
           path: "investor",
-          select: "firstName lastName email role createdAt",
+          select: "firstName lastName email role createdAt profilePic",
         });
       if (!profile) {
         return ErrorHandler(
@@ -308,7 +308,7 @@ const getProfile = async (req, res) => {
         })
         .populate({
           path: "creator",
-          select: "firstName lastName middleName email role createdAt",
+          select: "firstName lastName email role createdAt profilePic",
         });
       if (!profile) {
         return ErrorHandler(
