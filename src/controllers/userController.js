@@ -62,6 +62,7 @@ const completeInvestorProfile = async (req, res) => {
       reference,
       termsAndConditions,
       privacyPolicy,
+      profilepic,
     } = req.body;
     const prvProfile = await investorProfile.findOne({
       investor: req.user._id,
@@ -93,6 +94,10 @@ const completeInvestorProfile = async (req, res) => {
       reference,
     });
     await newProfile.save();
+    await User.findByIdAndUpdate(req.user._id, {
+      profilepic,
+      // isProfileComplete: true,
+    });
     return SuccessHandler("Profile created successfully", 201, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
@@ -118,6 +123,7 @@ const completeCreatorProfile = async (req, res) => {
       termsAndConditions,
       privacyPolicy,
       iban,
+      profilepic,
     } = req.body;
 
     const prvProfile = await creatorProfile.findOne({ creator: req.user._id });
@@ -149,6 +155,10 @@ const completeCreatorProfile = async (req, res) => {
       iban,
     });
     await newProfile.save();
+    await User.findByIdAndUpdate(req.user._id, {
+      profilepic,
+      // isProfileComplete: true,
+    });
     return SuccessHandler("Profile created!", 201, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
@@ -174,6 +184,7 @@ const updateInvestorProfile = async (req, res) => {
       reference,
       termsAndConditions,
       privacyPolicy,
+      profilepic,
     } = req.body;
     const updated = await investorProfile.findOneAndUpdate(
       { investor: req.user._id },
@@ -198,6 +209,9 @@ const updateInvestorProfile = async (req, res) => {
       }
     );
     console.log(updated);
+    await User.findByIdAndUpdate(req.user._id, {
+      profilepic,
+    });
     return SuccessHandler("Profile updated!", 201, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
@@ -224,6 +238,7 @@ const updateCreatorProfile = async (req, res) => {
       termsAndConditions,
       privacyPolicy,
       iban,
+      profilepic,
     } = req.body;
     const updated = await creatorProfile.findOneAndUpdate(
       {
@@ -251,6 +266,9 @@ const updateCreatorProfile = async (req, res) => {
       }
     );
     console.log(updated);
+    await User.findByIdAndUpdate(req.user._id, {
+      profilepic,
+    });
     return SuccessHandler("Profile updated!", 201, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
