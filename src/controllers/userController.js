@@ -175,7 +175,7 @@ const updateInvestorProfile = async (req, res) => {
       termsAndConditions,
       privacyPolicy,
     } = req.body;
-    const updated = await findOneAndUpdate(
+    const updated = await investorProfile.findOneAndUpdate(
       { investor: req.user._id },
       {
         $set: {
@@ -227,7 +227,7 @@ const updateCreatorProfile = async (req, res) => {
       privacyPolicy,
       iban,
     } = req.body;
-    const updated = await findOneAndUpdate(
+    const updated = await creatorProfile.findOneAndUpdate(
       {
         creator: req.user._id,
       },
@@ -271,7 +271,7 @@ const getProfile = async (req, res) => {
         })
         .populate({
           path: "user",
-          select: "firstName lastName middleName email role createdAt",
+          select: "firstName lastName email role createdAt",
         });
       if (!profile) {
         return ErrorHandler(
