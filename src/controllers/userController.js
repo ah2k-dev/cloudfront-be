@@ -304,7 +304,7 @@ const getProfile = async (req, res) => {
     if (req.user.role == "creator") {
       const profile = await creatorProfile
         .findOne({
-          investor: req.user._id,
+          creator: req.user._id,
         })
         .populate({
           path: "creator",
