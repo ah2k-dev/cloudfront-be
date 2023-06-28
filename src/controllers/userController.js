@@ -95,7 +95,7 @@ const completeInvestorProfile = async (req, res) => {
     });
     await newProfile.save();
     await User.findByIdAndUpdate(req.user._id, {
-      profilepic,
+      profilePic: profilepic,
       // isProfileComplete: true,
     });
     return SuccessHandler("Profile created successfully", 201, res);
@@ -156,7 +156,7 @@ const completeCreatorProfile = async (req, res) => {
     });
     await newProfile.save();
     await User.findByIdAndUpdate(req.user._id, {
-      profilepic,
+      profilePic: profilepic,
       // isProfileComplete: true,
     });
     return SuccessHandler("Profile created!", 201, res);
@@ -210,7 +210,7 @@ const updateInvestorProfile = async (req, res) => {
     );
     console.log(updated);
     await User.findByIdAndUpdate(req.user._id, {
-      profilepic,
+      profilePic:profilepic,
     });
     return SuccessHandler("Profile updated!", 201, res);
   } catch (error) {
@@ -267,7 +267,7 @@ const updateCreatorProfile = async (req, res) => {
     );
     console.log(updated);
     await User.findByIdAndUpdate(req.user._id, {
-      profilepic,
+      profilePic: profilepic,
     });
     return SuccessHandler("Profile updated!", 201, res);
   } catch (error) {
