@@ -108,7 +108,7 @@ const login = async (req, res) => {
       "+password"
     );
     if (!user) {
-      return ErrorHandler("User does not exist", req, 400, res);
+      return ErrorHandler("User does not exist", 400, req, res);
     }
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
