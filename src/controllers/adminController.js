@@ -393,7 +393,7 @@ const getCreators = async (req, res) => {
         investor: { $in: creators },
       })
       .populate({
-        path: "User",
+        path: "creator",
         select:
           "-password -emailVerificationToken -emailVerificationTokenExpires -passwordResetToken -passwordResetTokenExpires",
       });
