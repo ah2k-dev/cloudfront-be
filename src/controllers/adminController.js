@@ -651,6 +651,74 @@ const getAllWebDetails = async (req, res) => {
   }
 };
 
+const createCreator = async (req, res) => {
+  // #swagger.tags = ['admin']
+  try {
+    const { firstName, lastName, email, password, profilePic } = req.body;
+
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password,
+      profilePic,
+      role: "creator",
+      emailVerified: true,
+    });
+    const user = await newUser.save();
+    if (user) {
+      const { _id } = user;
+      const {
+        bandName,
+        country,
+        state,
+        city,
+        streetAddress,
+        postalCode,
+        phoneNumber,
+        dob,
+        preferredLanguage,
+        nationality,
+        musicGenres,
+        socialMediaLinks,
+        website,
+        termsAndConditions,
+        privacyPolicy,
+        iban,
+      } = req.body;
+      const newCreator = new creatorProfile({
+        creator: _id,
+        bandName,
+        country,
+        state,
+        city,
+        streetAddress,
+        postalCode,
+        phoneNumber,
+        dob,
+        preferredLanguage,
+        nationality,
+        musicGenres,
+        socialMediaLinks,
+        website,
+        termsAndConditions,
+        privacyPolicy,
+        iban,
+      });
+      const creator = await newCreator.save();
+      return SuccessHandler(
+        { message: "Creator created!", creator, user },
+        201,
+        res
+      );
+    } else {
+      return ErrorHandler("Error creating creator!", 400, req, res);
+    }
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   approveCampaign,
   getCampaigns,
@@ -667,4 +735,5 @@ module.exports = {
   dashboard,
   addUpdateWebDetails,
   getAllWebDetails,
+  createCreator,
 };

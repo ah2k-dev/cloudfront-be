@@ -35,6 +35,7 @@ router
   .delete(isAuthenticated, adminAuth, admin.deleteInvestor);
 
 // creators
+router.post("/createCreator", admin.createCreator)
 router
   .route("/getCreators")
   .post(isAuthenticated, adminAuth, admin.getCreators);
