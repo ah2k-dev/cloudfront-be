@@ -23,7 +23,7 @@ const isAuthenticated = async (req, res, next) => {
 };
 
 const adminAuth = (req, res, next) => {
-  if (req.user.role == "admin") {
+  if (req.user.role != "admin") {
     return res.status(403).json({
       success: false,
       message: "You are not authendicated as admin",
