@@ -148,11 +148,15 @@ const deleteCampaign = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
     const { id } = req.params;
-    const deleted = await Project.findByIdAndUpdate(id, {
-      $set: {
-        isActive: false,
+    const deleted = await Project.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          isActive: false,
+        },
       },
-    });
+      { new: true }
+    );
     if (!deleted) {
       return ErrorHandler("Error deleting campaign", 400, req, res);
     }
@@ -323,11 +327,15 @@ const deleteInvestor = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
     const { id } = req.params;
-    const deleted = await User.findByIdAndUpdate(id, {
-      $set: {
-        isActive: false,
+    const deleted = await User.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          isActive: false,
+        },
       },
-    });
+      { new: true }
+    );
     // const deletedInvestorProfile = await investorProfile.findOneAndDelete({
     //   investor: deletedInvestor._id,
     // });
@@ -361,7 +369,7 @@ const deleteInvestor = async (req, res) => {
     //   });
 
     if (!deleted) {
-      return ErrorHandler("Error deleting investor!", 400, res);
+      return ErrorHandler("Error deleting investor!", 400, req, res);
     }
     return SuccessHandler({ message: "Investor deleted!", deleted }, 200, res);
   } catch (error) {
@@ -458,13 +466,17 @@ const deleteCreator = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
     const { id } = req.params;
-    const deleted = await User.findByIdAndUpdate(id, {
-      $set: {
-        isActive: false,
+    const deleted = await User.findByIdAndUpdate(
+      id,
+      {
+        $set: {
+          isActive: false,
+        },
       },
-    });
+      { new: true }
+    );
     if (!deleted) {
-      return ErrorHandler("Error deleting investor!", 400, res);
+      return ErrorHandler("Error deleting investor!", 400, req, res);
     }
     return SuccessHandler({ message: "Investor deleted!", deleted }, 200, res);
   } catch (error) {
