@@ -253,7 +253,7 @@ const getInvestors = async (req, res) => {
         investor: { $in: investors },
       })
       .populate({
-        path: "User",
+        path: "investor",
         select:
           "-password -emailVerificationToken -emailVerificationTokenExpires -passwordResetToken -passwordResetTokenExpires",
       });
