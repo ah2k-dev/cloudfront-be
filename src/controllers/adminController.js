@@ -401,7 +401,7 @@ const getCreators = async (req, res) => {
     // );
     const creatorProfiles = await creatorProfile
       .find({
-        investor: { $in: creators },
+        creator: { $in: creators },
       })
       .populate({
         path: "creator",
