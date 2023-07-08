@@ -62,6 +62,7 @@ const getCampaigns = async (req, res) => {
     const campaigns = await Project.find({
       ...statusFilter,
       ...searchFilter,
+      isActive: true,
     })
       .populate({
         path: "user",
@@ -247,6 +248,7 @@ const getInvestors = async (req, res) => {
       : {};
     const investors = await User.find({
       ...searchFilter,
+      isActive: true,
       role: "investor",
     }).distinct("_id");
     // .select(
@@ -391,6 +393,7 @@ const getCreators = async (req, res) => {
       : {};
     const creators = await User.find({
       ...searchFilter,
+      isActive: true,
       role: "creator",
     }).distinct("_id");
     // .select(
@@ -476,9 +479,9 @@ const deleteCreator = async (req, res) => {
       { new: true }
     );
     if (!deleted) {
-      return ErrorHandler("Error deleting investor!", 400, req, res);
+      return ErrorHandler("Error deleting creator!", 400, req, res);
     }
-    return SuccessHandler({ message: "Investor deleted!", deleted }, 200, res);
+    return SuccessHandler({ message: "Creator deleted!", deleted }, 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
