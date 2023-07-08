@@ -65,7 +65,7 @@ const getCampaigns = async (req, res) => {
       isActive: true,
     })
       .populate({
-        path: "user",
+        path: "creator",
         select: "firstName middleName lastName profilePic email",
       })
       .populate({
