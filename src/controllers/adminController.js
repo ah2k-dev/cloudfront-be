@@ -667,52 +667,40 @@ const createCreator = async (req, res) => {
     });
     const user = await newUser.save();
     if (user) {
-      const { _id } = user;
-      const {
-        bandName,
-        country,
-        state,
-        city,
-        streetAddress,
-        postalCode,
-        phoneNumber,
-        dob,
-        preferredLanguage,
-        nationality,
-        musicGenres,
-        socialMediaLinks,
-        website,
-        termsAndConditions,
-        privacyPolicy,
-        iban,
-      } = req.body;
-      const newCreator = new creatorProfile({
-        creator: _id,
-        bandName,
-        country,
-        state,
-        city,
-        streetAddress,
-        postalCode,
-        phoneNumber,
-        dob,
-        preferredLanguage,
-        nationality,
-        musicGenres,
-        socialMediaLinks,
-        website,
-        termsAndConditions,
-        privacyPolicy,
-        iban,
-      });
-      const creator = await newCreator.save();
+      return SuccessHandler({ message: "Creator created!", user }, 201, res);
+    } else {
+      return ErrorHandler("Error creating creator!", 400, req, res);
+    }
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
+const createInvestor = async (req, res) => {
+  // #swagger.tags = ['admin']
+  try {
+    const { firstName, lastName, email, password, profilePic } = req.body;
+    const newUser = new User({
+      firstName,
+      lastName,
+      email,
+      password,
+      profilePic,
+      role: "investor",
+      emailVerified: true,
+    });
+    const user = await newUser.save();
+    if (user) {
       return SuccessHandler(
-        { message: "Creator created!", creator, user },
+        {
+          message: "User created successfully",
+          user: user,
+        },
         201,
         res
       );
     } else {
-      return ErrorHandler("Error creating creator!", 400, req, res);
+      return ErrorHandler("Error creating investor", 500, req, res);
     }
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
@@ -736,4 +724,5 @@ module.exports = {
   addUpdateWebDetails,
   getAllWebDetails,
   createCreator,
+  createInvestor,
 };

@@ -5,7 +5,7 @@
     "description": "Cloudfront api endpoints",
     "version": "1.0.0"
   },
-  "host": "192.168.0.196:8001",
+  "host": "https://cloudfront-be-staging.up.railway.app",
   "basePath": "/",
   "schemes": [
     "http"
@@ -1330,6 +1330,41 @@
         }
       }
     },
+    "/admin/createInvestor": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                },
+                "profilePic": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/admin/getInvestors": {
       "post": {
         "tags": [
@@ -1484,6 +1519,41 @@
             "description": "Internal Server Error"
           }
         }
+      }
+    },
+    "/admin/createCreator": {
+      "post": {
+        "tags": [
+          "admin"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "password": {
+                  "example": "any"
+                },
+                "profilePic": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
       }
     },
     "/admin/getCreators": {

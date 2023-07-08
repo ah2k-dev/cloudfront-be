@@ -24,6 +24,7 @@ router
 router.route('/releaseFunds/:id').get(isAuthenticated, adminAuth, admin.releaseFunds)
 
 // investors
+router.route("/createInvestor").post(admin.createInvestor);
 router
   .route("/getInvestors")
   .post(isAuthenticated, adminAuth, admin.getInvestors);
