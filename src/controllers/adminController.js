@@ -446,24 +446,32 @@ const updateCreator = async (req, res) => {
       termsAndConditions,
       privacyPolicy,
     } = req.body;
-    const updated = await findOneAndUpdate({
-      creator: id,
-      bandName,
-      country,
-      state,
-      city,
-      streetAddress,
-      postalCode,
-      phoneNumber,
-      dob,
-      preferredLanguage,
-      nationality,
-      musicGenres,
-      socialMediaLinks,
-      website,
-      termsAndConditions,
-      privacyPolicy,
-    });
+    const updated = await creatorProfile.findOneAndUpdate(
+      {
+        creator: id,
+      },
+      {
+        $set: {
+          // creator: id,
+          bandName,
+          country,
+          state,
+          city,
+          streetAddress,
+          postalCode,
+          phoneNumber,
+          dob,
+          preferredLanguage,
+          nationality,
+          musicGenres,
+          socialMediaLinks,
+          website,
+          termsAndConditions,
+          privacyPolicy,
+        },
+      },
+      { new: true }
+    );
     if (!updated) {
       return ErrorHandler("Error updating profile", 400, req, res);
     }
