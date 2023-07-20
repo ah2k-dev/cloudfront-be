@@ -30,7 +30,6 @@ const projectSchema = new Schema({
     type: String,
     required: true,
   },
-  // videoUrl: String,
   rewards: [
     {
       minContribution: {
@@ -47,13 +46,6 @@ const projectSchema = new Schema({
       },
     },
   ],
-  // creatorBio: {
-  //   type: String,
-  //   // required: true,
-  // },
-  // socialMediaLinks: {
-  //   type: [String],
-  // },
   additionalImageUrls: {
     type: [String],
   },
@@ -81,6 +73,14 @@ const projectSchema = new Schema({
   isActive: {
     type: Boolean,
     default: true,
+  },
+  equity: { // in percentage
+    type: Number,
+    required: true,
+  },
+  availableEquity: { // in percentage
+    type: Number,
+    required: true,
   },
 });
 

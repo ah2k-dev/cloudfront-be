@@ -21,20 +21,26 @@ const create = async (req, res) => {
       fundingGoal,
       duration,
       projectCategory,
-      imageUrl, 
-      rewards, 
+      imageUrl,
+      rewards,
+      equity,
     } = req.body;
     const user = req.user._id;
+    if (Number(equity) < 10 || Number(equity) > 90) {
+      return ErrorHandler("Equity must be between 10% and 90%", 400, req, res);
+    }
     const newProject = new Project({
       title,
       shortDesc,
       detailedDesc,
-      fundingGoal : Number(fundingGoal),
+      fundingGoal: Number(fundingGoal),
       duration,
       projectCategory,
-      imageUrl, 
-      rewards, 
+      imageUrl,
+      rewards,
       creator: user,
+      equity: Number(equity),
+      availableEquity: Number(equity),
     });
     await newProject.save();
     return SuccessHandler(
@@ -56,61 +62,61 @@ const update = async (req, res) => {
       shortDesc,
       detailedDesc,
       fundingGoal,
-        duration,
-        projectCategory,
-        imageUrl,
-        // videoUrl,
-        rewards,
+      duration,
+      projectCategory,
+      imageUrl,
+      // videoUrl,
+      rewards,
       // creatorBio,
       // socialMediaLinks,
       // additionalImageUrls,
       // termsAndConditions,
     } = req.body;
-  const updated = await Project.findByIdAndUpdate(id, {
-    $set: {
-      title,
-      shortDesc,
-      detailedDesc,
-      fundingGoal: Number(fundingGoal),
-      duration,
-      projectCategory,
-      imageUrl,
-      // videoUrl,
-      rewards:JSON.parse(rewards),
-      // creatorBio,
-      // socialMediaLinks,
-      // additionalImageUrls,
-      // termsAndConditions,
-    },
-  });
-  if (!updated) {
-    return ErrorHandler("Error updating campaign!", 400, req, res);
+    const updated = await Project.findByIdAndUpdate(id, {
+      $set: {
+        title,
+        shortDesc,
+        detailedDesc,
+        fundingGoal: Number(fundingGoal),
+        duration,
+        projectCategory,
+        imageUrl,
+        // videoUrl,
+        rewards: JSON.parse(rewards),
+        // creatorBio,
+        // socialMediaLinks,
+        // additionalImageUrls,
+        // termsAndConditions,
+      },
+    });
+    if (!updated) {
+      return ErrorHandler("Error updating campaign!", 400, req, res);
+    }
+    return SuccessHandler("Campaign Updated!", 201, res);
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
   }
-  return SuccessHandler("Campaign Updated!", 201, res);
-} catch (error) {
-  return ErrorHandler(error.message, 500, req, res);
-}
 };
 const getAll = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
     const statusFilter = req.body.statusFilter
       ? {
-        status: req.body.statusFilter,
-      }
+          status: req.body.statusFilter,
+        }
       : {};
     const searchFilter = req.body.searchFilter
       ? {
-        title: {
-          $regex: req.body.search,
-          $options: "i",
-        },
-      }
+          title: {
+            $regex: req.body.search,
+            $options: "i",
+          },
+        }
       : {};
     const categoryFilter = req.body.categoryFilter
       ? {
-        projectCategory: req.body.categoryFilter,
-      }
+          projectCategory: req.body.categoryFilter,
+        }
       : {};
     // const pipeLine = [
     //   {
@@ -138,10 +144,14 @@ const getAll = async (req, res) => {
     if (!campaigns) {
       return ErrorHandler("Error fetching campaigns", 400, req, res);
     }
-    return SuccessHandler({
-      message: "Campaiigns fetched!",
-      campaigns,
-    }, 200, res);
+    return SuccessHandler(
+      {
+        message: "Campaiigns fetched!",
+        campaigns,
+      },
+      200,
+      res
+    );
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
@@ -152,16 +162,16 @@ const getMine = async (req, res) => {
     console.log(req.body);
     const statusFilter = req.body.statusFilter
       ? {
-        status: req.body.statusFilter,
-      }
+          status: req.body.statusFilter,
+        }
       : {};
     const searchFilter = req.body.searchFilter
       ? {
-        title: {
-          $regex: req.body.searchFilter,
-          $options: "i",
-        },
-      }
+          title: {
+            $regex: req.body.searchFilter,
+            $options: "i",
+          },
+        }
       : {};
     const user = req.user._id;
     // const pipeLine = [
@@ -190,10 +200,14 @@ const getMine = async (req, res) => {
     if (!campaigns) {
       return ErrorHandler("Error fetching campaigns", 400, req, res);
     }
-    return SuccessHandler({
-      message: "Campaiigns fetched!",
-      campaigns,
-    }, 200, res);
+    return SuccessHandler(
+      {
+        message: "Campaiigns fetched!",
+        campaigns,
+      },
+      200,
+      res
+    );
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
@@ -204,16 +218,16 @@ const getInvested = async (req, res) => {
     const user = req.user._id;
     const statusFilter = req.body.statusFilter
       ? {
-        status: req.body.statusFilter,
-      }
+          status: req.body.statusFilter,
+        }
       : {};
     const searchFilter = req.body.searchFilter
       ? {
-        title: {
-          $regex: req.body.search,
-          $options: "i",
-        },
-      }
+          title: {
+            $regex: req.body.search,
+            $options: "i",
+          },
+        }
       : {};
     const investments = await Investment.find({
       investor: user,
@@ -332,13 +346,27 @@ const invest = async (req, res) => {
   try {
     const { campaign, amount, currency, stripeToken } = req.body;
     const user = req.user._id;
+
+    //equity calculations
+    const project = await Project.findById(campaign);
+    const availableEquityAmount = project.fundingGoal * (project.availableEquity / 100);
+
+    if (amount > availableEquityAmount) {
+      return ErrorHandler("Amount exceeds equity", 400, req, res);
+    }
+
+    const equityBought = (amount / project.fundingGoal) * 100;
+    const equityLeft = project.availableEquity - equityBought;
+
+    //stripe charge
+
     const amountInCents = amount * 100;
 
     const charge = await stripe.charges.create({
       amount: amountInCents,
       currency: currency,
       source: stripeToken,
-      capture: true, // false for holding payment. conflict here. explanation for capture:false
+      capture: true, // false for holding payment. true for capturing payment immediately
     });
 
     if (charge) {
@@ -349,11 +377,13 @@ const invest = async (req, res) => {
           amount: amount,
           currency: currency,
           chargeId: chargeId,
+          equityBought: equityBought,
         });
         const investment = await newInvestment.save();
         if (investment) {
           await Project.findByIdAndUpdate(campaign, {
             $push: { investment: investment._id },
+            $set: { availableEquity: equityLeft },
           });
           return SuccessHandler(
             { message: "Invested successfully", charge, investment },
@@ -378,8 +408,8 @@ const getLive = async (req, res) => {
   try {
     const categoryFilter = req.body.category
       ? {
-        category: req.body.category,
-      }
+          category: req.body.category,
+        }
       : {};
     const campaigns = await Project.find({
       investment: { $exists: true, $ne: [] },
@@ -414,20 +444,20 @@ const getCompleted = async (req, res) => {
           from: "investments",
           localField: "investment",
           foreignField: "_id",
-          as: "investments"
-        }
+          as: "investments",
+        },
       },
       {
         $addFields: {
-          totalInvestmentAmount: { $sum: "$investments.amount" }
-        }
+          totalInvestmentAmount: { $sum: "$investments.amount" },
+        },
       },
       {
         $match: {
-          fundingGoal: { $lte: "$totalInvestmentAmount" }
-        }
-      }
-    ]
+          fundingGoal: { $lte: "$totalInvestmentAmount" },
+        },
+      },
+    ];
 
     const campaigns = await Project.aggregate(aggregationPipeline);
     if (!campaigns) {

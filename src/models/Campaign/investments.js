@@ -35,6 +35,10 @@ const investmentSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  equityBought: { // in percentage
+    type: Number,
+    required: true,
+  },
   // success: {
   //   type: Boolean,
   //   default: false,
