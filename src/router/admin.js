@@ -48,7 +48,7 @@ router
   .delete(isAuthenticated, adminAuth, admin.deleteCreator);
 
 // dashboard
-router.route("/dashboard").post(isAuthenticated, adminAuth, admin.dashboard);
+router.route("/dashboard").post(admin.dashboard);
 
 // web details
 router

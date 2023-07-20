@@ -108,7 +108,7 @@ const getAll = async (req, res) => {
     const searchFilter = req.body.searchFilter
       ? {
           title: {
-            $regex: req.body.search,
+            $regex: req.body.searchFilter,
             $options: "i",
           },
         }
@@ -224,7 +224,7 @@ const getInvested = async (req, res) => {
     const searchFilter = req.body.searchFilter
       ? {
           title: {
-            $regex: req.body.search,
+            $regex: req.body.searchFilter,
             $options: "i",
           },
         }
@@ -239,7 +239,7 @@ const getInvested = async (req, res) => {
       isActive: true,
     })
       .populate({
-        path: "user",
+        path: "creator",
         select: "firstName middleName lastName profilePic email",
       })
       .populate("investment");

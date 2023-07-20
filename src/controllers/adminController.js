@@ -506,109 +506,154 @@ const deleteCreator = async (req, res) => {
 const dashboard = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
-    let currentYear = new Date().getFullYear();
-    const investmentChartData = await Investment.aggregate([
-      {
-        $match: {
-          createdAt: {
-            $gte: new Date(new Date().getFullYear(), 0, 1), // start of current year
-            $lt: new Date(new Date().getFullYear() + 1, 0, 1), // start of next year
-          },
-        },
-      },
-      {
-        $group: {
-          _id: { $month: "$createdAt" },
-          totalAmount: { $sum: "$amount" },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          month: { $concat: [{ $toString: "$_id" }, "-01-01"] },
-          totalAmount: 1,
-        },
-      },
-      {
-        $replaceRoot: {
-          newRoot: { $arrayToObject: [[{ k: "$month", v: "$totalAmount" }]] },
-        },
-      },
-    ]);
-    const usersChartData = await User.aggregate([
-      {
-        $match: {
-          createdAt: {
-            $gte: new Date(`${currentYear}-01-01T00:00:00.000Z`),
-            $lt: new Date(`${currentYear + 1}-01-01T00:00:00.000Z`),
-          },
-        },
-      },
-      {
-        $group: {
-          _id: { $month: "$createdAt" },
-          count: { $sum: 1 },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          month: { $month: new Date("1970-01-01") },
-          count: 1,
-        },
-      },
-      {
-        $group: {
-          _id: "$month",
-          count: { $sum: "$count" },
-        },
-      },
-      {
-        $project: {
-          month: {
-            $switch: {
-              branches: [
-                { case: { $eq: ["$_id", 1] }, then: "Jan" },
-                { case: { $eq: ["$_id", 2] }, then: "Feb" },
-                { case: { $eq: ["$_id", 3] }, then: "Mar" },
-                { case: { $eq: ["$_id", 4] }, then: "Apr" },
-                { case: { $eq: ["$_id", 5] }, then: "May" },
-                { case: { $eq: ["$_id", 6] }, then: "Jun" },
-                { case: { $eq: ["$_id", 7] }, then: "Jul" },
-                { case: { $eq: ["$_id", 8] }, then: "Aug" },
-                { case: { $eq: ["$_id", 9] }, then: "Sep" },
-                { case: { $eq: ["$_id", 10] }, then: "Oct" },
-                { case: { $eq: ["$_id", 11] }, then: "Nov" },
-                { case: { $eq: ["$_id", 12] }, then: "Dec" },
-              ],
-              default: "Invalid",
-            },
-          },
-          count: 1,
-        },
-      },
-    ]);
-    const campaignCategoryChartData = await Project.aggregate([
-      {
-        $group: {
-          _id: "$category",
-          count: { $sum: 1 },
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          category: "$_id",
-          count: 1,
-        },
-      },
-    ]);
+    // let currentYear = new Date().getFullYear();
+    // const investmentChartData = await Investment.aggregate([
+    //   {
+    //     $match: {
+    //       createdAt: {
+    //         $gte: new Date(new Date().getFullYear(), 0, 1), // start of current year
+    //         $lt: new Date(new Date().getFullYear() + 1, 0, 1), // start of next year
+    //       },
+    //     },
+    //   },
+    //   {
+    //     $group: {
+    //       _id: { $month: "$createdAt" },
+    //       totalAmount: { $sum: "$amount" },
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       _id: 0,
+    //       month: { $concat: [{ $toString: "$_id" }, "-01-01"] },
+    //       totalAmount: 1,
+    //     },
+    //   },
+    //   {
+    //     $replaceRoot: {
+    //       newRoot: { $arrayToObject: [[{ k: "$month", v: "$totalAmount" }]] },
+    //     },
+    //   },
+    // ]);
+    // const usersChartData = await User.aggregate([
+    //   {
+    //     $match: {
+    //       createdAt: {
+    //         $gte: new Date(`${currentYear}-01-01T00:00:00.000Z`),
+    //         $lt: new Date(`${currentYear + 1}-01-01T00:00:00.000Z`),
+    //       },
+    //     },
+    //   },
+    //   {
+    //     $group: {
+    //       _id: { $month: "$createdAt" },
+    //       count: { $sum: 1 },
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       _id: 0,
+    //       month: { $month: new Date("1970-01-01") },
+    //       count: 1,
+    //     },
+    //   },
+    //   {
+    //     $group: {
+    //       _id: "$month",
+    //       count: { $sum: "$count" },
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       month: {
+    //         $switch: {
+    //           branches: [
+    //             { case: { $eq: ["$_id", 1] }, then: "Jan" },
+    //             { case: { $eq: ["$_id", 2] }, then: "Feb" },
+    //             { case: { $eq: ["$_id", 3] }, then: "Mar" },
+    //             { case: { $eq: ["$_id", 4] }, then: "Apr" },
+    //             { case: { $eq: ["$_id", 5] }, then: "May" },
+    //             { case: { $eq: ["$_id", 6] }, then: "Jun" },
+    //             { case: { $eq: ["$_id", 7] }, then: "Jul" },
+    //             { case: { $eq: ["$_id", 8] }, then: "Aug" },
+    //             { case: { $eq: ["$_id", 9] }, then: "Sep" },
+    //             { case: { $eq: ["$_id", 10] }, then: "Oct" },
+    //             { case: { $eq: ["$_id", 11] }, then: "Nov" },
+    //             { case: { $eq: ["$_id", 12] }, then: "Dec" },
+    //           ],
+    //           default: "Invalid",
+    //         },
+    //       },
+    //       count: 1,
+    //     },
+    //   },
+    // ]);
+    // const campaignCategoryChartData = await Project.aggregate([
+    //   {
+    //     $group: {
+    //       _id: "$category",
+    //       count: { $sum: 1 },
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       _id: 0,
+    //       category: "$_id",
+    //       count: 1,
+    //     },
+    //   },
+    // ]);
+    //     1) Total campaigns
+    // 2)Total active campaigns
+    // 3)pending campaigns
+    // 4)rejected campagins
+    // 5)total investors
+    // 6)total creators
+    // 7)total earning of admin
+
+    const totalCampaigns = await Project.countDocuments({
+      isActive: true,
+    });
+    const totalActiveCampaigns = await Project.countDocuments({
+      isActive: true,
+      status: "approved",
+    });
+    const totalPendingCampaigns = await Project.countDocuments({
+      isActive: true,
+      status: "pending",
+    });
+    const totalRejectedCampaigns = await Project.countDocuments({
+      isActive: true,
+      status: "rejected",
+    });
+    const totalInvestors = await User.countDocuments({
+      isActive: true,
+      role: "investor",
+    });
+    const totalCreators = await User.countDocuments({
+      isActive: true,
+      role: "creator",
+    });
+    const closedCampaigns = await Project.find({
+      isActive: true,
+      status: "closed",
+    });
+    const totalEarning = closedCampaigns.reduce((acc, val) => {
+      return acc + val.fundingGoal;
+    }, 0);
     return SuccessHandler(
       {
         message: "Data fetched!",
-        investmentChartData,
-        usersChartData,
-        campaignCategoryChartData,
+        // investmentChartData,
+        // usersChartData,
+        // campaignCategoryChartData,
+        totalCampaigns,
+        totalActiveCampaigns,
+        totalPendingCampaigns,
+        totalRejectedCampaigns,
+        totalInvestors,
+        totalCreators,
+        totalEarning,
       },
       200,
       res
