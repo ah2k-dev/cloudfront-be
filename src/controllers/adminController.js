@@ -446,29 +446,24 @@ const updateCreator = async (req, res) => {
       termsAndConditions,
       privacyPolicy,
     } = req.body;
-    const updated = await creatorProfile.findOneAndUpdate(
+    const updated = await creatorProfile.findByIdAndUpdate(
+      id,
       {
-        creator: id,
-      },
-      {
-        $set: {
-          // creator: id,
-          bandName,
-          country,
-          state,
-          city,
-          streetAddress,
-          postalCode,
-          phoneNumber,
-          dob,
-          preferredLanguage,
-          nationality,
-          musicGenres,
-          socialMediaLinks,
-          website,
-          termsAndConditions,
-          privacyPolicy,
-        },
+        bandName,
+        country,
+        state,
+        city,
+        streetAddress,
+        postalCode,
+        phoneNumber,
+        dob,
+        preferredLanguage,
+        nationality,
+        musicGenres,
+        socialMediaLinks,
+        website,
+        termsAndConditions,
+        privacyPolicy,
       },
       { new: true }
     );

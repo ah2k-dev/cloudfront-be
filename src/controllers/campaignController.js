@@ -349,14 +349,13 @@ const invest = async (req, res) => {
 
     //equity calculations
     const project = await Project.findById(campaign);
-    const availableEquityAmount = project.fundingGoal * (project.availableEquity / 100);
+    console.log(project)
+    const equityBought = (amount / project.fundingGoal) * project.equity;
+    const equityLeft = project.availableEquity - equityBought;
 
-    if (amount > availableEquityAmount) {
+    if (equityLeft < 0) {
       return ErrorHandler("Amount exceeds equity", 400, req, res);
     }
-
-    const equityBought = (amount / project.fundingGoal) * 100;
-    const equityLeft = project.availableEquity - equityBought;
 
     //stripe charge
 

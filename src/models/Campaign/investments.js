@@ -11,7 +11,7 @@ const investmentSchema = new Schema({
     required: true,
   },
   currency: {
-    type: Number,
+    type: String,
     required: true,
   },
   createdAt: {
