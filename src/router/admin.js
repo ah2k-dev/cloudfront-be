@@ -50,6 +50,8 @@ router
 // dashboard
 router.route("/dashboard").post(admin.dashboard);
 
+router.route("/userStats").get(admin.userStats);
+
 // web details
 router
   .route("/webDetails/addUpdate")

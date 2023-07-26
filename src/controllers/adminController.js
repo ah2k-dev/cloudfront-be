@@ -765,6 +765,140 @@ const createInvestor = async (req, res) => {
   }
 };
 
+const userStats = async (req, res) => {
+  // #swagger.tags = ['admin']
+  try {
+    const creatorsWithCampaigns = await Project.aggregate([
+      {
+        $group: {
+          _id: "$creator",
+          campaigns: { $push: "$$ROOT" },
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "creator",
+        },
+      },
+      {
+        $unwind: "$creator",
+      },
+      {
+        $project: {
+          _id: 0,
+          creator: {
+            _id: "$creator._id",
+            firstName: "$creator.firstName",
+            lastName: "$creator.lastName",
+            email: "$creator.email",
+            profilePic: "$creator.profilePic",
+            campaigns: "$campaigns",
+          },
+        },
+      },
+    ]);
+    const creatorsWithCampaignsCount = await User.aggregate([
+      {
+        $match: {
+          role: "creator",
+        },
+      },
+      {
+        $lookup: {
+          from: "projects",
+          localField: "_id",
+          foreignField: "creator",
+          as: "campaigns",
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          firstName: 1,
+          lastName: 1,
+          email: 1,
+          profilePic: 1,
+          campaignsCount: { $size: "$campaigns" },
+        },
+      },
+    ]);
+    const investorsWithInvestments = await Investment.aggregate([
+      {
+        $group: {
+          _id: "$investor",
+          investments: { $push: "$$ROOT" },
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "investor",
+        },
+      },
+      {
+        $unwind: "$investor",
+      },
+      {
+        $project: {
+          _id: 0,
+          investor: {
+            _id: "$investor._id",
+            firstName: "$investor.firstName",
+            lastName: "$investor.lastName",
+            email: "$investor.email",
+            profilePic: "$investor.profilePic",
+            investments: "$investments",
+          },
+        },
+      },
+    ]);
+    const investorsWithInvestmentsCount = await User.aggregate([
+      {
+        $match: {
+          role: "investor",
+        },
+      },
+      {
+        $lookup: {
+          from: "investments",
+          localField: "_id",
+          foreignField: "investor",
+          as: "investments",
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          firstName: 1,
+          lastName: 1,
+          email: 1,
+          profilePic: 1,
+          investmentsCount: { $size: "$investments" },
+        },
+      },
+    ]);
+
+    return SuccessHandler(
+      {
+        message: "Data fetched!",
+        creatorsWithCampaigns,
+        creatorsWithCampaignsCount,
+        investorsWithInvestments,
+        investorsWithInvestmentsCount,
+      },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   approveCampaign,
   getCampaigns,
@@ -783,4 +917,5 @@ module.exports = {
   getAllWebDetails,
   createCreator,
   createInvestor,
+  userStats,
 };
