@@ -11,6 +11,7 @@ router.get("/", blog.getBlog);
 router.post("/", isAuthenticated, blog.postBlog);
 router.post("/comment", isAuthenticated, blog.postComment);
 router.post("/like", isAuthenticated, blog.postLike);
+router.post("/blogCommnets", isAuthenticated, blog.fetchBlogComments);
 // router.put('/:id', blog.putBlog);
 // router.delete('/:id', blog.deleteBlog);
 

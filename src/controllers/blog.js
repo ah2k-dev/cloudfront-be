@@ -73,7 +73,16 @@ const postLike = async (req, res, next) => {
     const { blogId } = req.body;
     const blog = await Blog.findById(blogId);
     if (blog.likes.includes(req.user._id)) {
-      return ErrorHandler("You have already liked this blog", 400, req, res);
+      const updatedBlog = await Blog.findByIdAndUpdate(
+        blogId,
+        { $pull: { likes: req.user._id } },
+        { new: true }
+      );
+      return SuccessHandler(
+        { message: "Blog unliked successfully", updatedBlog },
+        200,
+        res
+      );
     }
     const updatedBlog = await Blog.findByIdAndUpdate(
       blogId,
@@ -90,9 +99,27 @@ const postLike = async (req, res, next) => {
   }
 };
 
+const fetchBlogComments = async (req, res, next) => {
+  // #swagger.tags = ['Blog'];
+  try {
+    const { blogId } = req.body;
+    const blog = await Blog.findById(blogId).populate({
+      path: "comments",
+      populate: {
+        path: "user",
+        select: "firstName lastName profilePic role",
+      },
+    });
+    return SuccessHandler({ blog }, 200, res);
+  } catch (error) {
+    return ErrorHandler(error.message, 400, req, res);
+  }
+};
+
 module.exports = {
   getBlog,
   postBlog,
   postComment,
   postLike,
+    fetchBlogComments,
 };
