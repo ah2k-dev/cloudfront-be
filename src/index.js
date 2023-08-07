@@ -5,7 +5,7 @@ const http = require("http");
 const socket = require("socket.io");
 
 dotenv.config({ path: "./src/config/config.env" }); //load env vars
-
+console.log(process.env.MONGO_URI);
 //global vars
 global.io; 
 global.onlineUsers = [];

@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
 dotenv.config({
-  path: "./src/config/config.env",
+  path: "./config.env",
 });
 
 const connectDB = async () => {
   try {
-    const { connection } = await mongoose.connect(process.env.MONGO_URI);
+    const { connection } = await mongoose.connect('mongodb+srv://zubair098:zubairorange@orangeWeb.erkg7qi.mongodb.net/');
     console.log("DB connected: " + connection.host);
   } catch (error) {
     console.log("Error connecting database: " + error);
