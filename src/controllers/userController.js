@@ -5,6 +5,8 @@ const investorProfile = require("../models/User/investorProfile");
 const creatorProfile = require("../models/User/creatorProfile");
 const { findOneAndUpdate } = require("../models/User/user");
 const Project = require("../models/Campaign/projects");
+const Investment = require("../models/Campaign/investments");
+const { Mongoose } = require("mongoose");
 const updatePassword = async (req, res) => {
   // #swagger.tags = ['user']
   try {
@@ -210,7 +212,7 @@ const updateInvestorProfile = async (req, res) => {
     );
     console.log(updated);
     await User.findByIdAndUpdate(req.user._id, {
-      profilePic:profilepic,
+      profilePic: profilepic,
     });
     return SuccessHandler("Profile updated!", 201, res);
   } catch (error) {
@@ -401,6 +403,122 @@ const globalSearch = async (req, res) => {
   }
 };
 
+const userStats = async (req, res) => {
+  // #swagger.tags = ['user']
+  try {
+    const { role } = req.user;
+    if (role == "investor") {
+      const transactions = await Investment.find({
+        investor: req.user._id,
+      });
+
+      const campaginsWithInvestments = await Project.aggregate([
+        {
+          $match: {
+            isActive: true,
+            investments: {
+              $in: transactions.map((transaction) =>
+                Mongoose.Types.ObjectId(transaction._id)
+              ),
+            },
+          },
+        },
+        {
+          $lookup: {
+            from: "investments",
+            localField: "investments",
+            foreignField: "_id",
+            as: "investments",
+          },
+        },
+        {
+          $unwind: "$investments",
+        },
+        {
+          lookup: {
+            from: "users",
+            localField: "creator",
+            foreignField: "_id",
+            as: "creator",
+          },
+        },
+        {
+          $unwind: "$creator",
+        },
+        {
+          $project: {
+            title: 1,
+            shortDesc: 1,
+            detailedDesc: 1,
+            fundingGoal: 1,
+            duration: 1,
+            projectCategory: 1,
+            imageUrl: 1,
+            rewards: 1,
+            additionalImageUrls: 1,
+            termsAndConditions: 1,
+            status: 1,
+            creator: 1,
+            createdAt: 1,
+            investments: {
+              $filter: {
+                input: "$investments",
+                as: "investment",
+                cond: {
+                  $eq: ["$$investment.investor", req.user._id],
+                },
+              },
+            },
+          },
+        },
+      ]);
+      const totalInvestmentAmount = transactions.reduce(
+        (acc, transaction) => acc + transaction.amount,
+        0
+      );
+
+      return SuccessHandler(
+        {
+          message: `Data fetched successfully!`,
+          transactions,
+          campaginsWithInvestments,
+          totalInvestmentAmount,
+        },
+        200,
+        res
+      );
+    } else if (role == "creator") {
+      const campaigns = await Project.find({
+        creator: req.user._id,
+      }).populate("investments");
+
+      const totalFunding = campaigns.reduce(
+        (acc, campaign) =>
+          acc +
+          campaign.investments.reduce(
+            (acc, investment) => acc + investment.amount,
+            0
+          ),
+        0
+      );
+
+      return SuccessHandler(
+        {
+          message: `Data fetched successfully!`,
+          campaigns,
+          totalFunding,
+        },
+        200,
+        res
+      );
+    } else {
+      return ErrorHandler(`Error fetching data!`, 400, req, res);
+    }
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   updatePassword,
   completeInvestorProfile,
@@ -409,4 +527,5 @@ module.exports = {
   updateInvestorProfile,
   getProfile,
   globalSearch,
+  userStats,
 };

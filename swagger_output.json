@@ -1719,6 +1719,16 @@
         "responses": {}
       }
     },
+    "/admin/userStats": {
+      "get": {
+        "tags": [
+          "admin"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/admin/webDetails/addUpdate": {
       "post": {
         "tags": [

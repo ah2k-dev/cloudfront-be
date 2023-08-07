@@ -21,6 +21,9 @@ router
   .route("/updateCreatorProfile")
   .put(isAuthenticated, user.updateCreatorProfile);
 
+router
+  .route("/userStats", isAuthenticated, user.userStats)
+
 // delete
 
 module.exports = router;
