@@ -98,9 +98,9 @@ const verifyEmail = async (req, res) => {
     return ErrorHandler(error.message, 500, req, res);
   }
 };
-  
+
 //login
-const login = async (req, res) => { 
+const login = async (req, res) => {
   // #swagger.tags = ['auth']
   try {
     const { email, password } = req.body;
