@@ -126,10 +126,21 @@ const getAll = async (req, res) => {
     //     },
     //   },
     // ];
+
+    const minMaxFilter =
+      req.body.minMaxFilter && req.body.minMaxFilter.length > 0
+        ? {
+            fundingGoal: {
+              $gte: req.body.minMaxFilter[0],
+              $lte: req.body.minMaxFilter[1],
+            },
+          }
+        : {};
     const campaigns = await Project.find({
       ...statusFilter,
       ...searchFilter,
       ...categoryFilter,
+      ...minMaxFilter,
       isActive: true,
     })
       .populate({
@@ -349,7 +360,7 @@ const invest = async (req, res) => {
 
     //equity calculations
     const project = await Project.findById(campaign);
-    console.log(project)
+    console.log(project);
     const equityBought = (amount / project.fundingGoal) * project.equity;
     const equityLeft = project.availableEquity - equityBought;
 
