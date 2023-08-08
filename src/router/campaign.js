@@ -10,6 +10,7 @@ router.route("/create").post(isAuthenticated, creatorAuth, campaign.create);
 router.route("/update").put(isAuthenticated, creatorAuth, campaign.update);
 router.route("/getAll").post(campaign.getAll);
 router.route("/getMine").post(isAuthenticated, creatorAuth, campaign.getMine);
+router.route("/get/:id").get(campaign.get);
 router
   .route("/getInvested")
   .post(isAuthenticated, investorAuth, campaign.getInvested);

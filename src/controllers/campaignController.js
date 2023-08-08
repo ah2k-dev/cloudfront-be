@@ -483,6 +483,30 @@ const getCompleted = async (req, res) => {
   }
 };
 
+const get = async (req, res) => {
+  // #swagger.tags = ['campaign']
+  try {
+    const campaign = await Project.findById(req.params.id)
+      .populate({
+        path: "creator",
+        select: "firstName middleName lastName profilePic email",
+      })
+      .populate({
+        path: "investment",
+        populate: {
+          path: "investor",
+          select: "firstName middleName lastName profilePic email",
+        },
+      });
+    if (!campaign) {
+      return ErrorHandler("Campaign not found", 404, req, res);
+    }
+    return SuccessHandler({ message: "Campaign fetched!", campaign }, 200, res);
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   create,
   getAll,
@@ -494,4 +518,5 @@ module.exports = {
   invest,
   getLive,
   getCompleted,
+  get,
 };

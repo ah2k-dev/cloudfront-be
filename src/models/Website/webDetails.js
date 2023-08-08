@@ -5,9 +5,27 @@ const webDetails = new Schema({
   logo: {
     type: String,
   },
-  socialLinks: {
-    type: [String],
+  icon: {
+    type: String,
   },
+  webName: {
+    type: String,
+  },
+  facebook: {
+    type: String,
+  },
+  twitter: {
+    type: String,
+  },
+  instagram: {
+    type: String,
+  },
+  description: {
+    type: String,
+  },
+  // socialLinks: {
+  //   type: [String],
+  // },
   termsAndConditions: {
     type: String,
   },

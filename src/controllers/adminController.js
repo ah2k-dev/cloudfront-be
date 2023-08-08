@@ -667,7 +667,13 @@ const addUpdateWebDetails = async (req, res) => {
       const updated = await WebDetails.findByIdAndUpdate(req.body.id, {
         $set: {
           logo,
-          socialLinks,
+          // socialLinks,
+          icon,
+          webName,
+          facebook,
+          twitter,
+          description,
+          instagram,
           termsAndConditions,
           privacyPolicy,
         },
@@ -796,35 +802,36 @@ const userStats = async (req, res) => {
             email: "$creator.email",
             profilePic: "$creator.profilePic",
             campaigns: "$campaigns",
+            campaignsCount: { $size: "$campaigns" },
           },
         },
       },
     ]);
-    const creatorsWithCampaignsCount = await User.aggregate([
-      {
-        $match: {
-          role: "creator",
-        },
-      },
-      {
-        $lookup: {
-          from: "projects",
-          localField: "_id",
-          foreignField: "creator",
-          as: "campaigns",
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          firstName: 1,
-          lastName: 1,
-          email: 1,
-          profilePic: 1,
-          campaignsCount: { $size: "$campaigns" },
-        },
-      },
-    ]);
+    // const creatorsWithCampaignsCount = await User.aggregate([
+    //   {
+    //     $match: {
+    //       role: "creator",
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "projects",
+    //       localField: "_id",
+    //       foreignField: "creator",
+    //       as: "campaigns",
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       _id: 0,
+    //       firstName: 1,
+    //       lastName: 1,
+    //       email: 1,
+    //       profilePic: 1,
+    //       campaignsCount: { $size: "$campaigns" },
+    //     },
+    //   },
+    // ]);
     const investorsWithInvestments = await Investment.aggregate([
       {
         $group: {
@@ -853,43 +860,44 @@ const userStats = async (req, res) => {
             email: "$investor.email",
             profilePic: "$investor.profilePic",
             investments: "$investments",
+            investmentsCount: { $size: "$investments" },
           },
         },
       },
     ]);
-    const investorsWithInvestmentsCount = await User.aggregate([
-      {
-        $match: {
-          role: "investor",
-        },
-      },
-      {
-        $lookup: {
-          from: "investments",
-          localField: "_id",
-          foreignField: "investor",
-          as: "investments",
-        },
-      },
-      {
-        $project: {
-          _id: 0,
-          firstName: 1,
-          lastName: 1,
-          email: 1,
-          profilePic: 1,
-          investmentsCount: { $size: "$investments" },
-        },
-      },
-    ]);
+    // const investorsWithInvestmentsCount = await User.aggregate([
+    //   {
+    //     $match: {
+    //       role: "investor",
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "investments",
+    //       localField: "_id",
+    //       foreignField: "investor",
+    //       as: "investments",
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       _id: 0,
+    //       firstName: 1,
+    //       lastName: 1,
+    //       email: 1,
+    //       profilePic: 1,
+    //       investmentsCount: { $size: "$investments" },
+    //     },
+    //   },
+    // ]);
 
     return SuccessHandler(
       {
         message: "Data fetched!",
         creatorsWithCampaigns,
-        creatorsWithCampaignsCount,
+        // creatorsWithCampaignsCount,
         investorsWithInvestments,
-        investorsWithInvestmentsCount,
+        // investorsWithInvestmentsCount,
       },
       200,
       res
