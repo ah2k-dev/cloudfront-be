@@ -82,6 +82,10 @@ const projectSchema = new Schema({
     type: Number,
     required: true,
   },
+  slug: {
+    type: String,
+    // required: true,
+  },
 });
 
 const Project = mongoose.model("project", projectSchema);

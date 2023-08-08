@@ -24,6 +24,7 @@ const create = async (req, res) => {
       imageUrl,
       rewards,
       equity,
+      slug,
     } = req.body;
     const user = req.user._id;
     if (Number(equity) < 10 || Number(equity) > 90) {
@@ -41,6 +42,7 @@ const create = async (req, res) => {
       creator: user,
       equity: Number(equity),
       availableEquity: Number(equity),
+      slug,
     });
     await newProject.save();
     return SuccessHandler(
@@ -71,6 +73,7 @@ const update = async (req, res) => {
       // socialMediaLinks,
       // additionalImageUrls,
       // termsAndConditions,
+      slug,
     } = req.body;
     const updated = await Project.findByIdAndUpdate(id, {
       $set: {
@@ -87,6 +90,7 @@ const update = async (req, res) => {
         // socialMediaLinks,
         // additionalImageUrls,
         // termsAndConditions,
+        slug,
       },
     });
     if (!updated) {

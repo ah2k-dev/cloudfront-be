@@ -784,6 +784,9 @@
                 },
                 "equity": {
                   "example": "any"
+                },
+                "slug": {
+                  "example": "any"
                 }
               }
             }
@@ -845,6 +848,9 @@
                   "example": "any"
                 },
                 "rewards": {
+                  "example": "any"
+                },
+                "slug": {
                   "example": "any"
                 }
               }
@@ -935,6 +941,23 @@
             "description": "Internal Server Error"
           }
         }
+      }
+    },
+    "/campaign/get/{id}": {
+      "get": {
+        "tags": [
+          "campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {}
       }
     },
     "/campaign/getInvested": {
