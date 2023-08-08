@@ -24,6 +24,8 @@ router
 router
   .route("/userStats", isAuthenticated, user.userStats)
 
+router.route("/transactions").get(isAuthenticated, user.getTransactions)
+
 // delete
 
 module.exports = router;
