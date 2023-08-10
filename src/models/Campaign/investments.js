@@ -26,7 +26,7 @@ const investmentSchema = new Schema({
     type: String,
   },
   payout: {
-    type: Schema.Types.Mixed,
+    type: Object,
   },
   payoutAt: {
     type: Date,

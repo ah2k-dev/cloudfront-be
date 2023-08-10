@@ -58,4 +58,5 @@ router
   .post(isAuthenticated, adminAuth, admin.addUpdateWebDetails);
 router.route("/weDetails/get").get(admin.getAllWebDetails);
 
+
 module.exports = router;

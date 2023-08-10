@@ -86,6 +86,10 @@ const projectSchema = new Schema({
     type: String,
     // required: true,
   },
+  payoutRequested: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Project = mongoose.model("project", projectSchema);

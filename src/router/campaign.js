@@ -23,4 +23,9 @@ router.route("/invest").post(isAuthenticated, investorAuth, campaign.invest);
 router.route("/getLive").get(campaign.getLive);
 router.route("/getCompleted").get(campaign.getCompleted)
 
+router.route("/request-payout/:id").post(isAuthenticated, campaign.requestPayout)
+router.route("/getRequestedPayoutCampaigns").get(isAuthenticated, creatorAuth, campaign.getRequestedPayoutCampaigns)
+
+
+
 module.exports = router;

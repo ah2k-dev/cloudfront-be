@@ -528,70 +528,6 @@ const getTransactions = async (req, res) => {
         investor: req.user._id,
       });
 
-      // const transactionsWithCampaign = await Project.aggregate([
-      //   {
-      //     $match: {
-      //       isActive: true,
-      //       investments: {
-      //         $in: transactions.map((transaction) =>
-      //           Mongoose.Types.ObjectId(transaction._id)
-      //         ),
-      //       },
-      //     },
-      //   },
-      //   {
-      //     $lookup: {
-      //       from: "investments",
-      //       localField: "investments",
-      //       foreignField: "_id",
-      //       as: "investments",
-      //     },
-      //   },
-      //   {
-      //     $unwind: "$investments",
-      //   },
-      //   {
-      //     lookup: {
-      //       from: "users",
-      //       localField: "creator",
-      //       foreignField: "_id",
-      //       as: "creator",
-      //     },
-      //   },
-      //   {
-
-      //     $unwind: "$creator",
-      //   },
-      //   {
-      //     $project: {
-      //       title: 1,
-
-      //       shortDesc: 1,
-      //       detailedDesc: 1,
-      //       fundingGoal: 1,
-      //       duration: 1,
-      //       projectCategory: 1,
-      //       imageUrl: 1,
-      //       rewards: 1,
-      //       additionalImageUrls: 1,
-
-      //       termsAndConditions: 1,
-      //       status: 1,
-      //       creator: 1,
-      //       createdAt: 1,
-      //       investments: {
-      //         $filter: {
-      //           input: "$investments",
-      //           as: "investment",
-      //           cond: {
-      //             $eq: ["$$investment.investor", req.user._id],
-      //           },
-      //         },
-      //       },
-      //     },
-      //   },
-      // ]);
-
       Promise.all(
         transactions.map(async (transaction) => {
           const campaign = await Project.findOne({
@@ -602,7 +538,9 @@ const getTransactions = async (req, res) => {
 
           return {
             ...transaction._doc,
-            campaign,
+            campaignTitle: campaign.title,
+            campaignCreator: campaign.creator,
+            campaignId: campaign._id,
           };
         })
       ).then((data) => {
@@ -615,144 +553,153 @@ const getTransactions = async (req, res) => {
           res
         );
       });
-
-      // return SuccessHandler(
-      //   {
-      //     message: `Data fetched successfully!`,
-      //     transactions,
-      //   },
-      //   200,
-      //   res
-      // );
     } else if (role == "creator") {
-      // let creditedTransactions = await Project.aggregate([
-      //   {
-      //     $match: {
-      //       creator: req.user._id,
-      //       isActive: true,
-      //     },
-      //   },
-      //   {
-      //     $lookup: {
-      //       from: "investments",
-      //       localField: "investments",
-      //       foreignField: "_id",
-      //       as: "investments",
-      //     },
-      //   },
-      //   {
-      //     $unwind: "$investments",
-      //   },
-      //   {
-      //     $lookup: {
-      //       from: "users",
-      //       localField: "investments.investor",
-      //       foreignField: "_id",
-      //       as: "investments.investor",
-      //     },
-      //   },
-      //   {
-      //     $unwind: "$investments.investor",
-      //   },
-      //   {
-      //     $project: {
-      //       // investments: {
-      //       //   $filter: {
-      //       //     input: "$investments",
-      //       //     as: "investment",
-      //       //     cond: {
-      //       //       $eq: ["$$investment.investor.role", "investor"],
-      //       //     },
-      //       //   },
-      //       // },
-      //       // campaignId: "$_id",
-      //       // investments: 1,
-      //       investments: {
-      //         $map: {
-      //           input: "$investments",
-      //           as: "investment",
-      //           addFields: {
-      //             campaignTitle: "$title",
-      //             campaignId: "$_id",
-      //           },
-      //         },
-      //       },
-      //     },
-      //   },
-      // ]);
+      let creditedTransactions = await Project.aggregate([
+        {
+          $match: {
+            creator: req.user._id,
+            isActive: true,
+          },
+        },
+        {
+          $lookup: {
+            from: "investments",
+            localField: "investments",
+            foreignField: "_id",
+            as: "investments",
+          },
+        },
+        {
+          $unwind: "$investments",
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "investments.investor",
+            foreignField: "_id",
+            as: "investments.investor",
+          },
+        },
+        {
+          $unwind: "$investments.investor",
+        },
+        {
+          $project: {
+            investments: {
+              $map: {
+                input: "$investments",
+                as: "investment",
+                addFields: {
+                  campaignTitle: "$title",
+                  campaignId: "$_id",
+                },
+              },
+            },
+          },
+        },
+      ]);
 
-      // creditedTransactions = creditedTransactions.reduce(
-      //   (acc, campaign) => [...acc, ...campaign.investments],
-      //   []
-      // );
+      creditedTransactions = creditedTransactions.reduce(
+        (acc, campaign) => [...acc, ...campaign.investments],
+        []
+      );
 
-      // let debitedTransactions = await Project.aggregate([
-      //   {
-      //     $match: {
-      //       creator: req.user._id,
-      //       isActive: true,
-      //     },
-      //   },
-      //   {
-      //     $lookup: {
-      //       from: "investments",
-      //       localField: "investments",
-      //       foreignField: "_id",
-      //       as: "investments",
-      //     },
-      //   },
-      //   {
-      //     $unwind: "$investments",
-      //   },
-      //   {
-      //     $lookup: {
-      //       from: "users",
-      //       localField: "investments.investor",
-      //       foreignField: "_id",
-      //       as: "investments.investor",
-      //     },
-      //   },
-      //   {
-      //     $unwind: "$investments.investor",
-      //   },
-      //   {
-      //     $project: {
-      //       investments: {
-      //         $map: {
-      //           input: "$investments",
-      //           as: "investment",
-      //           cond: {
-      //             $eq: ["$$investment.investor.role", "creator"],
-      //           },
-      //           addFields: {
-      //             campaignTitle: "$title",
-      //             campaignId: "$_id",
-      //           },
-      //         },
-      //       },
-      //     },
-      //   },
-      // ]);
+      let debitedTransactions = await Project.aggregate([
+        {
+          $match: {
+            creator: req.user._id,
+            isActive: true,
+          },
+        },
+        {
+          $lookup: {
+            from: "investments",
+            localField: "investments",
+            foreignField: "_id",
+            as: "investments",
+          },
+        },
+        {
+          $unwind: "$investments",
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "investments.investor",
+            foreignField: "_id",
+            as: "investments.investor",
+          },
+        },
+        {
+          $unwind: "$investments.investor",
+        },
+        {
+          $project: {
+            investments: {
+              $map: {
+                input: "$investments",
+                as: "investment",
+                cond: {
+                  $eq: ["$$investment.investor.role", "creator"],
+                },
+                addFields: {
+                  campaignTitle: "$title",
+                  campaignId: "$_id",
+                },
+              },
+            },
+          },
+        },
+      ]);
 
-      // debitedTransactions = debitedTransactions.reduce(
-      //   (acc, campaign) => [...acc, ...campaign.investments],
-      //   []
-      // );
+      debitedTransactions = debitedTransactions.reduce(
+        (acc, campaign) => [...acc, ...campaign.investments],
+        []
+      );
 
-      // return SuccessHandler(
-      //   {
-      //     message: `Data fetched successfully!`,
-      //     transactions: {
-      //       creditedTransactions,
-      //       debitedTransactions,
-      //     },
-      //   },
-      //   200,
-      //   res
-      // );
-      return ErrorHandler(`Error fetching data! Under working`, 400, req, res);
+      return SuccessHandler(
+        {
+          message: `Data fetched successfully!`,
+          transactions: {
+            creditedTransactions,
+            debitedTransactions,
+          },
+        },
+        200,
+        res
+      );
+      // return ErrorHandler(`Error fetching data! Under working`, 400, req, res);
     } else if (role == "admin") {
-      return ErrorHandler(`Error fetching data! Under working`, 400, req, res);
+
+      const transactions = await Investment.find({});
+
+      Promise.all(
+        transactions.map(async (transaction) => {
+          const campaign = await Project.findOne({
+            investments: {
+              $in: [transaction._id],
+            },
+          }).populate("creator");
+
+          return {
+            ...transaction._doc,
+            campaignTitle: campaign.title,
+            campaignId: campaign._id,
+            campaignCreator: campaign.creator,
+          };
+        })
+      ).then((data) => {
+        return SuccessHandler(
+          {
+            message: `Data fetched successfully!`,
+            payouts: data.filter((transaction) => transaction.payoutStatus == true),
+            investments: data.filter((transaction) => transaction.payoutStatus == false),
+          },
+          200,
+          res
+        );
+      });
+      
     } else {
       return ErrorHandler(`Error fetching data!`, 400, req, res);
     }

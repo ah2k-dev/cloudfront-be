@@ -511,6 +511,65 @@ const get = async (req, res) => {
   }
 };
 
+const requestPayout = async (req, res) => {
+  // #swagger.tags = ['campaign']
+  try {
+    const { id } = req.params;
+    const campaign = await Project.findByIdAndUpdate(
+      id,
+      {
+        $set: { payoutRequested: true },
+      },
+      {
+        new: true,
+      }
+    );
+    if (!campaign) {
+      return ErrorHandler("Campaign not found", 404, req, res);
+    }
+    return SuccessHandler(
+      { message: "Payout requested successfully!", campaign },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
+const getRequestedPayoutCampaigns = async (req, res) => {
+  // #swagger.tags = ['campaign']
+  try {
+    const creatorFilter =
+      req.user.role === "creator" ? { creator: req.user._id } : {};
+    const campaigns = await Project.find({
+      payoutRequested: true,
+      ...creatorFilter,
+    })
+      .populate({
+        path: "creator",
+        select: "firstName middleName lastName profilePic email",
+      })
+      .populate({
+        path: "investment",
+        populate: {
+          path: "investor",
+          select: "firstName middleName lastName profilePic email",
+        },
+      });
+    if (!campaigns) {
+      return ErrorHandler("Campaign not found", 404, req, res);
+    }
+    return SuccessHandler(
+      { message: "Campaigns fetched!", campaigns },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   create,
   getAll,
@@ -523,4 +582,5 @@ module.exports = {
   getLive,
   getCompleted,
   get,
+  requestPayout,
 };
