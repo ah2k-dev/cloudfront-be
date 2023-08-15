@@ -179,10 +179,10 @@ const releaseFunds = async (req, res) => {
   try {
     const { id } = req.params;
     const campaign = await Project.findById(id).populate("investment");
-    const creatorProfile = await creatorProfile.findOne({
+    const excreatorProfile = await creatorProfile.findOne({
       creator: campaign.creator,
     });
-    if (creatorProfile.iban) {
+    if (excreatorProfile.iban) {
       const investments = campaign.investment;
       if (investments.length > 0) {
         await Promise.all(
@@ -196,11 +196,11 @@ const releaseFunds = async (req, res) => {
               currency: val.currency,
               method: "standrd",
               destination: {
-                iban: creatorProfile.iban,
+                iban: excreatorProfile.iban,
               },
-              metaData: {
-                chargeId: val.chargeId,
-              },
+              // metaData: {
+              //   chargeId: val.chargeId,
+              // },
             });
 
             if (payout.status == "paid") {
@@ -662,7 +662,19 @@ const dashboard = async (req, res) => {
 const addUpdateWebDetails = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
-    const { logo, socialLinks, termsAndConditions, privacyPolicy } = req.body;
+    const {
+      logo,
+      // socialLinks,
+      icon,
+      webName,
+      facebook,
+      twitter,
+      description,
+      instagram,
+      termsAndConditions,
+      privacyPolicy,
+      pagesData,
+    } = req.body;
     if (req.body.id) {
       const updated = await WebDetails.findByIdAndUpdate(req.body.id, {
         $set: {
@@ -676,6 +688,7 @@ const addUpdateWebDetails = async (req, res) => {
           instagram,
           termsAndConditions,
           privacyPolicy,
+          pagesData,
         },
       });
       if (!updated) {

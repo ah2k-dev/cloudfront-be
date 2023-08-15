@@ -178,3 +178,53 @@
 {"date":"2023-08-07T09:55:03.982Z","level":"error","message":"No profile found. Complete your profile!","method":"GET","service":"user-service","url":"/"}
 {"date":"2023-08-07T12:42:20.007Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
 {"date":"2023-08-07T12:42:20.020Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
+{"date":"2023-08-12T09:50:26.337Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T09:50:26.815Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T09:50:27.240Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T09:50:27.660Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T09:50:43.772Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T09:50:44.193Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T09:50:44.623Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T09:50:45.057Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T09:54:23.390Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: $addFields","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T09:54:23.893Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: $addFields","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T09:54:24.402Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: $addFields","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T09:54:24.906Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: $addFields","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:03:29.266Z","level":"error","message":"Invalid $project :: caused by :: Missing 'in' parameter to $map","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:03:29.680Z","level":"error","message":"Invalid $project :: caused by :: Missing 'in' parameter to $map","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:03:30.091Z","level":"error","message":"Invalid $project :: caused by :: Missing 'in' parameter to $map","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:03:30.499Z","level":"error","message":"Invalid $project :: caused by :: Missing 'in' parameter to $map","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:04:37.820Z","level":"error","message":"Cannot access 'creatorProfile' before initialization","method":"GET","service":"user-service","url":"/releaseFunds/64c27f945246ff3e97005fb6"}
+{"date":"2023-08-12T10:04:38.916Z","level":"error","message":"Invalid $project :: caused by :: Missing 'in' parameter to $map","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:04:39.322Z","level":"error","message":"Invalid $project :: caused by :: Missing 'in' parameter to $map","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:04:39.733Z","level":"error","message":"Invalid $project :: caused by :: Missing 'in' parameter to $map","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:04:40.143Z","level":"error","message":"Invalid $project :: caused by :: Missing 'in' parameter to $map","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:04:52.216Z","level":"error","message":"Cannot access 'creatorProfile' before initialization","method":"GET","service":"user-service","url":"/releaseFunds/64d2298299f4e9ddeaaa0cd2"}
+{"date":"2023-08-12T10:05:18.070Z","level":"error","message":"Cannot access 'creatorProfile' before initialization","method":"GET","service":"user-service","url":"/releaseFunds/64d4de253e6622226696e6c7"}
+{"date":"2023-08-12T10:06:03.687Z","level":"error","message":"Cannot access 'creatorProfile' before initialization","method":"GET","service":"user-service","url":"/releaseFunds/64d4de253e6622226696e6c7"}
+{"date":"2023-08-12T10:06:58.439Z","level":"error","message":"Received unknown parameter: metaData","method":"GET","service":"user-service","url":"/releaseFunds/64d4de253e6622226696e6c7"}
+{"date":"2023-08-12T10:07:56.051Z","level":"error","message":"Invalid string: {:iban=>\"004\"}","method":"GET","service":"user-service","url":"/releaseFunds/64d4de253e6622226696e6c7"}
+{"date":"2023-08-12T10:17:31.423Z","level":"error","message":"icon is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-12T10:18:05.015Z","level":"error","message":"icon is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-12T10:18:40.914Z","level":"error","message":"icon is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-12T10:19:22.759Z","level":"error","message":"icon is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-12T10:37:14.953Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2023-08-12T10:39:57.341Z","level":"error","message":"Cannot populate path `investments` because it is not in your schema. Set the `strictPopulate` option to false to override.","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:39:57.908Z","level":"error","message":"Cannot populate path `investments` because it is not in your schema. Set the `strictPopulate` option to false to override.","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:39:58.454Z","level":"error","message":"Cannot populate path `investments` because it is not in your schema. Set the `strictPopulate` option to false to override.","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:39:59.032Z","level":"error","message":"Cannot populate path `investments` because it is not in your schema. Set the `strictPopulate` option to false to override.","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:40:36.411Z","level":"error","message":"Cannot read properties of undefined (reading 'map')","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:40:37.532Z","level":"error","message":"Cannot read properties of undefined (reading 'map')","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:40:38.760Z","level":"error","message":"Cannot read properties of undefined (reading 'map')","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:40:39.848Z","level":"error","message":"Cannot read properties of undefined (reading 'map')","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T10:42:04.298Z","level":"error","message":"icon is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-12T10:43:42.269Z","level":"error","message":"icon is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-12T10:44:07.505Z","level":"error","message":"icon is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-12T10:44:37.357Z","level":"error","message":"icon is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-12T10:52:37.516Z","level":"error","message":"No investments on this campaign found!","method":"GET","service":"user-service","url":"/releaseFunds/64c27f945246ff3e97005fb6"}
+{"date":"2023-08-12T10:52:43.866Z","level":"error","message":"Invalid string: {:iban=>\"004\"}","method":"GET","service":"user-service","url":"/releaseFunds/64d2298299f4e9ddeaaa0cd2"}
+{"date":"2023-08-12T11:11:21.693Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2023-08-12T11:27:40.767Z","level":"error","message":"Cannot read properties of undefined (reading 'push')","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T11:27:41.815Z","level":"error","message":"Cannot read properties of undefined (reading 'push')","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T11:27:42.825Z","level":"error","message":"Cannot read properties of undefined (reading 'push')","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-12T11:27:43.724Z","level":"error","message":"Cannot read properties of undefined (reading 'push')","method":"GET","service":"user-service","url":"/transactions"}

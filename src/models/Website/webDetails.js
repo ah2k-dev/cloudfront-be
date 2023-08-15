@@ -32,6 +32,9 @@ const webDetails = new Schema({
   privacyPolicy: {
     type: String,
   },
+  pagesData: {
+    type: Object,
+  },
 });
 
 const WebDetails = mongoose.model("webDetails", webDetails);

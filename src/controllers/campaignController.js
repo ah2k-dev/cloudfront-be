@@ -570,6 +570,7 @@ const getRequestedPayoutCampaigns = async (req, res) => {
   }
 };
 
+
 module.exports = {
   create,
   getAll,
@@ -583,4 +584,5 @@ module.exports = {
   getCompleted,
   get,
   requestPayout,
+  getRequestedPayoutCampaigns,
 };
