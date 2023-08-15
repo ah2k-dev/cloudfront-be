@@ -12,7 +12,7 @@ const userSchema = new Schema({
   // },
   firstName: {
     type: String,
-    required: true,
+    // required: true,
   },
   // middleName: {
   //   type: String,
@@ -20,11 +20,11 @@ const userSchema = new Schema({
   // },
   lastName: {
     type: String,
-    required: true,
+    // required: true,
   },
   email: {
     type: String,
-    required: true,
+    // required: true,
     unique: true,
     validate(value) {
       if (!validator.isEmail(value)) {
@@ -34,7 +34,7 @@ const userSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
+    // required: true,
     select : false
     //validation will be before saving to db
   },
@@ -72,6 +72,14 @@ const userSchema = new Schema({
   isActive: {
     type: Boolean,
     default: true,
+  },
+  provider: {
+    type: String,
+    enum: ["local", "google", "facebook"],
+    default: "local",
+  },
+  accessToken: {
+    type: String,
   },
 });
 

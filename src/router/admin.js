@@ -23,6 +23,8 @@ router
 
 router.route('/releaseFunds/:id').get(isAuthenticated, adminAuth, admin.releaseFunds)
 
+router.route('/add-to-featured/:id').get(isAuthenticated, adminAuth, admin.addToFeatured)
+
 // investors
 router.route("/createInvestor").post(admin.createInvestor);
 router

@@ -920,6 +920,21 @@ const userStats = async (req, res) => {
   }
 };
 
+const addToFeatured = async (req, res) => {
+  // #swagger.tags = ['admin']
+  try {
+    const { id } = req.params;
+    await Project.findByIdAndUpdate(id, {
+      $set: {
+        featured: true,
+      },
+    });
+    return SuccessHandler("Added to featured!", 200, res);
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   approveCampaign,
   getCampaigns,
@@ -939,4 +954,5 @@ module.exports = {
   createCreator,
   createInvestor,
   userStats,
+  addToFeatured,
 };

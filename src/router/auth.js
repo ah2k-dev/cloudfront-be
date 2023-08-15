@@ -11,6 +11,7 @@ router.route("/login").post(auth.login);
 router.route("/requestEmailToken").post(auth.requestEmailToken);
 router.route("/verifyEmail").post(auth.verifyEmail);
 router.route("/forgotPassword").post(auth.forgotPassword);
+router.route("/thirdPartyAuth").post(auth.thirdPartyAuth);
 //put
 router.route("/resetPassword").put(auth.resetPassword);
 

@@ -5,6 +5,7 @@ const campaign = require("./campaign");
 const admin = require("./admin");
 const uploader = require("./uploader");
 const blog = require("./blog");
+const contact = require("./contact");
 // module.exports = {
 //   auth,
 // };
@@ -17,5 +18,7 @@ router.use("/campaign", campaign);
 router.use("/admin", admin);
 router.use("/uploader", uploader);
 router.use("/blog", blog);
+router.use("/contact", contact);
+
 
 module.exports = router;

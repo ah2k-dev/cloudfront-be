@@ -90,6 +90,10 @@ const projectSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  featured: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Project = mongoose.model("project", projectSchema);

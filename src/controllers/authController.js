@@ -6,8 +6,7 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const register = async (req, res) => {
   // #swagger.tags = ['auth']
   try {
-    const { firstname, lastname, email, password, role } =
-      req.body;
+    const { firstname, lastname, email, password, role } = req.body;
     if (
       !password.match(
         /(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+!=])(?=.{8,}).*$/
@@ -25,7 +24,7 @@ const register = async (req, res) => {
       return ErrorHandler("User already exists", 400, req, res);
     }
 
-    console.log(req.body)
+    console.log(req.body);
     const newUser = await User.create({
       firstName: firstname,
       lastName: lastname,
@@ -71,7 +70,7 @@ const requestEmailToken = async (req, res) => {
 };
 
 //verify email token
-const verifyEmail = async (req, res) => { 
+const verifyEmail = async (req, res) => {
   // #swagger.tags = ['auth']
   try {
     const { email, emailVerificationToken } = req.body;
@@ -126,7 +125,11 @@ const login = async (req, res) => {
       _id: user._id,
     };
     return SuccessHandler(
-      { message: "Logged in successfully", token: jwtToken, userData: userData },
+      {
+        message: "Logged in successfully",
+        token: jwtToken,
+        userData: userData,
+      },
       200,
       res
     );
@@ -203,6 +206,59 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const thirdPartyAuth = async (req, res) => {
+  // #swagger.tags = ['auth']
+  try {
+    const { name, email, accessToken, role, provider } = req.body;
+
+    if (provider !== "google" && provider !== "facebook") {
+      return ErrorHandler("Invalid provider", 400, req, res);
+    }
+
+    const userWithEmail = await User.findOne({ email });
+    if (!userWithEmail) {
+      const newUser = await User.create({
+        firstName: name,
+        email,
+        role,
+        provider,
+        accessToken,
+        emailVerified: true,
+      });
+      newUser.save();
+      return SuccessHandler("User created successfully", 200, res);
+    }
+    if (userWithEmail.isActive === false) {
+      return ErrorHandler("Email has been blocked", 400, req, res);
+    }
+    if(userWithEmail.accessToken === accessToken && userWithEmail?.provider === provider){
+      jwtToken = userWithEmail.getJWTToken();
+      let userData = {
+        firstName: userWithEmail.firstName,
+        lastName: userWithEmail.lastName,
+        email: userWithEmail.email,
+        role: userWithEmail.role,
+        _id: userWithEmail._id,
+      };
+      return SuccessHandler(
+        {
+          message: "Logged in successfully",
+          token: jwtToken,
+          userData: userData,
+        },
+        200,
+        res
+      );
+    }
+    if(userWithEmail.provider !== provider){
+      return ErrorHandler("You are registered with " + userWithEmail.provider, 400, req, res);
+    }
+
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   register,
   requestEmailToken,
@@ -211,4 +267,5 @@ module.exports = {
   logout,
   forgotPassword,
   resetPassword,
+  thirdPartyAuth,
 };
