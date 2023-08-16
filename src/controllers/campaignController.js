@@ -26,6 +26,16 @@ const create = async (req, res) => {
       equity,
       slug,
     } = req.body;
+    
+    const prevCampaign = await Project.findOne({
+      creator: req.user._id,
+      status: 'approved'
+    })
+    
+    if(prevCampaign){
+      return ErrorHandler("You already have a live campaign", 401, req, res)
+    }
+
     const user = req.user._id;
     if (Number(equity) < 10 || Number(equity) > 90) {
       return ErrorHandler("Equity must be between 10% and 90%", 400, req, res);
