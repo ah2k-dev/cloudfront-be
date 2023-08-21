@@ -658,6 +658,8 @@ const dashboard = async (req, res) => {
   }
 };
 
+
+
 //web details
 const addUpdateWebDetails = async (req, res) => {
   // #swagger.tags = ['admin']
@@ -675,7 +677,28 @@ const addUpdateWebDetails = async (req, res) => {
       privacyPolicy,
       pagesData,
     } = req.body;
-    if (req.body.id) {
+    if (req.body.id && pagesData) {
+      const updated = await WebDetails.findByIdAndUpdate(req.body.id, {
+        $set: {
+          // logo,
+          // // socialLinks,
+          // icon,
+          // webName,
+          // facebook,
+          // twitter,
+          // description,
+          // instagram,
+          // termsAndConditions,
+          // privacyPolicy,
+          pagesData,
+        },
+      });
+      if (!updated) {
+        return ErrorHandler("Error updating info!", 400, req, res);
+      } else {
+        return SuccessHandler("Page Data Updated Successfully!", 201, res);
+      }
+    } else if (req.body.id && !pagesData) {
       const updated = await WebDetails.findByIdAndUpdate(req.body.id, {
         $set: {
           logo,
@@ -688,22 +711,28 @@ const addUpdateWebDetails = async (req, res) => {
           instagram,
           termsAndConditions,
           privacyPolicy,
-          pagesData,
         },
       });
       if (!updated) {
         return ErrorHandler("Error updating info!", 400, req, res);
+      } else {
+        return SuccessHandler("Website Settings Updated Successfully!", 201, res);
       }
-      return SuccessHandler("Data updated!", 201, res);
     } else {
       const newWebDetials = new WebDetails({
         logo,
-        socialLinks,
+        // socialLinks,
+        icon,
+        webName,
+        facebook,
+        twitter,
+        description,
+        instagram,
         termsAndConditions,
         privacyPolicy,
       });
       await newWebDetials.save();
-      return SuccessHandler("Web details addedd", 201, res);
+      return SuccessHandler("Website details added successfully", 201, res);
     }
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
@@ -713,7 +742,7 @@ const addUpdateWebDetails = async (req, res) => {
 const getAllWebDetails = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
-    const webDetails = await WebDetails.find();
+    const webDetails = await WebDetails.findOne();
     if (webDetails) {
       return SuccessHandler(
         { message: "Details fetched", webDetails },

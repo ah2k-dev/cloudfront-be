@@ -237,7 +237,7 @@ const thirdPartyAuth = async (req, res) => {
         firstName: userWithEmail.firstName,
         lastName: userWithEmail.lastName,
         email: userWithEmail.email,
-        role: userWithEmail.role,
+        // role: userWithEmail.role,
         _id: userWithEmail._id,
       };
       return SuccessHandler(

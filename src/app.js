@@ -38,7 +38,7 @@ app.use((req, res, next) => {
   next(new ApiError(404, "Not found"));
 });
 
-var job = new CronJob(
+var job = new cron(
   "* * * * * *",
   async function () {
     const campagins = await Project.find({
@@ -53,7 +53,7 @@ var job = new CronJob(
     const todayDate = today.getDate();
 
     Promise.all(
-      campagins.forEach(async (campagin) => {
+      campagins.map(async (campagin) => {
         let date = new Date(campagin.createdAt);
         date.setDate(date.getDate() + 30);
         let year = date.getFullYear();

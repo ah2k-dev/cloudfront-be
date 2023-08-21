@@ -228,3 +228,54 @@
 {"date":"2023-08-12T11:27:41.815Z","level":"error","message":"Cannot read properties of undefined (reading 'push')","method":"GET","service":"user-service","url":"/transactions"}
 {"date":"2023-08-12T11:27:42.825Z","level":"error","message":"Cannot read properties of undefined (reading 'push')","method":"GET","service":"user-service","url":"/transactions"}
 {"date":"2023-08-12T11:27:43.724Z","level":"error","message":"Cannot read properties of undefined (reading 'push')","method":"GET","service":"user-service","url":"/transactions"}
+{"date":"2023-08-16T12:43:38.393Z","level":"error","message":"Invalid provider","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:45:18.148Z","level":"error","message":"Invalid provider","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:45:22.834Z","level":"error","message":"Invalid provider","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:45:48.859Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:48:42.051Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:49:20.839Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:50:42.931Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:50:44.398Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:50:48.842Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:51:22.578Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:52:23.265Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:53:54.033Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:55:28.531Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:55:34.113Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:56:17.408Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T12:57:14.863Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T13:08:47.300Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T13:08:59.359Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T13:11:33.415Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-16T13:12:44.587Z","level":"error","message":"No investments on this campaign found!","method":"GET","service":"user-service","url":"/releaseFunds/64c282565246ff3e97005fd9"}
+{"date":"2023-08-16T13:50:24.313Z","level":"error","message":"Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://docs.atlas.mongodb.com/security-whitelist/","method":"POST","service":"user-service","url":"/getAll"}
+{"date":"2023-08-16T13:50:24.351Z","level":"error","message":"Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://docs.atlas.mongodb.com/security-whitelist/","method":"POST","service":"user-service","url":"/getAll"}
+{"date":"2023-08-16T13:50:45.986Z","level":"error","message":"Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://docs.atlas.mongodb.com/security-whitelist/","method":"POST","service":"user-service","url":"/getAll"}
+{"date":"2023-08-16T13:50:45.990Z","level":"error","message":"Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://docs.atlas.mongodb.com/security-whitelist/","method":"POST","service":"user-service","url":"/getAll"}
+{"date":"2023-08-18T08:07:06.849Z","level":"error","message":"Invalid provider","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-18T08:07:34.016Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-18T09:52:42.937Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-18T09:52:43.595Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
+{"date":"2023-08-18T13:34:17.947Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-18T13:34:18.045Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-18T13:41:39.779Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-18T13:41:39.858Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-18T13:45:15.086Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-18T13:45:15.417Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-19T07:30:59.890Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-19T07:31:01.060Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-19T07:31:24.382Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-19T07:31:24.472Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-19T08:05:24.834Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-19T08:05:24.929Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-19T08:05:49.498Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-19T08:05:49.602Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-21T07:41:47.600Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-21T07:41:47.656Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-21T07:51:28.439Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-21T07:51:28.548Z","level":"error","message":"socialLinks is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-21T07:56:54.581Z","level":"error","message":"res.status is not a function","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-21T07:56:55.505Z","level":"error","message":"res.status is not a function","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-21T08:36:48.348Z","level":"error","message":"Error updating info!","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
+{"date":"2023-08-21T12:13:07.781Z","level":"error","message":"You already have a live campaign","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-08-21T12:38:33.664Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
