@@ -279,3 +279,8 @@
 {"date":"2023-08-21T08:36:48.348Z","level":"error","message":"Error updating info!","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
 {"date":"2023-08-21T12:13:07.781Z","level":"error","message":"You already have a live campaign","method":"POST","service":"user-service","url":"/create"}
 {"date":"2023-08-21T12:38:33.664Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2023-08-22T10:53:21.504Z","level":"error","message":"Operation `webdetails.findOne()` buffering timed out after 10000ms","method":"GET","service":"user-service","url":"/WeDetails/get"}
+{"date":"2023-08-22T10:53:31.578Z","level":"error","message":"Operation `webdetails.findOne()` buffering timed out after 10000ms","method":"GET","service":"user-service","url":"/WeDetails/get"}
+{"date":"2023-08-23T12:48:07.295Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
+{"date":"2023-08-23T13:09:48.615Z","level":"error","message":"Unexpected token o in JSON at position 1","method":"PUT","service":"user-service","url":"/update"}
+{"date":"2023-08-23T14:09:51.258Z","level":"error","message":"No investments on this campaign found!","method":"GET","service":"user-service","url":"/releaseFunds/64c27f945246ff3e97005fb6"}

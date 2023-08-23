@@ -26,14 +26,14 @@ const create = async (req, res) => {
       equity,
       slug,
     } = req.body;
-    
+
     const prevCampaign = await Project.findOne({
       creator: req.user._id,
-      status: 'approved'
-    })
-    
-    if(prevCampaign){
-      return ErrorHandler("You already have a live campaign", 401, req, res)
+      status: "approved",
+    });
+
+    if (prevCampaign) {
+      return ErrorHandler("You already have a live campaign", 401, req, res);
     }
 
     const user = req.user._id;
@@ -95,7 +95,7 @@ const update = async (req, res) => {
         projectCategory,
         imageUrl,
         // videoUrl,
-        rewards: JSON.parse(rewards),
+        rewards,
         // creatorBio,
         // socialMediaLinks,
         // additionalImageUrls,
@@ -271,7 +271,15 @@ const getInvested = async (req, res) => {
     if (!campaigns) {
       return ErrorHandler("Error fetching campaigns", 400, req, res);
     }
-    return SuccessHandler("Campaiigns fetched!", 200, res);
+    return SuccessHandler(
+      {
+        message: "Campaiigns fetched!",
+        campaigns,
+        investments,
+      },
+      200,
+      res
+    );
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
@@ -579,7 +587,6 @@ const getRequestedPayoutCampaigns = async (req, res) => {
     return ErrorHandler(error.message, 500, req, res);
   }
 };
-
 
 module.exports = {
   create,
