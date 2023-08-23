@@ -964,6 +964,18 @@ const addToFeatured = async (req, res) => {
   }
 };
 
+const getProfile = async(req, res) => {
+  // #swagger.tags = ['admin']
+  try {
+    return SuccessHandler({
+      message: "Profile fetched!",
+      profile: req.user
+    }, 200, res)
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+}
+
 module.exports = {
   approveCampaign,
   getCampaigns,
@@ -984,4 +996,5 @@ module.exports = {
   createInvestor,
   userStats,
   addToFeatured,
+  getProfile
 };
