@@ -1,5 +1,6 @@
 const Investment = require("../models/Campaign/investments");
 const Project = require("../models/Campaign/projects");
+const creatorProfile = require("../models/User/creatorProfile");
 const User = require("../models/User/user");
 const ErrorHandler = require("../utils/ErrorHandler");
 const SuccessHandler = require("../utils/SuccessHandler");
@@ -165,18 +166,42 @@ const getAll = async (req, res) => {
         path: "investment",
         populate: "investor",
       });
+    Promise.all(
+      campaigns.map(async (val, ind) => {
+        const profile = await creatorProfile.findOne({
+          creator: val.creator._id,
+        });
+        let data = {campaign: val, creatorProfile: profile}
+        // val.creatorProfile = profile;
+        return data
+      })
+    )
+      .then((result) => {
+        console.log(result)
+        return SuccessHandler(
+          {
+            message: "Campaigns fetched!",
+            campaigns: result,
+          },
+          200,
+          res
+        );
+      })
+      .catch((error) => {
+        return ErrorHandler(error.message, 500, req, res);
+      });
 
-    if (!campaigns) {
-      return ErrorHandler("Error fetching campaigns", 400, req, res);
-    }
-    return SuccessHandler(
-      {
-        message: "Campaiigns fetched!",
-        campaigns,
-      },
-      200,
-      res
-    );
+    // if (!campaigns) {
+    //   return ErrorHandler("Error fetching campaigns", 400, req, res);
+    // }
+    // return SuccessHandler(
+    //   {
+    //     message: "Campaiigns fetched!",
+    //     campaigns,
+    //   },
+    //   200,
+    //   res
+    // );
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
@@ -222,17 +247,41 @@ const getMine = async (req, res) => {
         populate: "investor",
       });
 
-    if (!campaigns) {
-      return ErrorHandler("Error fetching campaigns", 400, req, res);
-    }
-    return SuccessHandler(
-      {
-        message: "Campaiigns fetched!",
-        campaigns,
-      },
-      200,
-      res
-    );
+    // if (!campaigns) {
+    //   return ErrorHandler("Error fetching campaigns", 400, req, res);
+    // }
+    // return SuccessHandler(
+    //   {
+    //     message: "Campaiigns fetched!",
+    //     campaigns,
+    //   },
+    //   200,
+    //   res
+    // );
+    Promise.all(
+      campaigns.map(async (val, ind) => {
+        const profile = await creatorProfile.findOne({
+          creator: val.creator._id,
+        });
+        let data = {campaign: val, creatorProfile: profile}
+        // val.creatorProfile = profile;
+        return data
+      })
+    )
+      .then((result) => {
+        console.log(result)
+        return SuccessHandler(
+          {
+            message: "Campaigns fetched!",
+            campaigns: result,
+          },
+          200,
+          res
+        );
+      })
+      .catch((error) => {
+        return ErrorHandler(error.message, 500, req, res);
+      });
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
@@ -268,18 +317,42 @@ const getInvested = async (req, res) => {
         select: "firstName middleName lastName profilePic email",
       })
       .populate("investment");
-    if (!campaigns) {
-      return ErrorHandler("Error fetching campaigns", 400, req, res);
-    }
-    return SuccessHandler(
-      {
-        message: "Campaiigns fetched!",
-        campaigns,
-        investments,
-      },
-      200,
-      res
-    );
+    // if (!campaigns) {
+    //   return ErrorHandler("Error fetching campaigns", 400, req, res);
+    // }
+    // return SuccessHandler(
+    //   {
+    //     message: "Campaiigns fetched!",
+    //     campaigns,
+    //     investments,
+    //   },
+    //   200,
+    //   res
+    // );
+    Promise.all(
+      campaigns.map(async (val, ind) => {
+        const profile = await creatorProfile.findOne({
+          creator: val.creator._id,
+        });
+        let data = {campaign: val, creatorProfile: profile}
+        // val.creatorProfile = profile;
+        return data
+      })
+    )
+      .then((result) => {
+        console.log(result)
+        return SuccessHandler(
+          {
+            message: "Campaigns fetched!",
+            campaigns: result,
+          },
+          200,
+          res
+        );
+      })
+      .catch((error) => {
+        return ErrorHandler(error.message, 500, req, res);
+      });
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
