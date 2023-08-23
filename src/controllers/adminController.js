@@ -658,8 +658,6 @@ const dashboard = async (req, res) => {
   }
 };
 
-
-
 //web details
 const addUpdateWebDetails = async (req, res) => {
   // #swagger.tags = ['admin']
@@ -716,7 +714,11 @@ const addUpdateWebDetails = async (req, res) => {
       if (!updated) {
         return ErrorHandler("Error updating info!", 400, req, res);
       } else {
-        return SuccessHandler("Website Settings Updated Successfully!", 201, res);
+        return SuccessHandler(
+          "Website Settings Updated Successfully!",
+          201,
+          res
+        );
       }
     } else {
       const newWebDetials = new WebDetails({
@@ -964,17 +966,60 @@ const addToFeatured = async (req, res) => {
   }
 };
 
-const getProfile = async(req, res) => {
+const getProfile = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
-    return SuccessHandler({
-      message: "Profile fetched!",
-      profile: req.user
-    }, 200, res)
+    return SuccessHandler(
+      {
+        message: "Profile fetched!",
+        profile: req.user,
+      },
+      200,
+      res
+    );
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
-}
+};
+
+const updateProfile = async (req, res) => {
+  // #swagger.tags = ['admin']
+  try {
+    const { firstName, lastName, email, profilePic } = req.body;
+
+    // let previousProfile = req.user.profilePic;
+
+    // if (req.files.profilePic) {
+
+    // }
+
+    const updated = await User.findByIdAndUpdate(
+      req.user._id,
+      {
+        $set: {
+          firstName,
+          lastName,
+          email,
+          profilePic,
+        },
+      },
+      {
+        new: true,
+      }
+    );
+
+    return SuccessHandler(
+      {
+        message: "Profile updated",
+        user: updated,
+      },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
 
 module.exports = {
   approveCampaign,
@@ -996,5 +1041,6 @@ module.exports = {
   createInvestor,
   userStats,
   addToFeatured,
-  getProfile
+  getProfile,
+  updateProfile,
 };

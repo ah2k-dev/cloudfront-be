@@ -62,6 +62,7 @@ router.route("/weDetails/get").get(admin.getAllWebDetails);
 
 // admin profile
 router.route("/get-profile").get(isAuthenticated, adminAuth, admin.getProfile )
+router.route("/update-profile").put(isAuthenticated, adminAuth, admin.updateProfile)
 
 
 module.exports = router;
