@@ -171,13 +171,13 @@ const getAll = async (req, res) => {
         const profile = await creatorProfile.findOne({
           creator: val.creator._id,
         });
-        let data = {campaign: val, creatorProfile: profile}
+        let data = { campaign: val, creatorProfile: profile };
         // val.creatorProfile = profile;
-        return data
+        return data;
       })
     )
       .then((result) => {
-        console.log(result)
+        console.log(result);
         return SuccessHandler(
           {
             message: "Campaigns fetched!",
@@ -263,13 +263,13 @@ const getMine = async (req, res) => {
         const profile = await creatorProfile.findOne({
           creator: val.creator._id,
         });
-        let data = {campaign: val, creatorProfile: profile}
+        let data = { campaign: val, creatorProfile: profile };
         // val.creatorProfile = profile;
-        return data
+        return data;
       })
     )
       .then((result) => {
-        console.log(result)
+        console.log(result);
         return SuccessHandler(
           {
             message: "Campaigns fetched!",
@@ -334,13 +334,13 @@ const getInvested = async (req, res) => {
         const profile = await creatorProfile.findOne({
           creator: val.creator._id,
         });
-        let data = {campaign: val, creatorProfile: profile}
+        let data = { campaign: val, creatorProfile: profile };
         // val.creatorProfile = profile;
-        return data
+        return data;
       })
     )
       .then((result) => {
-        console.log(result)
+        console.log(result);
         return SuccessHandler(
           {
             message: "Campaigns fetched!",
@@ -593,10 +593,22 @@ const get = async (req, res) => {
           select: "firstName middleName lastName profilePic email",
         },
       });
-    if (!campaign) {
-      return ErrorHandler("Campaign not found", 404, req, res);
-    }
-    return SuccessHandler({ message: "Campaign fetched!", campaign }, 200, res);
+
+    const profile = await creatorProfile.findOne({
+      creator: campaign.creator._id,
+    });
+
+    const result = { campaign: campaign, creatorProfile: profile };
+
+    console.log(result);
+    return SuccessHandler(
+      {
+        message: "Campaign fetched!",
+        campaign: result,
+      },
+      200,
+      res
+    );
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }

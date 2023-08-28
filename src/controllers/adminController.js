@@ -66,24 +66,47 @@ const getCampaigns = async (req, res) => {
     })
       .populate({
         path: "creator",
-        select: "firstName middleName lastName profilePic email",
+        select: "firstName middleName lastName profilePic email ",
       })
       .populate({
         path: "investment",
         populate: "investor",
       });
-
-    if (!campaigns) {
-      return ErrorHandler("Error fetching campaigns", 400, req, res);
-    }
-    return SuccessHandler(
-      {
-        message: "Campaigns fetched!",
-        campaigns,
-      },
-      200,
-      res
-    );
+    Promise.all(
+      campaigns.map(async (val, ind) => {
+        const profile = await creatorProfile.findOne({
+          creator: val.creator._id,
+        });
+        let data = { campaign: val, creatorProfile: profile };
+        // val.creatorProfile = profile;
+        return data;
+      })
+    )
+      .then((result) => {
+        console.log(result);
+        return SuccessHandler(
+          {
+            message: "Campaigns fetched!",
+            campaigns: result,
+          },
+          200,
+          res
+        );
+      })
+      .catch((error) => {
+        return ErrorHandler(error.message, 500, req, res);
+      });
+    // if (!campaigns) {
+    //   return ErrorHandler("Error fetching campaigns", 400, req, res);
+    // }
+    // return SuccessHandler(
+    //   {
+    //     message: "Campaigns fetched!",
+    //     campaigns,
+    //   },
+    //   200,
+    //   res
+    // );
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
