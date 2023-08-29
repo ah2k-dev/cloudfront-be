@@ -11,6 +11,7 @@ const fileUpload = require("express-fileupload");
 const path = require("path");
 const Project = require("./models/Campaign/projects");
 const investorProfile = require("./models/User/investorProfile");
+const creatorProfile = require("./models/User/creatorProfile");
 const Investment = require("./models/Campaign/investments");
 const cron = require("cron").CronJob;
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
@@ -38,7 +39,7 @@ app.use((req, res, next) => {
   next(new ApiError(404, "Not found"));
 });
 
-var job = new cron(
+var closeCampaigns = new cron(
   "* * * * * *",
   async function () {
     const campagins = await Project.find({
@@ -111,6 +112,40 @@ var job = new cron(
   "America/Los_Angeles"
 );
 
-job.start();
+var fetchSocialData = new cron(
+  "* * * * * *",
+  async function (){
+    const allProfiles = await creatorProfile.find({isActive: false})
+    Promise.all(
+      allProfiles.map((val,ind)=>{
+        let socialLinks = val.socialLinks
+        if(socialLinks.length > 0){
+          const insta = socialLinks.find((link)=> {
+            return link.includes("instagram")
+          })
+          const spotify = socialLinks.find((link)=>{
+            return link.includes("spotify")
+          })
+          if(insta){
+            // get insta data 
+          }
+          if(spotify){
+            // get spotify data
+          }
+        }
+      })
+    ).then((result)=>{
+
+    }).catch((error)=>{
+
+    })
+  },
+  null,
+  true,
+  "America/Los_Angeles"
+);
+
+// fetchSocialData.start();
+// closeCampaigns.start();
 
 module.exports = app;
