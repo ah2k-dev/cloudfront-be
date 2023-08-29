@@ -307,7 +307,7 @@ const getInvested = async (req, res) => {
       investor: user,
     }).distinct("_id");
     const campaigns = await Project.find({
-      investments: { $in: investments },
+      investment: { $in: investments },
       ...statusFilter,
       ...searchFilter,
       isActive: true,
