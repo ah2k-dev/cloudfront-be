@@ -13,6 +13,7 @@ const Project = require("./models/Campaign/projects");
 const investorProfile = require("./models/User/investorProfile");
 const creatorProfile = require("./models/User/creatorProfile");
 const Investment = require("./models/Campaign/investments");
+const { spotifyFunction } = require("./functions/socialMediaFollowersFunction");
 const cron = require("cron").CronJob;
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
@@ -114,31 +115,32 @@ var closeCampaigns = new cron(
 
 var fetchSocialData = new cron(
   "* * * * * *",
-  async function (){
-    const allProfiles = await creatorProfile.find({isActive: false})
+  async function () {
+    const allProfiles = await creatorProfile.find({ isActive: false });
     Promise.all(
-      allProfiles.map((val,ind)=>{
-        let socialLinks = val.socialLinks
-        if(socialLinks.length > 0){
-          const insta = socialLinks.find((link)=> {
-            return link.includes("instagram")
-          })
-          const spotify = socialLinks.find((link)=>{
-            return link.includes("spotify")
-          })
-          if(insta){
-            // get insta data 
+      allProfiles.map((val, ind) => {
+        let socialLinks = val.socialLinks;
+        if (socialLinks?.length > 0) {
+          const insta = socialLinks.find((link) => {
+            return link.includes("instagram");
+          });
+          const spotify = socialLinks.find((link) => {
+            return link.includes("spotify");
+          });
+          if (insta) {
+            // get insta data
           }
-          if(spotify){
+          if (spotify) {
             // get spotify data
           }
+          spotifyFunction(
+            "https://open.spotify.com/artist/2oSONSC9zQ4UonDKnLqksx?si=Jvw9K8hLTD2K7lgZRPcOPA"
+          );
         }
       })
-    ).then((result)=>{
-
-    }).catch((error)=>{
-
-    })
+    )
+      .then((result) => {})
+      .catch((error) => {});
   },
   null,
   true,
