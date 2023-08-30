@@ -667,27 +667,27 @@ const getTransactions = async (req, res) => {
           path: "investor",
           select: "firstName lastName email role createdAt profilePic",
         },
-      })
+      });
 
-      let allInvestments= [];
+      let allInvestments = [];
 
       // console.log(campaigns);
 
       campaigns.forEach((campaign) => {
         campaign.investment.forEach((investment) => {
-            allInvestments.push({
-              ...investment._doc,
-              campaignTitle: campaign.title,
-              campaignId: campaign._id,
-              campaignCreator: campaign.creator,
-            });
+          allInvestments.push({
+            ...investment._doc,
+            campaignTitle: campaign.title,
+            campaignId: campaign._id,
+            campaignCreator: campaign.creator,
+          });
         });
       });
 
       return SuccessHandler(
         {
           message: `Data fetched successfully!`,
-          transactions: allInvestments
+          transactions: allInvestments,
         },
         200,
         res
@@ -697,7 +697,7 @@ const getTransactions = async (req, res) => {
       const transactions = await Investment.find({}).populate({
         path: "investor",
         select: "firstName lastName email role createdAt profilePic",
-      })
+      });
 
       Promise.all(
         transactions.map(async (transaction) => {
@@ -737,6 +737,144 @@ const getTransactions = async (req, res) => {
   }
 };
 
+// umer======> work
+const getAllInvestors = async (req, res) => {
+  // #swagger.tags = ['user']
+
+  const profilePerPage = 3;
+  const pageNumber = Number(req.query.page) || 1;
+  const skipProfiles = (pageNumber - 1) * profilePerPage;
+
+  try {
+    let investors;
+    if (req.body.firstName || req.body.lastName) {
+      investors = await investorProfile
+        .find({ investor: { $ne: null } })
+        .populate({
+          path: "investor",
+          match: {
+            // _id: { $ne: null },
+            firstName: {
+              $regex: req.body.firstName,
+              $options: "i",
+            },
+          },
+        });
+      console.log("Filter");
+    } else {
+      console.log("No Filter");
+      investors = investors = await investorProfile
+        .find()
+        .populate("investor")
+        .skip(skipProfiles)
+        .limit(profilePerPage);
+    }
+
+    const countInvestors = investors.length;
+    return SuccessHandler(
+      {
+        message: `Investors fetched successfully!`,
+        countInvestors,
+        investors: investors,
+        // filterInvestors,
+      },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
+const getAllCreators = async (req, res) => {
+  // #swagger.tags = ['user']
+
+  const profilePerPage = 8;
+  const pageNumber = Number(req.query.page) || 1;
+  const skipProfiles = (pageNumber - 1) * profilePerPage;
+
+  const firstNameFilter = req.body.firstName
+    ? {
+        firstName: {
+          $regex: req.body.firstName,
+          $options: "i",
+        },
+      }
+    : {};
+
+  try {
+    const creators = await creatorProfile
+      .find()
+      .populate("creator")
+      .skip(skipProfiles)
+      .limit(profilePerPage);
+
+    const countCreators = creators.length;
+    return SuccessHandler(
+      {
+        message: `Creators fetched successfully!`,
+        countCreators,
+        creators: creators,
+        // filterInvestors,
+      },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
+const getInvestorProfile = async (req, res) => {
+  // #swagger.tags = ['user']
+  const investorId = req.params.id;
+
+  try {
+    const investor = await investorProfile
+      .findOne({ investor: investorId })
+      .populate("investor");
+    if (!investor) {
+      return ErrorHandler("Investor Profile does not exist", 500, req, res);
+    }
+
+    return SuccessHandler(
+      {
+        message: `Investor Profile fetched successfully!`,
+        investor,
+      },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
+const getCreatorProfile = async (req, res) => {
+  // #swagger.tags = ['user']
+  const creatorId = req.params.id;
+
+  try {
+    const creator = await creatorProfile
+      .findOne({ creator: creatorId })
+      .populate("creator");
+    if (!creator) {
+      return ErrorHandler("Creator Profile does not exist", 500, req, res);
+    }
+
+    return SuccessHandler(
+      {
+        message: `Creator Profile fetched successfully!`,
+        creator,
+      },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   updatePassword,
   completeInvestorProfile,
@@ -747,4 +885,8 @@ module.exports = {
   globalSearch,
   userStats,
   getTransactions,
+  getAllInvestors,
+  getAllCreators,
+  getInvestorProfile,
+  getCreatorProfile,
 };

@@ -114,31 +114,32 @@ var closeCampaigns = new cron(
 
 var fetchSocialData = new cron(
   "* * * * * *",
-  async function (){
-    const allProfiles = await creatorProfile.find({isActive: false})
+  async function () {
+    // why is isActive: false???????
+    const allProfiles = await creatorProfile.find();
     Promise.all(
-      allProfiles.map((val,ind)=>{
-        let socialLinks = val.socialLinks
-        if(socialLinks.length > 0){
-          const insta = socialLinks.find((link)=> {
-            return link.includes("instagram")
-          })
-          const spotify = socialLinks.find((link)=>{
-            return link.includes("spotify")
-          })
-          if(insta){
-            // get insta data 
+      allProfiles.map((val, ind) => {
+        let socialLinks = val.socialMediaLinks;
+        if (socialLinks?.length > 0) {
+          const insta = socialLinks.find((link) => {
+            return link?.includes("instagram");
+          });
+          const spotify = socialLinks.find((link) => {
+            return link?.includes("spotify");
+          });
+          if (insta) {
+            // get insta data
+            console.log(insta);
           }
-          if(spotify){
+          if (spotify) {
+            console.log(spotify);
             // get spotify data
           }
         }
       })
-    ).then((result)=>{
-
-    }).catch((error)=>{
-
-    })
+    )
+      .then((result) => {})
+      .catch((error) => {});
   },
   null,
   true,
