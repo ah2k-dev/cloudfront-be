@@ -13,7 +13,6 @@ const Project = require("./models/Campaign/projects");
 const investorProfile = require("./models/User/investorProfile");
 const creatorProfile = require("./models/User/creatorProfile");
 const Investment = require("./models/Campaign/investments");
-const { spotifyFunction } = require("./functions/socialMediaFollowersFunction");
 const cron = require("cron").CronJob;
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
@@ -116,14 +115,11 @@ var closeCampaigns = new cron(
 var fetchSocialData = new cron(
   "* * * * * *",
   async function () {
-    // why is isActive: false???????
-    const allProfiles = await creatorProfile.find();
-  async function () {
     const allProfiles = await creatorProfile.find({ isActive: false });
     Promise.all(
       allProfiles.map((val, ind) => {
-        let socialLinks = val.socialMediaLinks;
-        if (socialLinks?.length > 0) {
+        let socialLinks = val.socialLinks;
+        if (socialLinks.length > 0) {
           const insta = socialLinks.find((link) => {
             return link.includes("instagram");
           });
@@ -133,14 +129,10 @@ var fetchSocialData = new cron(
           if (insta) {
             // get insta data
           }
-
           if (spotify) {
             // get spotify data
           }
         }
-        spotifyFunction(
-          "https://open.spotify.com/artist/2oSONSC9zQ4UonDKnLqksx?si=Jvw9K8hLTD2K7lgZRPcOPA"
-        );
       })
     )
       .then((result) => {})
