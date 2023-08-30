@@ -126,6 +126,7 @@ const completeCreatorProfile = async (req, res) => {
       privacyPolicy,
       iban,
       profilepic,
+      instagramUsername,
     } = req.body;
 
     const prvProfile = await creatorProfile.findOne({ creator: req.user._id });
@@ -155,6 +156,7 @@ const completeCreatorProfile = async (req, res) => {
       termsAndConditions,
       privacyPolicy,
       iban,
+      instagramUsername,
     });
     await newProfile.save();
     await User.findByIdAndUpdate(req.user._id, {
@@ -241,6 +243,7 @@ const updateCreatorProfile = async (req, res) => {
       privacyPolicy,
       iban,
       profilepic,
+      instagramUsername,
     } = req.body;
     const updated = await creatorProfile.findOneAndUpdate(
       {
@@ -264,6 +267,7 @@ const updateCreatorProfile = async (req, res) => {
           termsAndConditions,
           privacyPolicy,
           iban,
+          instagramUsername,
         },
       }
     );

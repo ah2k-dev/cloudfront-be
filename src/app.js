@@ -15,6 +15,10 @@ const creatorProfile = require("./models/User/creatorProfile");
 const Investment = require("./models/Campaign/investments");
 const cron = require("cron").CronJob;
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const {
+  spotifyFunction,
+  fetchInstagramFollowers,
+} = require("./functions/socialMediaFollowersFunction");
 
 // Middlewares
 app.use(express.json());
@@ -113,37 +117,43 @@ var closeCampaigns = new cron(
 );
 
 var fetchSocialData = new cron(
-  "* * * * * *",
+  "0 * * * * *",
   async function () {
     const allProfiles = await creatorProfile.find({ isActive: false });
     Promise.all(
-      allProfiles.map((val, ind) => {
-        let socialLinks = val.socialLinks;
+      allProfiles.map(async (val, ind) => {
+        let socialLinks = val.socialMediaLinks;
         if (socialLinks.length > 0) {
-          const insta = socialLinks.find((link) => {
-            return link.includes("instagram");
-          });
           const spotify = socialLinks.find((link) => {
             return link.includes("spotify");
           });
-          if (insta) {
-            // get insta data
-          }
           if (spotify) {
-            // get spotify data
+            const spotifyData = await spotifyFunction(spotify);
+            await creatorProfile.findByIdAndUpdate(val._id, {
+              $set: {
+                spotifyData: spotifyData,
+              },
+            });
           }
         }
+        let instaUsername = val?.instagramUsername;
+        if (instaUsername) {
+          const instaData = await fetchInstagramFollowers(instaUsername);
+          await creatorProfile.findByIdAndUpdate(val._id, {
+            $set: {
+              instaData: instaData,
+            },
+          });
+        }
       })
-    )
-      .then((result) => {})
-      .catch((error) => {});
+    );
   },
   null,
   true,
   "America/Los_Angeles"
 );
 
-// fetchSocialData.start();
+fetchSocialData.start();
 // closeCampaigns.start();
 
 module.exports = app;
