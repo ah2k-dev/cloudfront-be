@@ -21,7 +21,8 @@ const formatFollowers = (number) => {
 
 const spotifyFunction = async (link) => {
   console.log(link);
-  const spotifyPattern = /^(https?:\/\/open\.spotify\.com|spotify)(\/(track|album|artist|playlist|user\/[a-zA-Z0-9]+\/playlist)\/[a-zA-Z0-9]+)$/;
+  const spotifyPattern =
+    /^(https?:\/\/open\.spotify\.com|spotify)(\/(track|album|artist|playlist|user\/[a-zA-Z0-9]+\/playlist)\/[a-zA-Z0-9]+)$/;
 
   const tokenResponse = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
@@ -64,7 +65,7 @@ const spotifyFunction = async (link) => {
       const artistData = await artistResponse.json();
       const followers = artistData.followers.total;
       const formattedFollowers = formatFollowers(followers);
-      console.log(formattedFollowers);
+      return formattedFollowers;
     } else {
       console.error("The provided link is not from Spotify");
     }
@@ -91,9 +92,7 @@ const fetchInstagramFollowers = async (name) => {
     // Fetch and print Actor results from the run's dataset (if any)
     console.log("Results from dataset");
     const { items } = await client.dataset(run.defaultDatasetId).listItems();
-    items.forEach((item) => {
-      console.dir(item);
-    });
+    return JSON.stringify(items);
   } catch (error) {
     console.error("Error:", error);
   }
@@ -131,11 +130,12 @@ const fetchInstagramFollowers = async (name) => {
 // };
 
 // Example usage
-fetchInstagramFollowers("iamzubairarif");
-spotifyFunction(
-  "https://open.spotify.com/artist/2oSONSC9zQ4UonDKnLqksx?si=Jvw9K8hLTD2K7lgZRPcOPA"
-);
+// fetchInstagramFollowers("iamzubairarif");
+// spotifyFunction(
+//   "https://open.spotify.com/artist/2oSONSC9zQ4UonDKnLqksx?si=Jvw9K8hLTD2K7lgZRPcOPA"
+// );
 
 module.exports = {
   spotifyFunction,
+  fetchInstagramFollowers,
 };

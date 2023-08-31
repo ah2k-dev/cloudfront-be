@@ -4,6 +4,12 @@ const router = require("express").Router();
 
 // get
 router.route("/").get(isAuthenticated, user.getProfile);
+// umer===> work
+router.route("/investors").post(isAuthenticated, user.getAllInvestors);
+router.route("/creators").post(isAuthenticated, user.getAllCreators);
+router.route("/investor/:id").get(isAuthenticated, user.getInvestorProfile);
+router.route("/creator/:id").get(isAuthenticated, user.getCreatorProfile);
+
 // post
 router
   .route("/completeInvestorProfile")
@@ -11,7 +17,7 @@ router
 router
   .route("/completeCreatorProfile")
   .post(isAuthenticated, user.completeCreatorProfile);
-router.route("/globalSearch").post(isAuthenticated, user.globalSearch)
+router.route("/globalSearch").post(isAuthenticated, user.globalSearch);
 // put
 router.route("/updatePassword").put(isAuthenticated, user.updatePassword);
 router
@@ -21,10 +27,9 @@ router
   .route("/updateCreatorProfile")
   .put(isAuthenticated, user.updateCreatorProfile);
 
-router
-  .route("/userStats", isAuthenticated, user.userStats)
+router.route("/userStats", isAuthenticated, user.userStats);
 
-router.route("/transactions").get(isAuthenticated, user.getTransactions)
+router.route("/transactions").get(isAuthenticated, user.getTransactions);
 
 // delete
 

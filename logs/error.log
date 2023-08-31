@@ -178,7 +178,6 @@
 {"date":"2023-08-07T09:55:03.982Z","level":"error","message":"No profile found. Complete your profile!","method":"GET","service":"user-service","url":"/"}
 {"date":"2023-08-07T12:42:20.007Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
 {"date":"2023-08-07T12:42:20.020Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
-<<<<<<< Updated upstream
 {"date":"2023-08-12T09:50:26.337Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
 {"date":"2023-08-12T09:50:26.815Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
 {"date":"2023-08-12T09:50:27.240Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
@@ -229,7 +228,6 @@
 {"date":"2023-08-12T11:27:41.815Z","level":"error","message":"Cannot read properties of undefined (reading 'push')","method":"GET","service":"user-service","url":"/transactions"}
 {"date":"2023-08-12T11:27:42.825Z","level":"error","message":"Cannot read properties of undefined (reading 'push')","method":"GET","service":"user-service","url":"/transactions"}
 {"date":"2023-08-12T11:27:43.724Z","level":"error","message":"Cannot read properties of undefined (reading 'push')","method":"GET","service":"user-service","url":"/transactions"}
-<<<<<<< Updated upstream
 {"date":"2023-08-16T12:43:38.393Z","level":"error","message":"Invalid provider","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
 {"date":"2023-08-16T12:45:18.148Z","level":"error","message":"Invalid provider","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
 {"date":"2023-08-16T12:45:22.834Z","level":"error","message":"Invalid provider","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
@@ -286,112 +284,21 @@
 {"date":"2023-08-23T12:48:07.295Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
 {"date":"2023-08-23T13:09:48.615Z","level":"error","message":"Unexpected token o in JSON at position 1","method":"PUT","service":"user-service","url":"/update"}
 {"date":"2023-08-23T14:09:51.258Z","level":"error","message":"No investments on this campaign found!","method":"GET","service":"user-service","url":"/releaseFunds/64c27f945246ff3e97005fb6"}
-=======
-=======
-{"date":"2023-08-11T10:13:37.909Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T10:13:37.922Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T10:14:29.976Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T10:14:29.988Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T10:15:28.873Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T10:15:28.889Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T10:52:56.892Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T10:52:56.898Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T10:53:32.149Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T10:53:32.373Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T11:04:08.058Z","level":"error","message":"Campaign not found","method":"GET","service":"user-service","url":"/get/64bbaffe1e3ec1fad0008964"}
-{"date":"2023-08-11T11:04:08.364Z","level":"error","message":"Campaign not found","method":"GET","service":"user-service","url":"/get/64bbaffe1e3ec1fad0008964"}
-{"date":"2023-08-11T11:04:28.433Z","level":"error","message":"Campaign not found","method":"GET","service":"user-service","url":"/get/64d22aca99f4e9ddeaaa0ecc"}
-{"date":"2023-08-11T11:04:29.269Z","level":"error","message":"Campaign not found","method":"GET","service":"user-service","url":"/get/64d22aca99f4e9ddeaaa0ecc"}
-{"date":"2023-08-11T11:05:59.980Z","level":"error","message":"Campaign not found","method":"GET","service":"user-service","url":"/get/64d227b899f4e9ddeaaa0ca3"}
-{"date":"2023-08-11T11:06:00.288Z","level":"error","message":"Campaign not found","method":"GET","service":"user-service","url":"/get/64d227b899f4e9ddeaaa0ca3"}
-{"date":"2023-08-11T11:07:07.876Z","level":"error","message":"Campaign not found","method":"GET","service":"user-service","url":"/get/64d227b899f4e9ddeaaa0ca3"}
-{"date":"2023-08-11T11:07:08.182Z","level":"error","message":"Campaign not found","method":"GET","service":"user-service","url":"/get/64d227b899f4e9ddeaaa0ca3"}
-{"date":"2023-08-11T11:08:04.088Z","level":"error","message":"Campaign not found","method":"GET","service":"user-service","url":"/get/64d227b899f4e9ddeaaa0ca3"}
-{"date":"2023-08-11T11:08:04.703Z","level":"error","message":"Campaign not found","method":"GET","service":"user-service","url":"/get/64d227b899f4e9ddeaaa0ca3"}
-{"date":"2023-08-11T11:12:40.692Z","level":"error","message":"Campaign not found","method":"GET","service":"user-service","url":"/get/64bbaffe1e3ec1fad0008964"}
-{"date":"2023-08-11T11:12:40.913Z","level":"error","message":"Campaign not found","method":"GET","service":"user-service","url":"/get/64bbaffe1e3ec1fad0008964"}
-{"date":"2023-08-11T11:20:22.690Z","level":"error","message":"icon is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
-{"date":"2023-08-11T11:32:41.616Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T11:32:41.626Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T11:50:14.670Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T11:50:15.274Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T11:50:15.892Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T11:50:16.408Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T11:53:15.171Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T11:53:15.210Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-11T11:55:44.089Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T11:55:44.696Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T11:55:45.314Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T11:55:45.924Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T13:27:31.263Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
-{"date":"2023-08-11T13:35:43.159Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T13:35:43.604Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T13:35:44.044Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T13:35:44.551Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T13:36:33.573Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T13:36:34.036Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T13:36:34.472Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T13:36:34.953Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T13:37:59.653Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T13:38:00.089Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T13:38:00.525Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T13:38:00.975Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T14:37:46.685Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T14:37:47.223Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T14:37:47.838Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T14:37:48.429Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T14:38:03.377Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T14:38:03.861Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T14:38:04.392Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T14:38:04.840Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T15:01:48.582Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T15:01:49.070Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T15:01:49.513Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-11T15:01:49.991Z","level":"error","message":"Invalid $project :: caused by :: Unrecognized parameter to $map: addFields","method":"GET","service":"user-service","url":"/transactions"}
-{"date":"2023-08-12T08:27:16.852Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/releaseFunds/undefined"}
-{"date":"2023-08-12T08:29:47.074Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/releaseFunds/undefined"}
-{"date":"2023-08-12T08:29:50.967Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/releaseFunds/undefined"}
-{"date":"2023-08-12T08:30:16.466Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/releaseFunds/undefined"}
-{"date":"2023-08-12T08:33:10.247Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/releaseFunds/undefined"}
-{"date":"2023-08-12T08:33:44.961Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/releaseFunds/undefined"}
-{"date":"2023-08-15T07:37:00.525Z","level":"error","message":"icon is not defined","method":"POST","service":"user-service","url":"/webDetails/addUpdate"}
->>>>>>> Stashed changes
->>>>>>> Stashed changes
-{"date":"2023-08-26T11:26:18.984Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
-{"date":"2023-08-28T07:35:11.884Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-28T07:35:12.063Z","level":"error","message":"Cast to ObjectId failed for value \"undefined\" (type string) at path \"_id\" for model \"project\"","method":"GET","service":"user-service","url":"/get/undefined"}
-{"date":"2023-08-28T07:57:32.893Z","level":"error","message":"campaigns is not defined","method":"GET","service":"user-service","url":"/get/6499755aa7b8bc432c022f15"}
-{"date":"2023-08-28T07:57:33.502Z","level":"error","message":"campaigns is not defined","method":"GET","service":"user-service","url":"/get/6499755aa7b8bc432c022f15"}
-{"date":"2023-08-28T07:58:05.856Z","level":"error","message":"campaign.map is not a function","method":"GET","service":"user-service","url":"/get/6499755aa7b8bc432c022f15"}
-{"date":"2023-08-28T07:58:06.497Z","level":"error","message":"campaign.map is not a function","method":"GET","service":"user-service","url":"/get/6499755aa7b8bc432c022f15"}
-{"date":"2023-08-28T07:59:04.664Z","level":"error","message":"campaign.map is not a function","method":"GET","service":"user-service","url":"/get/64b25aed383f2c34b1bbc77d"}
-{"date":"2023-08-28T07:59:05.264Z","level":"error","message":"campaign.map is not a function","method":"GET","service":"user-service","url":"/get/64b25aed383f2c34b1bbc77d"}
-{"date":"2023-08-28T09:40:36.902Z","level":"error","message":"No investments on this campaign found!","method":"GET","service":"user-service","url":"/releaseFunds/64c282565246ff3e97005fd9"}
-{"date":"2023-08-28T09:40:41.760Z","level":"error","message":"No investments on this campaign found!","method":"GET","service":"user-service","url":"/releaseFunds/64c282565246ff3e97005fd9"}
-{"date":"2023-08-28T11:55:00.576Z","level":"error","message":"Regular expression is invalid: \\ at end of pattern","method":"POST","service":"user-service","url":"/getAll"}
-{"date":"2023-08-29T14:37:11.478Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
-{"date":"2023-08-29T14:37:12.212Z","level":"error","message":"You are registered with local","method":"POST","service":"user-service","url":"/thirdPartyAuth"}
-{"date":"2023-08-30T09:49:17.098Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
-{"date":"2023-08-30T14:54:31.281Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
-{"date":"2023-08-30T14:54:31.286Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
-{"date":"2023-08-30T14:55:53.095Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
-{"date":"2023-08-30T14:55:53.157Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
-{"date":"2023-08-30T14:59:05.690Z","level":"error","message":"No profile found. Complete your profile!","method":"GET","service":"user-service","url":"/"}
-{"date":"2023-08-30T14:59:06.118Z","level":"error","message":"No profile found. Complete your profile!","method":"GET","service":"user-service","url":"/"}
-{"date":"2023-08-30T15:00:21.028Z","level":"error","message":"No profile found. Complete your profile!","method":"GET","service":"user-service","url":"/"}
-{"date":"2023-08-30T15:01:05.282Z","level":"error","message":"No profile found. Complete your profile!","method":"GET","service":"user-service","url":"/"}
-{"date":"2023-08-30T15:01:05.802Z","level":"error","message":"No profile found. Complete your profile!","method":"GET","service":"user-service","url":"/"}
-{"date":"2023-08-30T15:02:38.476Z","level":"error","message":"Profile already exists. Update instead of creating new","method":"POST","service":"user-service","url":"/completeCreatorProfile"}
-{"date":"2023-08-30T15:08:40.157Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
-{"date":"2023-08-30T15:08:41.491Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/requestEmailToken"}
-{"date":"2023-08-30T15:09:04.838Z","level":"error","message":"Invalid token","method":"POST","service":"user-service","url":"/verifyEmail"}
-{"date":"2023-08-30T15:09:21.344Z","level":"error","message":"Invalid token","method":"POST","service":"user-service","url":"/verifyEmail"}
-{"date":"2023-08-30T15:09:23.285Z","level":"error","message":"Invalid token","method":"POST","service":"user-service","url":"/verifyEmail"}
-{"date":"2023-08-30T15:10:06.687Z","level":"error","message":"Invalid token","method":"POST","service":"user-service","url":"/verifyEmail"}
-{"date":"2023-08-30T15:10:08.106Z","level":"error","message":"Invalid token","method":"POST","service":"user-service","url":"/verifyEmail"}
-{"date":"2023-08-30T15:10:23.807Z","level":"error","message":"Invalid token","method":"POST","service":"user-service","url":"/verifyEmail"}
-{"date":"2023-08-30T15:10:46.227Z","level":"error","message":"No profile found. Complete your profile!","method":"GET","service":"user-service","url":"/"}
-{"date":"2023-08-30T15:10:46.696Z","level":"error","message":"No profile found. Complete your profile!","method":"GET","service":"user-service","url":"/"}
-{"date":"2023-08-30T15:11:29.431Z","level":"error","message":"No profile found. Complete your profile!","method":"GET","service":"user-service","url":"/"}
-{"date":"2023-08-30T15:11:29.940Z","level":"error","message":"No profile found. Complete your profile!","method":"GET","service":"user-service","url":"/"}
-{"date":"2023-08-30T15:25:36.184Z","level":"error","message":"project validation failed: duration.0: Cast to [date] failed for value \"[ '2023-08-30 to 2023-09-29' ]\" (type string) at path \"duration.0\" because of \"CastError\"","method":"POST","service":"user-service","url":"/create"}
+{"date":"2023-08-30T14:01:18.827Z","level":"error","message":"Cannot populate path `investorprofiles` because it is not in your schema. Set the `strictPopulate` option to false to override.","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T14:02:36.840Z","level":"error","message":"Cannot populate path `investor` because it is not in your schema. Set the `strictPopulate` option to false to override.","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T14:16:32.405Z","level":"error","message":"filterInvestors is not defined","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T14:16:36.474Z","level":"error","message":"filterInvestors is not defined","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T14:47:01.165Z","level":"error","message":"firstName is not defined","method":"POST","service":"user-service","url":"/investors?page=3"}
+{"date":"2023-08-30T15:03:38.780Z","level":"error","message":"investors.populate is not a function","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T15:03:42.915Z","level":"error","message":"investors.populate is not a function","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T15:05:23.759Z","level":"error","message":"investors.populate is not a function","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T15:08:47.881Z","level":"error","message":"investors.populate is not a function","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T15:09:53.503Z","level":"error","message":"utils.populate: invalid path. Expected string. Got typeof `undefined`","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T15:09:57.265Z","level":"error","message":"utils.populate: invalid path. Expected string. Got typeof `undefined`","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T15:10:26.098Z","level":"error","message":"utils.populate: invalid path. Expected string. Got typeof `undefined`","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T15:11:33.183Z","level":"error","message":"investors.populate is not a function","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T15:29:54.481Z","level":"error","message":"Cast to ObjectId failed for value \"$investor\" (type string) at path \"_id\" for model \"user\"","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T15:30:18.201Z","level":"error","message":"Cast to ObjectId failed for value \"investor\" (type string) at path \"_id\" for model \"user\"","method":"POST","service":"user-service","url":"/investors"}
+{"date":"2023-08-30T16:15:47.507Z","level":"error","message":"investor is not defined","method":"GET","service":"user-service","url":"/creator/649a878de781cdc91031b80e"}
+{"date":"2023-08-30T16:16:43.608Z","level":"error","message":"investor is not defined","method":"GET","service":"user-service","url":"/creator/649b335b1f7380385d28e11a"}
+{"date":"2023-08-30T16:19:13.321Z","level":"error","message":"investor is not defined","method":"GET","service":"user-service","url":"/creator/649b335b1f7380385d28e11a"}
