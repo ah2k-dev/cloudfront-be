@@ -20,34 +20,34 @@ const formatFollowers = (number) => {
 };
 
 const spotifyFunction = async (link) => {
-  console.log(link);
-  const spotifyPattern =
-    /^(https?:\/\/open\.spotify\.com|spotify)(\/(track|album|artist|playlist|user\/[a-zA-Z0-9]+\/playlist)\/[a-zA-Z0-9]+)$/;
+  try {
+    const tokenResponse = await fetch(
+      "https://accounts.spotify.com/api/token",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          //   "grant_type"="client_credentials&client_id=your-client-id&client_secret=your-client-secret"
+          Authorization: `Basic ${btoa(
+            `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
+          )}`,
+        },
+        body: "grant_type=client_credentials",
+      }
+    );
+    // console.log("spotify response", tokenResponse);
+    if (!tokenResponse) {
+      throw new Error("Failed to fetch access token");
+    }
 
-  const tokenResponse = await fetch("https://accounts.spotify.com/api/token", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      //   "grant_type"="client_credentials&client_id=your-client-id&client_secret=your-client-secret"
-      Authorization: `Basic ${btoa(
-        `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
-      )}`,
-    },
-    body: "grant_type=client_credentials",
-  });
-  console.log(tokenResponse);
-  if (!tokenResponse.ok) {
-    throw new Error("Failed to fetch access token");
-  }
+    const tokenData = await tokenResponse.json();
+    const accessToken = tokenData.access_token;
+    // console.log(accessToken);
 
-  const tokenData = await tokenResponse.json();
-  const accessToken = tokenData.access_token;
-  console.log(accessToken);
-
-  if (link) {
-    const spotifyLink = link?.split("?")[0]; // Remove query parameters
-    if (spotifyLink.match(spotifyPattern) !== null) {
+    if (link) {
+      const spotifyLink = link?.split("?")[0];
       const spotifyId = spotifyLink.split("/")[4];
+
       const artistResponse = await fetch(
         `https://api.spotify.com/v1/artists/${spotifyId}`,
         {
@@ -66,21 +66,26 @@ const spotifyFunction = async (link) => {
       const followers = artistData.followers.total;
       const formattedFollowers = formatFollowers(followers);
       return formattedFollowers;
-    } else {
-      console.error("The provided link is not from Spotify");
+      // } else {
+      //   console.error("The provided link is not from Spotify");
+      // }
     }
+  } catch (err) {
+    console.log(err);
   }
 };
 
-const fetchInstagramFollowers = async (name) => {
+const fetchInstagramFollowers = async (link) => {
   // Initialize the ApifyClient with API token
+  // console.log(link.split("/")[3]);
   const client = new ApifyClient({
     token: "apify_api_t6hlz6cuOncNgAjutNHHBdFOSivM0W0WL1uF",
   });
 
+  const instagramUsername = link?.split("/")[3];
   // Prepare Actor input
   const input = {
-    usernames: [name],
+    usernames: [instagramUsername],
   };
 
   try {
@@ -90,51 +95,17 @@ const fetchInstagramFollowers = async (name) => {
       .call(input);
 
     // Fetch and print Actor results from the run's dataset (if any)
-    console.log("Results from dataset");
+
     const { items } = await client.dataset(run.defaultDatasetId).listItems();
-    return JSON.stringify(items);
+    const formattedFollowers = formatFollowers(items[0]?.followersCount);
+
+    return formattedFollowers;
   } catch (error) {
     console.error("Error:", error);
   }
 };
 
-// const fetchGoogleSearchResults = async () => {
-//   // Specify your API token
-//   // (find it at https://console.apify.com/account#/integrations)
-//   const myToken = "apify_api_t6hlz6cuOncNgAjutNHHBdFOSivM0W0WL1uF";
-
-//   // Start apify/google-search-scraper actor
-//   // and pass some queries into the JSON body
-//   try {
-//     const response = await got.post({
-//       url: `https://api.apify.com/v2/acts/apify~google-search-scraper/run-sync-get-dataset-items?token=${myToken}`,
-//       json: {
-//         queries: "web scraping\nweb crawling",
-//       },
-//       responseType: "json",
-//     });
-
-//     const items = response.body;
-
-//     // Log each non-promoted search result for both queries
-//     items.forEach((item) => {
-//       const { nonPromotedSearchResults } = item;
-//       nonPromotedSearchResults.forEach((result) => {
-//         const { title, url, description } = result;
-//         console.log(`${title}: ${url} --- ${description}`);
-//       });
-//     });
-//   } catch (error) {
-//     console.error("Error:", error.message);
-//   }
-// };
-
-// Example usage
-// fetchInstagramFollowers("iamzubairarif");
-// spotifyFunction(
-//   "https://open.spotify.com/artist/2oSONSC9zQ4UonDKnLqksx?si=Jvw9K8hLTD2K7lgZRPcOPA"
-// );
-
+fetchInstagramFollowers("https://www.instagram.com/varundvn/?hl=en");
 module.exports = {
   spotifyFunction,
   fetchInstagramFollowers,

@@ -122,10 +122,10 @@ var fetchSocialData = new cron(
     const allProfiles = await creatorProfile.find({ isActive: false });
     Promise.all(
       allProfiles.map(async (val, ind) => {
-        let socialLinks = val.socialMediaLinks;
-        if (socialLinks.length > 0) {
+        let socialLinks = val?.socialMediaLinks;
+        if (socialLinks?.length > 0) {
           const spotify = socialLinks.find((link) => {
-            return link.includes("spotify");
+            return link?.includes("spotify");
           });
           if (spotify) {
             const spotifyData = await spotifyFunction(spotify);
@@ -136,15 +136,28 @@ var fetchSocialData = new cron(
             });
           }
         }
-        let instaUsername = val?.instagramUsername;
-        if (instaUsername) {
-          const instaData = await fetchInstagramFollowers(instaUsername);
-          await creatorProfile.findByIdAndUpdate(val._id, {
-            $set: {
-              instaData: instaData,
-            },
+        if (socialLinks?.length > 0) {
+          const instagram = socialLinks.find((link) => {
+            return link?.includes("instagram");
           });
+          if (instagram) {
+            const instaData = await fetchInstagramFollowers(instagram);
+            await creatorProfile.findByIdAndUpdate(val._id, {
+              $set: {
+                instaData: instaData,
+              },
+            });
+          }
         }
+        // let instaUsername = val?.socialMediaLinks;
+        // if (socialLinks?.length > 0) {
+        //   const instaData = await fetchInstagramFollowers(link);
+        //   await creatorProfile.findByIdAndUpdate(val._id, {
+        //     $set: {
+        //       instaData: instaData,
+        //     },
+        //   });
+        // }
       })
     );
   },

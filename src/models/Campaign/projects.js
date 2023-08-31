@@ -19,7 +19,7 @@ const projectSchema = new Schema({
     required: true,
   },
   duration: {
-    type: [Date],
+    type: [String],
     required: true,
   },
   projectCategory: {
@@ -74,11 +74,13 @@ const projectSchema = new Schema({
     type: Boolean,
     default: true,
   },
-  equity: { // in percentage
+  equity: {
+    // in percentage
     type: Number,
     required: true,
   },
-  availableEquity: { // in percentage
+  availableEquity: {
+    // in percentage
     type: Number,
     required: true,
   },
