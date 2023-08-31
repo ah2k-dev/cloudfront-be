@@ -465,10 +465,8 @@ const invest = async (req, res) => {
 
     //stripe charge
 
-    const amountInCents = amount * 100;
-
     const charge = await stripe.charges.create({
-      amount: amountInCents,
+      amount: amount,
       currency: currency,
       source: stripeToken,
       capture: true, // false for holding payment. true for capturing payment immediately
