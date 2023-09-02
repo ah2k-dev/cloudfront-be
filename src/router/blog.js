@@ -13,6 +13,6 @@ router.post("/comment", isAuthenticated, blog.postComment);
 router.post("/like", isAuthenticated, blog.postLike);
 router.post("/blogCommnets", isAuthenticated, blog.fetchBlogComments);
 // router.put('/:id', blog.putBlog);
-// router.delete('/:id', blog.deleteBlog);
+router.delete('/:id', blog.deleteBlog);
 
 module.exports = router;

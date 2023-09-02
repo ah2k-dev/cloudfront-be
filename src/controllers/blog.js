@@ -116,10 +116,22 @@ const fetchBlogComments = async (req, res, next) => {
   }
 };
 
+const deleteBlog = async (req, res, next) => {
+  // #swagger.tags = ['Blog'];
+  try {
+    const { id } = req.params;
+    const blog = await Blog.findByIdAndDelete(id)
+    return SuccessHandler({ blog }, 200, res);
+  } catch (error) {
+    return ErrorHandler(error.message, 400, req, res);
+  }
+};
+
 module.exports = {
   getBlog,
   postBlog,
   postComment,
   postLike,
     fetchBlogComments,
+  deleteBlog,
 };
