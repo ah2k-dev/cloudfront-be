@@ -71,7 +71,7 @@ const spotifyFunction = async (link) => {
       // }
     }
   } catch (err) {
-    console.log(err);
+    console.log("error", err);
   }
 };
 
@@ -79,7 +79,7 @@ const fetchInstagramFollowers = async (link) => {
   // Initialize the ApifyClient with API token
   // console.log(link.split("/")[3]);
   const client = new ApifyClient({
-    token: "apify_api_t6hlz6cuOncNgAjutNHHBdFOSivM0W0WL1uF",
+    token: process.env.APIFY_TOKEN,
   });
 
   const instagramUsername = link?.split("/")[3];
@@ -105,7 +105,6 @@ const fetchInstagramFollowers = async (link) => {
   }
 };
 
-fetchInstagramFollowers("https://www.instagram.com/varundvn/?hl=en");
 module.exports = {
   spotifyFunction,
   fetchInstagramFollowers,
