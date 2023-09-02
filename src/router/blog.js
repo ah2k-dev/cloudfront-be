@@ -14,5 +14,6 @@ router.post("/like", isAuthenticated, blog.postLike);
 router.post("/blogCommnets", isAuthenticated, blog.fetchBlogComments);
 // router.put('/:id', blog.putBlog);
 router.delete('/:id', blog.deleteBlog);
+router.delete('/comment/:id', blog.deleteComment)
 
 module.exports = router;

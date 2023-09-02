@@ -127,6 +127,21 @@ const deleteBlog = async (req, res, next) => {
   }
 };
 
+const deleteComment = async (req, res, next) => {
+  // #swagger.tags = ['Blog'];
+  try {
+    const { id } = req.params;
+    const comment = await Comment.findById(id)
+    if(req.user.role !== 'admin' && req.user._id !== comment.user){
+      return ErrorHandler("You can not delete this comment", 400, req, res);
+    }
+    await Comment.findByIdAndDelete(id)
+    return SuccessHandler("Comment deleted", 200, res);
+  } catch (error) {
+    return ErrorHandler(error.message, 400, req, res);
+  }
+};
+
 module.exports = {
   getBlog,
   postBlog,
@@ -134,4 +149,5 @@ module.exports = {
   postLike,
     fetchBlogComments,
   deleteBlog,
+  deleteComment
 };
