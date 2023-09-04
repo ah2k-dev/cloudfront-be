@@ -116,11 +116,28 @@ const fetchBlogComments = async (req, res, next) => {
   }
 };
 
+const fetchBlogLikes = async (req, res, next) => {
+  // #swagger.tags = ['Blog'];
+  try {
+    const { id } = req.params;
+    const blog = await Blog.findById(id);
+    const likes = blog.likes;
+
+    return SuccessHandler(
+      { message: "Likes fetched Successfully", likes },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 400, req, res);
+  }
+};
+
 const deleteBlog = async (req, res, next) => {
   // #swagger.tags = ['Blog'];
   try {
     const { id } = req.params;
-    const blog = await Blog.findByIdAndDelete(id)
+    const blog = await Blog.findByIdAndDelete(id);
     return SuccessHandler({ blog }, 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 400, req, res);
@@ -131,12 +148,31 @@ const deleteComment = async (req, res, next) => {
   // #swagger.tags = ['Blog'];
   try {
     const { id } = req.params;
-    const comment = await Comment.findById(id)
-    if(req.user.role !== 'admin' && req.user._id !== comment.user){
+    const comment = await Comment.findById(id);
+    if (req.user.role !== "admin" && req.user._id !== comment.user) {
       return ErrorHandler("You can not delete this comment", 400, req, res);
     }
-    await Comment.findByIdAndDelete(id)
+    await Comment.findByIdAndDelete(id);
     return SuccessHandler("Comment deleted", 200, res);
+  } catch (error) {
+    return ErrorHandler(error.message, 400, req, res);
+  }
+};
+
+const getBlogById = async (req, res, next) => {
+  // #swagger.tags = ['Blog'];
+  try {
+    const { id } = req.params;
+    const blogs = await Blog.findById(id)
+      .populate("author", "firstName lastName profilePic role")
+      .populate({
+        path: "comments",
+        populate: {
+          path: "user",
+          select: "firstName lastName profilePic role",
+        },
+      });
+    return SuccessHandler({ blogs }, 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 400, req, res);
   }
@@ -147,7 +183,9 @@ module.exports = {
   postBlog,
   postComment,
   postLike,
-    fetchBlogComments,
+  fetchBlogComments,
   deleteBlog,
-  deleteComment
+  deleteComment,
+  getBlogById,
+  fetchBlogLikes,
 };

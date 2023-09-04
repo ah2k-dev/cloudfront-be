@@ -46,7 +46,7 @@ const getCampaigns = async (req, res) => {
     const searchFilter = req.body.searchFilter
       ? {
           title: {
-            $regex: req.body.search,
+            $regex: req.body.searchFilter,
             $options: "i",
           },
         }
