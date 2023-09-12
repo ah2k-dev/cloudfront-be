@@ -18,7 +18,7 @@ router.post("/blogLikes/:id", blog.fetchBlogLikes);
 router.delete("/:id", isAuthenticated, adminAuth, blog.deleteBlog);
 router.delete("/comment/:id", isAuthenticated, blog.deleteComment);
 // get
-router.get("/categoryCount", blog.categoryCount);
-router.get("/mostLiked", blog.mostLiked);
+router.get("/categoryCount", isAuthenticated, blog.categoryCount);
+router.get("/mostLiked", isAuthenticated, blog.mostLiked);
 
 module.exports = router;
