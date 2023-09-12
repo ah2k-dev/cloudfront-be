@@ -340,3 +340,39 @@
 {"date":"2023-09-04T15:18:42.834Z","level":"error","message":"Likes doesn't exist","method":"POST","service":"user-service","url":"/blogLikes/64bf98ef1fea385d7e62dea1"}
 {"date":"2023-09-04T15:18:43.529Z","level":"error","message":"Likes doesn't exist","method":"POST","service":"user-service","url":"/blogLikes/64bf98ef1fea385d7e62dea1"}
 {"date":"2023-09-04T15:18:44.158Z","level":"error","message":"Likes doesn't exist","method":"POST","service":"user-service","url":"/blogLikes/64bf98ef1fea385d7e62dea1"}
+{"date":"2023-09-12T18:15:47.183Z","level":"error","message":"Cannot read properties of undefined (reading '_id')","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:15:48.471Z","level":"error","message":"Cannot read properties of undefined (reading '_id')","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:15:52.680Z","level":"error","message":"Cannot read properties of undefined (reading '_id')","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:15:54.256Z","level":"error","message":"Cannot read properties of undefined (reading '_id')","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:18:38.735Z","level":"error","message":"The field 'category' must be an accumulator object","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:19:27.498Z","level":"error","message":"The field 'category' must be an accumulator object","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:19:44.095Z","level":"error","message":"_id is not defined","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:19:45.318Z","level":"error","message":"_id is not defined","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:20:06.229Z","level":"error","message":"The field 'category' must be an accumulator object","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:20:31.473Z","level":"error","message":"The field 'category' must be an accumulator object","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:20:47.888Z","level":"error","message":"_id is not defined","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:20:48.740Z","level":"error","message":"_id is not defined","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:21:07.285Z","level":"error","message":"The field 'category' must be an accumulator object","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:22:30.794Z","level":"error","message":"_id is not defined","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:22:58.722Z","level":"error","message":"$$root is not defined","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:23:19.730Z","level":"error","message":"The field '$category' must be an accumulator object","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:23:36.651Z","level":"error","message":"The field 'category' must be an accumulator object","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:24:18.486Z","level":"error","message":"Use of undefined variable: root","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:25:57.091Z","level":"error","message":"_id is not defined","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:25:58.799Z","level":"error","message":"_id is not defined","method":"GET","service":"user-service","url":"/categoryCount"}
+{"date":"2023-09-12T18:36:46.265Z","level":"error","message":"FieldPath field names may not start with '$'. Consider using $getField or $setField.","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:44:51.670Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:44:52.698Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:45:32.437Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:45:33.234Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:46:56.861Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:46:57.575Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:46:58.233Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:48:03.735Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:48:04.582Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:48:05.241Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:50:24.950Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:50:25.946Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:51:24.457Z","level":"error","message":"$slice is not allowed or the syntax is incorrect, see the Atlas documentation for more information","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:56:08.124Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-09-12T18:56:09.148Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
