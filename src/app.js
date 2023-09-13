@@ -166,7 +166,7 @@ var fetchSocialData = new cron(
   "America/Los_Angeles"
 );
 
-fetchSocialData.start();
+// fetchSocialData.start();
 // closeCampaigns.start();
 
 module.exports = app;

@@ -2209,6 +2209,32 @@
         }
       }
     },
+    "/blog/getAll": {
+      "post": {
+        "tags": [
+          "Blog"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "search": {
+                  "example": "any"
+                },
+                "category": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
+      }
+    },
     "/blog/": {
       "post": {
         "tags": [
