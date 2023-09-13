@@ -2210,14 +2210,6 @@
       }
     },
     "/blog/": {
-      "get": {
-        "tags": [
-          "Blog"
-        ],
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      },
       "post": {
         "tags": [
           "Blog"
@@ -2442,6 +2434,52 @@
             "required": true,
             "type": "string"
           },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/blog/categoryCount": {
+      "get": {
+        "tags": [
+          "Blog"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/blog/mostLiked": {
+      "get": {
+        "tags": [
+          "Blog"
+        ],
+        "description": "",
+        "parameters": [
           {
             "name": "authorization",
             "in": "header",

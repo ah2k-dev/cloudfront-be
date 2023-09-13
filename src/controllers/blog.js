@@ -6,7 +6,20 @@ const Comment = require("../models/User/blogComment");
 const getBlog = async (req, res, next) => {
   // #swagger.tags = ['Blog'];
   try {
-    const blogs = await Blog.find({})
+    // ✅ Filter
+    const titleFilter = req.body.search
+      ? {
+          title: { $regex: req.body.search, $options: "i" },
+        }
+      : {};
+    const categoryFilter = req.body.category
+      ? { category: { $regex: req.body.category, $options: "i" } }
+      : {};
+
+    const blogs = await Blog.find({
+      ...titleFilter,
+      ...categoryFilter,
+    })
       .populate("author", "firstName lastName profilePic role")
       .populate({
         path: "comments",
@@ -178,6 +191,42 @@ const getBlogById = async (req, res, next) => {
   }
 };
 
+const categoryCount = async (req, res) => {
+  // #swagger.tags = ['Blog'];
+  try {
+    const blogsCategory = await Blog.aggregate([
+      {
+        $group: {
+          _id: "$category",
+          total: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          total: 1,
+          category: "$_id",
+          _id: 0,
+        },
+      },
+    ]);
+    return SuccessHandler({ blogsCategory }, 200, res);
+  } catch (error) {
+    ErrorHandler(error.message, 500, req, res);
+  }
+};
+const mostLiked = async (req, res) => {
+  // #swagger.tags = ['Blog'];
+  try {
+    const liked = await Blog.aggregate([
+      { $sort: { likes: -1 } },
+      { $limit: 4 },
+    ]);
+    return SuccessHandler({ liked }, 200, res);
+  } catch (error) {
+    ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   getBlog,
   postBlog,
@@ -188,4 +237,6 @@ module.exports = {
   deleteComment,
   getBlogById,
   fetchBlogLikes,
+  categoryCount,
+  mostLiked,
 };
