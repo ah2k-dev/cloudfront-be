@@ -340,7 +340,7 @@ const getInvested = async (req, res) => {
       })
     )
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         return SuccessHandler(
           {
             message: "Campaigns fetched!",
@@ -455,7 +455,7 @@ const invest = async (req, res) => {
 
     //equity calculations
     const project = await Project.findById(campaign);
-    console.log(project);
+
     const equityBought = (amount / project.fundingGoal) * project.equity;
     const equityLeft = project.availableEquity - equityBought;
 
@@ -472,6 +472,7 @@ const invest = async (req, res) => {
       capture: true, // false for holding payment. true for capturing payment immediately
     });
 
+    console.log(amount, equityBought, equityLeft, charge);
     if (charge) {
       const chargeId = charge.id;
       if (charge.status == "succeeded") {
@@ -598,7 +599,7 @@ const get = async (req, res) => {
 
     const result = { campaign: campaign, creatorProfile: profile };
 
-    console.log(result);
+    // console.log(result);
     return SuccessHandler(
       {
         message: "Campaign fetched!",

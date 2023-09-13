@@ -535,7 +535,7 @@ const getTransactions = async (req, res) => {
       Promise.all(
         transactions.map(async (transaction) => {
           const campaign = await Project.findOne({
-            investments: {
+            investment: {
               $in: [transaction._id],
             },
           }).populate("creator");

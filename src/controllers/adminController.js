@@ -83,7 +83,7 @@ const getCampaigns = async (req, res) => {
       })
     )
       .then((result) => {
-        console.log(result);
+        // console.log(result);
         return SuccessHandler(
           {
             message: "Campaigns fetched!",

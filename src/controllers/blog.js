@@ -73,24 +73,24 @@ const postLike = async (req, res, next) => {
     const { blogId } = req.body;
     const blog = await Blog.findById(blogId);
     if (blog.likes.includes(req.user._id)) {
-      const updatedBlog = await Blog.findByIdAndUpdate(
+      const blogs = await Blog.findByIdAndUpdate(
         blogId,
         { $pull: { likes: req.user._id } },
         { new: true }
       );
       return SuccessHandler(
-        { message: "Blog unliked successfully", updatedBlog },
+        { message: "Blog unliked successfully", blogs },
         200,
         res
       );
     }
-    const updatedBlog = await Blog.findByIdAndUpdate(
+    const blogs = await Blog.findByIdAndUpdate(
       blogId,
       { $push: { likes: req.user._id } },
       { new: true }
     );
     return SuccessHandler(
-      { message: "Blog liked successfully", updatedBlog },
+      { message: "Blog liked successfully", blogs },
       200,
       res
     );
