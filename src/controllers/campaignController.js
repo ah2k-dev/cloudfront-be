@@ -5,6 +5,8 @@ const User = require("../models/User/user");
 const ErrorHandler = require("../utils/ErrorHandler");
 const SuccessHandler = require("../utils/SuccessHandler");
 const dotenv = require("dotenv");
+const { sendNotification } = require("../middleware/notification");
+const mongoose = require("mongoose");
 
 dotenv.config({
   path: "./src/config/config.env",
@@ -56,6 +58,12 @@ const create = async (req, res) => {
       slug,
     });
     await newProject.save();
+
+    await sendNotification(
+      "Campaign creation",
+      "The campaign has been created successfully",
+      req.user._id
+    );
     return SuccessHandler(
       { message: "New Campaign Created!", campaign: newProject },
       201,
@@ -69,6 +77,7 @@ const create = async (req, res) => {
 const update = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
+    // const { id } = req.body;
     const {
       id,
       title,
@@ -107,6 +116,32 @@ const update = async (req, res) => {
     if (!updated) {
       return ErrorHandler("Error updating campaign!", 400, req, res);
     }
+    // const investorIds = await Project.aggregate([
+    //   { $match: { _id: mongoose.Types.ObjectId(id) } },
+    //   {
+    //     $unwind: "$investment",
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "investment",
+    //       localField: "investment",
+    //       foreignField: "_id",
+    //       as: "investmentDetail",
+    //     },
+    //   },
+
+    //   {
+    //     $match: { investment: "$investmentDetail._id" },
+    //   },
+    //   // {
+    //   //   $group: {
+    //   //     _id: null,
+    //   //     investorId: { $push: "$investmentDetail.investor" },
+    //   //   },
+    //   // },
+    // ]);
+    console.log(investorIds);
+    // return SuccessHandler(investorIds, 200, res);
     return SuccessHandler("Campaign Updated!", 201, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
@@ -115,6 +150,9 @@ const update = async (req, res) => {
 const getAll = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
     const statusFilter = req.body.statusFilter
       ? {
           status: req.body.statusFilter,
@@ -165,7 +203,9 @@ const getAll = async (req, res) => {
       .populate({
         path: "investment",
         populate: "investor",
-      });
+      })
+      .skip(skipItems)
+      .limit(itemPerPage);
     Promise.all(
       campaigns.map(async (val, ind) => {
         const profile = await creatorProfile.findOne({
@@ -484,7 +524,21 @@ const invest = async (req, res) => {
           equityBought: equityBought,
         });
         const investment = await newInvestment.save();
+
         if (investment) {
+          // sending notif to investor
+          await sendNotification(
+            "Investment Notification",
+            "You have made investment",
+            req.user._id
+          );
+          // sending notfi to creator
+
+          await sendNotification(
+            "new Investment",
+            `${req.user.firstName} ${req.user.lasttName} has invested in ${project.title}`,
+            project.creator
+          );
           await Project.findByIdAndUpdate(campaign, {
             $push: { investment: investment._id },
             $set: { availableEquity: equityLeft },

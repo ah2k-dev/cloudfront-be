@@ -376,3 +376,4 @@
 {"date":"2023-09-12T18:51:24.457Z","level":"error","message":"$slice is not allowed or the syntax is incorrect, see the Atlas documentation for more information","method":"GET","service":"user-service","url":"/mostLiked"}
 {"date":"2023-09-12T18:56:08.124Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
 {"date":"2023-09-12T18:56:09.148Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/mostLiked"}
+{"date":"2023-10-20T19:40:24.753Z","level":"error","message":"$in needs an array","method":"PUT","service":"user-service","url":"/update"}
