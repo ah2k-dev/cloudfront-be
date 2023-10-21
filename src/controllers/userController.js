@@ -526,11 +526,18 @@ const userStats = async (req, res) => {
 const getTransactions = async (req, res) => {
   // #swagger.tags = ['user']
   try {
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
     const { role } = req.user;
+
     if (role == "investor") {
       const transactions = await Investment.find({
         investor: req.user._id,
-      });
+      })
+        .skip(skipItems)
+        .limit(itemPerPage)
+        .sort({ createdAt: -1 });
 
       Promise.all(
         transactions.map(async (transaction) => {
@@ -665,13 +672,17 @@ const getTransactions = async (req, res) => {
       const campaigns = await Project.find({
         creator: req.user._id,
         isActive: true,
-      }).populate({
-        path: "investment",
-        populate: {
-          path: "investor",
-          select: "firstName lastName email role createdAt profilePic",
-        },
-      });
+      })
+        .populate({
+          path: "investment",
+          populate: {
+            path: "investor",
+            select: "firstName lastName email role createdAt profilePic",
+          },
+        })
+        .skip(skipItems)
+        .limit(itemPerPage)
+        .sort({ createdAt: -1 });
 
       let allInvestments = [];
 
@@ -698,10 +709,14 @@ const getTransactions = async (req, res) => {
       );
       // return ErrorHandler(`Error fetching data! Under working`, 400, req, res);
     } else if (role == "admin") {
-      const transactions = await Investment.find({}).populate({
-        path: "investor",
-        select: "firstName lastName email role createdAt profilePic",
-      });
+      const transactions = await Investment.find({})
+        .populate({
+          path: "investor",
+          select: "firstName lastName email role createdAt profilePic",
+        })
+        .skip(skipItems)
+        .limit(itemPerPage)
+        .sort({ createdAt: -1 });
 
       Promise.all(
         transactions.map(async (transaction) => {
@@ -741,7 +756,6 @@ const getTransactions = async (req, res) => {
   }
 };
 
-// umer======> work
 const getAllInvestors = async (req, res) => {
   // #swagger.tags = ['user']
 
@@ -763,7 +777,8 @@ const getAllInvestors = async (req, res) => {
               $options: "i",
             },
           },
-        });
+        })
+        .sort({ createdAt: -1 });
       console.log("Filter");
     } else {
       console.log("No Filter");
@@ -771,7 +786,8 @@ const getAllInvestors = async (req, res) => {
         .find()
         .populate("investor")
         .skip(skipProfiles)
-        .limit(profilePerPage);
+        .limit(profilePerPage)
+        .sort({ createdAt: -1 });
     }
 
     const countInvestors = investors.length;

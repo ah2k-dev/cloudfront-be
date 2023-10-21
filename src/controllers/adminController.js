@@ -38,6 +38,9 @@ const approveCampaign = async (req, res) => {
 const getCampaigns = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
     const statusFilter = req.body.statusFilter
       ? {
           status: req.body.statusFilter,
@@ -64,6 +67,9 @@ const getCampaigns = async (req, res) => {
       ...searchFilter,
       isActive: true,
     })
+      .skip(skipItems)
+      .limit(itemPerPage)
+      .sort({ createdAt: -1 })
       .populate({
         path: "creator",
         select: "firstName middleName lastName profilePic email ",
@@ -268,6 +274,9 @@ const releaseFunds = async (req, res) => {
 const getInvestors = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
     const searchFilter = req.body.searchFilter
       ? {
           title: {
@@ -288,6 +297,8 @@ const getInvestors = async (req, res) => {
       .find({
         investor: { $in: investors },
       })
+      .skip(skipItems)
+      .limit(itemPerPage)
       .populate({
         path: "investor",
         select:
@@ -413,6 +424,9 @@ const deleteInvestor = async (req, res) => {
 const getCreators = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
     const searchFilter = req.body.searchFilter
       ? {
           title: {
@@ -433,6 +447,8 @@ const getCreators = async (req, res) => {
       .find({
         creator: { $in: creators },
       })
+      .skip(skipItems)
+      .limit(itemPerPage)
       .populate({
         path: "creator",
         select:
@@ -841,6 +857,9 @@ const createInvestor = async (req, res) => {
 const userStats = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
     const creatorsWithCampaigns = await Project.aggregate([
       {
         $group: {
@@ -872,6 +891,15 @@ const userStats = async (req, res) => {
             campaignsCount: { $size: "$campaigns" },
           },
         },
+      },
+      {
+        $skip: skipItems,
+      },
+      {
+        $limit: itemPerPage,
+      },
+      {
+        sort: { createdAt: -1 },
       },
     ]);
     // const creatorsWithCampaignsCount = await User.aggregate([
@@ -930,6 +958,15 @@ const userStats = async (req, res) => {
             investmentsCount: { $size: "$investments" },
           },
         },
+      },
+      {
+        $skip: skipItems,
+      },
+      {
+        $limit: itemPerPage,
+      },
+      {
+        $sort: { createdAt: -1 },
       },
     ]);
     // const investorsWithInvestmentsCount = await User.aggregate([

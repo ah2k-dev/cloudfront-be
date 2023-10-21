@@ -196,6 +196,9 @@ const getAll = async (req, res) => {
       ...minMaxFilter,
       isActive: true,
     })
+      .skip(skipItems)
+      .limit(itemPerPage)
+      .sort({ createdAt: -1 })
       .populate({
         path: "creator",
         select: "firstName middleName lastName profilePic email",
@@ -203,9 +206,7 @@ const getAll = async (req, res) => {
       .populate({
         path: "investment",
         populate: "investor",
-      })
-      .skip(skipItems)
-      .limit(itemPerPage);
+      });
     Promise.all(
       campaigns.map(async (val, ind) => {
         const profile = await creatorProfile.findOne({
@@ -249,7 +250,9 @@ const getAll = async (req, res) => {
 const getMine = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
-    console.log(req.body);
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
     const statusFilter = req.body.statusFilter
       ? {
           status: req.body.statusFilter,
@@ -278,6 +281,9 @@ const getMine = async (req, res) => {
       creator: user,
       isActive: true,
     })
+      .skip(skipItems)
+      .limit(itemPerPage)
+      .sort({ createdAt: -1 })
       .populate({
         path: "creator",
         select: "firstName middleName lastName profilePic email",
@@ -329,6 +335,9 @@ const getMine = async (req, res) => {
 const getInvested = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
     const user = req.user._id;
     const statusFilter = req.body.statusFilter
       ? {
@@ -352,6 +361,9 @@ const getInvested = async (req, res) => {
       ...searchFilter,
       isActive: true,
     })
+      .skip(skipItems)
+      .limit(itemPerPage)
+      .sort({ createdAt: -1 })
       .populate({
         path: "creator",
         select: "firstName middleName lastName profilePic email",
@@ -564,6 +576,10 @@ const invest = async (req, res) => {
 const getLive = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
+
     const categoryFilter = req.body.category
       ? {
           category: req.body.category,
@@ -574,6 +590,9 @@ const getLive = async (req, res) => {
       isActive: true,
       ...categoryFilter,
     })
+      .skip(skipItems)
+      .limit(itemPerPage)
+      .sort({ createdAt: -1 })
       .populate({
         path: "user",
         select: "firstName middleName lastName profilePic email",
@@ -614,6 +633,15 @@ const getCompleted = async (req, res) => {
         $match: {
           fundingGoal: { $lte: "$totalInvestmentAmount" },
         },
+      },
+      {
+        $skip: skipItems,
+      },
+      {
+        $limit: itemPerPage,
+      },
+      {
+        $sort: { createdAt: -1 },
       },
     ];
 

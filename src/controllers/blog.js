@@ -115,14 +115,21 @@ const postLike = async (req, res, next) => {
 const fetchBlogComments = async (req, res, next) => {
   // #swagger.tags = ['Blog'];
   try {
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
     const { blogId } = req.body;
-    const blog = await Blog.findById(blogId).populate({
-      path: "comments",
-      populate: {
-        path: "user",
-        select: "firstName lastName profilePic role",
-      },
-    });
+    const blog = await Blog.findById(blogId)
+      .skip(skipItems)
+      .limit(itemPerPage)
+      .populate({
+        path: "comments",
+        options: { sort: { createdAt: -1 } },
+        populate: {
+          path: "user",
+          select: "firstName lastName profilePic role",
+        },
+      });
     return SuccessHandler({ blog }, 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 400, req, res);
