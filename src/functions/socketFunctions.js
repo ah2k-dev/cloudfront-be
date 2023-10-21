@@ -19,19 +19,21 @@ const removeUser = async (socket) => {
   console.log("removed user", removedUser);
 };
 
-const sendMessageHelper = async (user, message) => {
-  try {
-    global.onlineUsers.forEach((user2) => {
-      if (user2.user == user) {
-        global.io.to(user2.socket).emit("newMessage", { message: message });
-      }
-    });
-  } catch (error) {
-    console.log(error);
-  }
+const sendMessageHelper = (user, message) => {
+  global.onlineUsers.forEach((user2) => {
+    if (user2.user == user) {
+      global.io.to(user2.socket).emit("newMessage", { message: message });
+    }
+  });
 };
+const sendNotificationHelper = (user, notification) => {
+  const userToSend = global.onlineUsers.find((user2) => user2.user === user);
+  global.io.to(userToSend.socket).emit("newNotification", { notification });
+};
+
 module.exports = {
   addUser,
   removeUser,
   sendMessageHelper,
+  sendNotificationHelper,
 };
