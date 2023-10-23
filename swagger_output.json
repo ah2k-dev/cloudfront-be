@@ -798,7 +798,7 @@
       }
     },
     "/user/transactions": {
-      "get": {
+      "post": {
         "tags": [
           "user"
         ],
@@ -808,6 +808,21 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -1308,22 +1323,60 @@
       }
     },
     "/campaign/getLive": {
-      "get": {
+      "post": {
         "tags": [
           "campaign"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                },
+                "category": {
+                  "example": "any"
+                },
+                "search": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {}
       }
     },
     "/campaign/getCompleted": {
-      "get": {
+      "post": {
         "tags": [
           "campaign"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {}
       }
     },
@@ -2065,12 +2118,31 @@
       }
     },
     "/admin/userStats": {
-      "get": {
+      "post": {
         "tags": [
           "admin"
         ],
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                },
+                "search": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {}
       }
     },

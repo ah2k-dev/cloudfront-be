@@ -585,10 +585,16 @@ const getLive = async (req, res) => {
           category: req.body.category,
         }
       : {};
+    const searchFilter = req.body.search
+      ? {
+          title: req.body.search,
+        }
+      : {};
     const campaigns = await Project.find({
       investment: { $exists: true, $ne: [] },
       isActive: true,
       ...categoryFilter,
+      ...searchFilter,
     })
       .skip(skipItems)
       .limit(itemPerPage)
@@ -615,6 +621,9 @@ const getLive = async (req, res) => {
 const getCompleted = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
     const aggregationPipeline = [
       {
         $lookup: {

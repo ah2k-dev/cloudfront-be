@@ -66,7 +66,7 @@ const postComment = async (req, res, next) => {
       user: req.user._id,
     });
     await newComment.save();
-    const blog = await Blog.findByIdAndUpdate(
+    await Blog.findByIdAndUpdate(
       blogId,
       { $push: { comments: newComment._id } },
       { new: true }

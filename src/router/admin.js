@@ -21,9 +21,13 @@ router
   .route("/deleteCampaign/:id")
   .delete(isAuthenticated, adminAuth, admin.deleteCampaign);
 
-router.route('/releaseFunds/:id').get(isAuthenticated, adminAuth, admin.releaseFunds)
+router
+  .route("/releaseFunds/:id")
+  .get(isAuthenticated, adminAuth, admin.releaseFunds);
 
-router.route('/add-to-featured/:id').get(isAuthenticated, adminAuth, admin.addToFeatured)
+router
+  .route("/add-to-featured/:id")
+  .get(isAuthenticated, adminAuth, admin.addToFeatured);
 
 // investors
 router.route("/createInvestor").post(admin.createInvestor);
@@ -38,7 +42,7 @@ router
   .delete(isAuthenticated, adminAuth, admin.deleteInvestor);
 
 // creators
-router.post("/createCreator", admin.createCreator)
+router.post("/createCreator", admin.createCreator);
 router
   .route("/getCreators")
   .post(isAuthenticated, adminAuth, admin.getCreators);
@@ -52,7 +56,7 @@ router
 // dashboard
 router.route("/dashboard").post(admin.dashboard);
 
-router.route("/userStats").get(admin.userStats);
+router.route("/userStats").post(admin.userStats);
 
 // web details
 router
@@ -61,8 +65,9 @@ router
 router.route("/weDetails/get").get(admin.getAllWebDetails);
 
 // admin profile
-router.route("/get-profile").get(isAuthenticated, adminAuth, admin.getProfile )
-router.route("/update-profile").put(isAuthenticated, adminAuth, admin.updateProfile)
-
+router.route("/get-profile").get(isAuthenticated, adminAuth, admin.getProfile);
+router
+  .route("/update-profile")
+  .put(isAuthenticated, adminAuth, admin.updateProfile);
 
 module.exports = router;

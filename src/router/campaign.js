@@ -21,8 +21,8 @@ router
   .get(isAuthenticated, investorAuth, campaign.getEditorPicks);
 
 router.route("/invest").post(isAuthenticated, investorAuth, campaign.invest);
-router.route("/getLive").get(campaign.getLive);
-router.route("/getCompleted").get(campaign.getCompleted);
+router.route("/getLive").post(campaign.getLive);
+router.route("/getCompleted").post(campaign.getCompleted);
 
 router
   .route("/request-payout/:id")

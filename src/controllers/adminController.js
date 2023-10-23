@@ -279,10 +279,20 @@ const getInvestors = async (req, res) => {
     const skipItems = (pageNumber - 1) * itemPerPage;
     const searchFilter = req.body.search
       ? {
-          title: {
-            $regex: req.body.search,
-            $options: "i",
-          },
+          $or: [
+            {
+              firstName: {
+                $regex: req.body.search,
+                $options: "i",
+              },
+            },
+            {
+              lastName: {
+                $regex: req.body.search,
+                $options: "i",
+              },
+            },
+          ],
         }
       : {};
     const investors = await User.find({
@@ -902,6 +912,30 @@ const userStats = async (req, res) => {
           },
         },
       },
+
+      {
+        $match: {
+          $or: [
+            {
+              "creator.firstName": req.body.search
+                ? {
+                    $regex: req.body.search,
+                    $options: "i",
+                  }
+                : "",
+            },
+            {
+              "creator.lastName": req.body.search
+                ? {
+                    $regex: req.body.search,
+                    $options: "i",
+                  }
+                : "",
+            },
+          ],
+        },
+      },
+
       {
         $skip: skipItems,
       },
@@ -970,6 +1004,28 @@ const userStats = async (req, res) => {
         },
       },
       {
+        $match: {
+          $or: [
+            {
+              "creator.firstName": req.body.search
+                ? {
+                    $regex: req.body.search,
+                    $options: "i",
+                  }
+                : "",
+            },
+            {
+              "creator.lastName": req.body.search
+                ? {
+                    $regex: req.body.search,
+                    $options: "i",
+                  }
+                : "",
+            },
+          ],
+        },
+      },
+      {
         $skip: skipItems,
       },
       {
@@ -1009,8 +1065,8 @@ const userStats = async (req, res) => {
       {
         message: "Data fetched!",
         creatorsWithCampaigns,
-        // creatorsWithCampaignsCount,
         investorsWithInvestments,
+        // creatorsWithCampaignsCount,
         // investorsWithInvestmentsCount,
       },
       200,

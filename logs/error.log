@@ -380,3 +380,6 @@
 {"date":"2023-10-23T13:30:39.902Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/userStats"}
 {"date":"2023-10-23T13:31:30.257Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/userStats"}
 {"date":"2023-10-23T13:31:32.398Z","level":"error","message":"Arguments must be aggregate pipeline operators","method":"GET","service":"user-service","url":"/userStats"}
+{"date":"2023-10-23T14:14:48.116Z","level":"error","message":"skipItems is not defined","method":"GET","service":"user-service","url":"/getCompleted"}
+{"date":"2023-10-23T14:31:30.968Z","level":"error","message":"invalid argument to $skip stage: Expected an integer, but found NaN in: $skip: nan.0","method":"POST","service":"user-service","url":"/userStats"}
+{"date":"2023-10-23T14:39:00.216Z","level":"error","message":"$regex has to be a string","method":"POST","service":"user-service","url":"/userStats"}
