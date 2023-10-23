@@ -383,3 +383,9 @@
 {"date":"2023-10-23T14:14:48.116Z","level":"error","message":"skipItems is not defined","method":"GET","service":"user-service","url":"/getCompleted"}
 {"date":"2023-10-23T14:31:30.968Z","level":"error","message":"invalid argument to $skip stage: Expected an integer, but found NaN in: $skip: nan.0","method":"POST","service":"user-service","url":"/userStats"}
 {"date":"2023-10-23T14:39:00.216Z","level":"error","message":"$regex has to be a string","method":"POST","service":"user-service","url":"/userStats"}
+{"date":"2023-10-23T16:18:51.422Z","level":"error","message":"path option to $unwind stage should be prefixed with a '$': investment","method":"PUT","service":"user-service","url":"/approveCampaign/64947603a7b8bc432c0227e5"}
+{"date":"2023-10-23T16:22:58.628Z","level":"error","message":"must specify 'pipeline' when 'from' is empty","method":"PUT","service":"user-service","url":"/approveCampaign/64947603a7b8bc432c0227e5"}
+{"date":"2023-10-23T16:23:41.350Z","level":"error","message":"Invalid $project :: caused by :: FieldPath field names may not start with '$'. Consider using $getField or $setField.","method":"PUT","service":"user-service","url":"/approveCampaign/64947603a7b8bc432c0227e5"}
+{"date":"2023-10-23T16:35:16.483Z","level":"error","message":"FieldPath field names may not start with '$'. Consider using $getField or $setField.","method":"PUT","service":"user-service","url":"/approveCampaign/64947603a7b8bc432c0227e5"}
+{"date":"2023-10-23T16:49:42.450Z","level":"error","message":"FieldPath field names may not start with '$'. Consider using $getField or $setField.","method":"PUT","service":"user-service","url":"/approveCampaign/64947603a7b8bc432c0227e5"}
+{"date":"2023-10-23T16:54:15.869Z","level":"error","message":"FieldPath field names may not start with '$'. Consider using $getField or $setField.","method":"PUT","service":"user-service","url":"/approveCampaign/64947603a7b8bc432c0227e5"}

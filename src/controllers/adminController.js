@@ -6,6 +6,8 @@ const investorProfile = require("../models/User/investorProfile");
 const Investment = require("../models/Campaign/investments");
 const creatorProfile = require("../models/User/creatorProfile");
 const WebDetails = require("../models/Website/webDetails");
+const { sendNotification } = require("../middleware/notification");
+const mongoose = require("mongoose");
 
 const dotenv = require("dotenv");
 
@@ -21,15 +23,72 @@ const approveCampaign = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
     const { id } = req.params;
-    const updated = await Project.findByIdAndUpdate(id, {
-      $set: {
-        status: "approved",
+    // const updated = await Project.findByIdAndUpdate(id, {
+    //   $set: {
+    //     status: "approved",
+    //   },
+    // });
+    // if (updated) {
+    //   // notify to creator
+    //   await sendNotification(
+    //     "Campaign accepted",
+    //     `Admin has accepted ${updated.title} campaign`,
+    //     updated.creator
+    //   );
+    // }
+    // if (!updated) {
+    //   return ErrorHandler("Error approving campaign", 400, req, res);
+    // }
+    // const investors = await Project.findById(id).select("investment");
+    const investors = await Project.aggregate([
+      {
+        $match: { _id: mongoose.Types.ObjectId(id) },
       },
-    });
-    if (!updated) {
-      return ErrorHandler("Error approving campaign", 400, req, res);
-    }
-    return SuccessHandler("Campaign approved!", 200, res);
+      { $unwind: "$investment" },
+
+      {
+        $project: {
+          _id: 0,
+          investmentId: "$investment",
+        },
+      },
+      {
+        $lookup: {
+          from: "investment",
+          localField: "investment",
+          foreignField: "_id",
+          as: "investmentDetail",
+        },
+      },
+      // {
+      //   $match: {
+      //     "investmentDetail._id": "$investmentId",
+      //   },
+      // },
+      {
+        $project: {
+          investmentId: 1,
+          investmentDetail: 1,
+        },
+      },
+      // { $unwind: "$investmentDetail" },
+      // {
+      // },
+
+      // {
+      //   $match:{
+      //     "$_id"
+      //   }
+      // }
+      // },
+    ]);
+
+    return SuccessHandler(
+      { message: "Campaign approved!", investors },
+      200,
+      res
+    );
+    // return SuccessHandler("Campaign approved!", 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
@@ -127,6 +186,14 @@ const rejectCampaign = async (req, res) => {
         status: "rejected",
       },
     });
+    if (updated) {
+      // notify to creator
+      await sendNotification(
+        "Campaign rejected",
+        `Admin has rejected ${updated.title} campaign`,
+        updated.creator
+      );
+    }
     if (!updated) {
       return ErrorHandler("Error approving campaign", 400, req, res);
     }
@@ -172,6 +239,14 @@ const editCampaign = async (req, res) => {
         termsAndConditions,
       },
     });
+    if (updated) {
+      // notify to creator
+      await sendNotification(
+        "Campaign edited",
+        `Admin has edited ${updated.title} campaign`,
+        updated.creator
+      );
+    }
     if (!updated) {
       return ErrorHandler("Error updating campaign!", 400, req, res);
     }
@@ -194,6 +269,14 @@ const deleteCampaign = async (req, res) => {
       },
       { new: true }
     );
+    if (deleted) {
+      // notify to creator
+      await sendNotification(
+        "Campaign deleted",
+        `Admin has deleted ${updated.title} campaign`,
+        updated.creator
+      );
+    }
     if (!deleted) {
       return ErrorHandler("Error deleting campaign", 400, req, res);
     }
@@ -363,6 +446,14 @@ const updateInvestor = async (req, res) => {
       termsAndConditions,
       privacyPolicy,
     });
+    if (updated) {
+      // notify to investor
+      await sendNotification(
+        "profile updated",
+        `Admin has updated your profile`,
+        id
+      );
+    }
     if (!updated) {
       return ErrorHandler("Error updating investor profile!", 400, req, res);
     }
@@ -389,6 +480,14 @@ const deleteInvestor = async (req, res) => {
       },
       { new: true }
     );
+    if (deleted) {
+      // notify to investor
+      await sendNotification(
+        "Profile deleted",
+        `Admin has deleted your profile`,
+        id
+      );
+    }
     // const deletedInvestorProfile = await investorProfile.findOneAndDelete({
     //   investor: deletedInvestor._id,
     // });
@@ -526,6 +625,14 @@ const updateCreator = async (req, res) => {
       },
       { new: true }
     );
+    if (updated) {
+      // notify to creator
+      await sendNotification(
+        "Profile updated",
+        `Admin has updated your profile`,
+        id
+      );
+    }
     if (!updated) {
       return ErrorHandler("Error updating profile", 400, req, res);
     }
@@ -547,6 +654,14 @@ const deleteCreator = async (req, res) => {
       },
       { new: true }
     );
+    if (deleted) {
+      // notify to creator
+      await sendNotification(
+        "Profile deleted",
+        `Admin has deleted your profile`,
+        id
+      );
+    }
     if (!deleted) {
       return ErrorHandler("Error deleting creator!", 400, req, res);
     }
@@ -834,6 +949,12 @@ const createCreator = async (req, res) => {
     });
     const user = await newUser.save();
     if (user) {
+      // notify to creator
+      await sendNotification(
+        "Profile created",
+        `Admin has created your profile`,
+        user._id
+      );
       return SuccessHandler({ message: "Creator created!", user }, 201, res);
     } else {
       return ErrorHandler("Error creating creator!", 400, req, res);
@@ -857,7 +978,14 @@ const createInvestor = async (req, res) => {
       emailVerified: true,
     });
     const user = await newUser.save();
+
     if (user) {
+      // notify to creator
+      await sendNotification(
+        "Profile created",
+        `Admin has created your profile`,
+        user._id
+      );
       return SuccessHandler(
         {
           message: "User created successfully",
