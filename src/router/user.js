@@ -4,7 +4,6 @@ const router = require("express").Router();
 
 // get
 router.route("/").get(isAuthenticated, user.getProfile);
-// umer===> work
 router.route("/investors").post(isAuthenticated, user.getAllInvestors);
 router.route("/creators").post(isAuthenticated, user.getAllCreators);
 router.route("/investor/:id").get(isAuthenticated, user.getInvestorProfile);

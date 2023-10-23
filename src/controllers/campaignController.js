@@ -7,6 +7,7 @@ const SuccessHandler = require("../utils/SuccessHandler");
 const dotenv = require("dotenv");
 const { sendNotification } = require("../middleware/notification");
 const mongoose = require("mongoose");
+const { getAdminId } = require("../utils/adminUtils");
 
 dotenv.config({
   path: "./src/config/config.env",
@@ -58,12 +59,21 @@ const create = async (req, res) => {
       slug,
     });
     await newProject.save();
-
-    await sendNotification(
-      "Campaign creation",
-      "The campaign has been created successfully",
-      req.user._id
-    );
+    const adminId = await getAdminId();
+    if (newProject) {
+      // notify to creator
+      await sendNotification(
+        "New Campaign created",
+        `${title} campaign has been created successfully`,
+        req.user._id
+      );
+      // notify to admin
+      await sendNotification(
+        "New Campaign created",
+        `${req.user.firstName} ${req.user.lastName} has created a new campaign`,
+        adminId
+      );
+    }
     return SuccessHandler(
       { message: "New Campaign Created!", campaign: newProject },
       201,
@@ -113,6 +123,20 @@ const update = async (req, res) => {
         slug,
       },
     });
+    if (updated) {
+      // notify to creator
+      await sendNotification(
+        "Campaign updated",
+        `${title} campaign has been updated successfully`,
+        req.user._id
+      );
+      // notify to admin
+      await sendNotification(
+        "Campaign updated",
+        `${req.user.firstName} ${req.user.lastName} has updated his/her campaign`,
+        adminId
+      );
+    }
     if (!updated) {
       return ErrorHandler("Error updating campaign!", 400, req, res);
     }
@@ -537,19 +561,25 @@ const invest = async (req, res) => {
         });
         const investment = await newInvestment.save();
 
+        const adminId = await getAdminId();
         if (investment) {
-          // sending notif to investor
+          // notify to investor
           await sendNotification(
-            "Investment Notification",
-            "You have made investment",
+            "New investment",
+            `You investmented in ${project.title} campaign`,
             req.user._id
           );
-          // sending notfi to creator
-
+          // notify to creator
           await sendNotification(
-            "new Investment",
-            `${req.user.firstName} ${req.user.lasttName} has invested in ${project.title}`,
+            "New investment",
+            `${req.user.firstName} ${req.user.lastName} has invested in ${project.title} campaign`,
             project.creator
+          );
+          // notify to admin
+          await sendNotification(
+            "New investment",
+            `${req.user.firstName} ${req.user.lastName} invested in ${project.title} campaign`,
+            adminId
           );
           await Project.findByIdAndUpdate(campaign, {
             $push: { investment: investment._id },
