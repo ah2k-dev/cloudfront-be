@@ -1088,10 +1088,16 @@
             "schema": {
               "type": "object",
               "properties": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                },
                 "statusFilter": {
                   "example": "any"
                 },
-                "searchFilter": {
+                "search": {
                   "example": "any"
                 },
                 "categoryFilter": {
@@ -1125,10 +1131,16 @@
             "schema": {
               "type": "object",
               "properties": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                },
                 "statusFilter": {
                   "example": "any"
                 },
-                "searchFilter": {
+                "search": {
                   "example": "any"
                 }
               }
@@ -1183,10 +1195,16 @@
             "schema": {
               "type": "object",
               "properties": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                },
                 "statusFilter": {
                   "example": "any"
                 },
-                "searchFilter": {
+                "search": {
                   "example": "any"
                 }
               }
@@ -1446,10 +1464,16 @@
             "schema": {
               "type": "object",
               "properties": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                },
                 "statusFilter": {
                   "example": "any"
                 },
-                "searchFilter": {
+                "search": {
                   "example": "any"
                 }
               }
@@ -1695,7 +1719,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "searchFilter": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
                   "example": "any"
                 },
                 "search": {
@@ -1886,7 +1913,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "searchFilter": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
                   "example": "any"
                 },
                 "search": {
@@ -2371,6 +2401,12 @@
             "schema": {
               "type": "object",
               "properties": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                },
                 "blogId": {
                   "example": "any"
                 }
@@ -2482,21 +2518,8 @@
           "Blog"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+        "parameters": [],
+        "responses": {}
       }
     },
     "/blog/mostLiked": {
@@ -2505,21 +2528,8 @@
           "Blog"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+        "parameters": [],
+        "responses": {}
       }
     },
     "/contact/": {

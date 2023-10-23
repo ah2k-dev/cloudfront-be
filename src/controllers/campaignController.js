@@ -158,10 +158,10 @@ const getAll = async (req, res) => {
           status: req.body.statusFilter,
         }
       : {};
-    const searchFilter = req.body.searchFilter
+    const searchFilter = req.body.search
       ? {
           title: {
-            $regex: req.body.searchFilter,
+            $regex: req.body.search,
             $options: "i",
           },
         }
@@ -258,10 +258,10 @@ const getMine = async (req, res) => {
           status: req.body.statusFilter,
         }
       : {};
-    const searchFilter = req.body.searchFilter
+    const searchFilter = req.body.search
       ? {
           title: {
-            $regex: req.body.searchFilter,
+            $regex: req.body.search,
             $options: "i",
           },
         }
@@ -344,10 +344,10 @@ const getInvested = async (req, res) => {
           status: req.body.statusFilter,
         }
       : {};
-    const searchFilter = req.body.searchFilter
+    const searchFilter = req.body.search
       ? {
           title: {
-            $regex: req.body.searchFilter,
+            $regex: req.body.search,
             $options: "i",
           },
         }

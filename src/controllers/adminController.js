@@ -46,10 +46,10 @@ const getCampaigns = async (req, res) => {
           status: req.body.statusFilter,
         }
       : {};
-    const searchFilter = req.body.searchFilter
+    const searchFilter = req.body.search
       ? {
           title: {
-            $regex: req.body.searchFilter,
+            $regex: req.body.search,
             $options: "i",
           },
         }
@@ -277,7 +277,7 @@ const getInvestors = async (req, res) => {
     const itemPerPage = Number(req.body.itemPerPage);
     const pageNumber = Number(req.body.page) || 1;
     const skipItems = (pageNumber - 1) * itemPerPage;
-    const searchFilter = req.body.searchFilter
+    const searchFilter = req.body.search
       ? {
           title: {
             $regex: req.body.search,
@@ -427,12 +427,22 @@ const getCreators = async (req, res) => {
     const itemPerPage = Number(req.body.itemPerPage);
     const pageNumber = Number(req.body.page) || 1;
     const skipItems = (pageNumber - 1) * itemPerPage;
-    const searchFilter = req.body.searchFilter
+    const searchFilter = req.body.search
       ? {
-          title: {
-            $regex: req.body.search,
-            $options: "i",
-          },
+          $or: [
+            {
+              firstName: {
+                $regex: req.body.search,
+                $options: "i",
+              },
+            },
+            {
+              lastName: {
+                $regex: req.body.search,
+                $options: "i",
+              },
+            },
+          ],
         }
       : {};
     const creators = await User.find({
