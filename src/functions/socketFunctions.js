@@ -27,8 +27,21 @@ const sendMessageHelper = (user, message) => {
   });
 };
 const sendNotificationHelper = (user, notification) => {
-  const userToSend = global.onlineUsers.find((user2) => user2.user === user);
-  global.io.to(userToSend.socket).emit("newNotification", { notification });
+  const userToSend = global.onlineUsers.filter((user2) => user2 === user);
+  console.log("Here");
+  console.log(userToSend[0]);
+  if (userToSend[0]) {
+    global.io
+      .to(userToSend[0].socket)
+      .emit("newNotification", { notification });
+  }
+  // global.onlineUsers.forEach((user2) => {
+  //   if (user2.user == user) {
+  //     global.io
+  //       .to(user2.socket)
+  //       .emit("newNotification", { message: notification });
+  //   }
+  // });
 };
 
 module.exports = {

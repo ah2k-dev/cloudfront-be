@@ -44,6 +44,7 @@ const create = async (req, res) => {
     if (Number(equity) < 10 || Number(equity) > 90) {
       return ErrorHandler("Equity must be between 10% and 90%", 400, req, res);
     }
+    console.log("Projection Creation before");
     const newProject = new Project({
       title,
       shortDesc,
@@ -61,6 +62,7 @@ const create = async (req, res) => {
     await newProject.save();
     const adminId = await getAdminId();
     if (newProject) {
+      console.log("Project Created");
       // notify to creator
       await sendNotification(
         "New Campaign created",

@@ -279,14 +279,14 @@ const deleteCampaign = async (req, res) => {
       },
       { new: true }
     );
-    if (deleted) {
-      // notify to creator
-      await sendNotification(
-        "Campaign deleted",
-        `Admin has deleted ${updated.title} campaign`,
-        updated.creator
-      );
-    }
+    // if (deleted) {
+    //   // notify to creator
+    //   await sendNotification(
+    //     "Campaign deleted",
+    //     `Admin has deleted ${updated.title} campaign`,
+    //     updated.creator
+    //   );
+    // }
     if (!deleted) {
       return ErrorHandler("Error deleting campaign", 400, req, res);
     }
@@ -490,14 +490,14 @@ const deleteInvestor = async (req, res) => {
       },
       { new: true }
     );
-    if (deleted) {
-      // notify to investor
-      await sendNotification(
-        "Profile deleted",
-        `Admin has deleted your profile`,
-        id
-      );
-    }
+    // if (deleted) {
+    //   // notify to investor
+    //   // await sendNotification(
+    //   //   "Profile deleted",
+    //   //   `Admin has deleted your profile`,
+    //   //   id
+    //   // );
+    // }
     // const deletedInvestorProfile = await investorProfile.findOneAndDelete({
     //   investor: deletedInvestor._id,
     // });
@@ -664,14 +664,14 @@ const deleteCreator = async (req, res) => {
       },
       { new: true }
     );
-    if (deleted) {
-      // notify to creator
-      await sendNotification(
-        "Profile deleted",
-        `Admin has deleted your profile`,
-        id
-      );
-    }
+    // if (deleted) {
+    //   // notify to creator
+    //   await sendNotification(
+    //     "Profile deleted",
+    //     `Admin has deleted your profile`,
+    //     id
+    //   );
+    // }
     if (!deleted) {
       return ErrorHandler("Error deleting creator!", 400, req, res);
     }
