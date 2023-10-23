@@ -23,72 +23,82 @@ const approveCampaign = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
     const { id } = req.params;
-    // const updated = await Project.findByIdAndUpdate(id, {
-    //   $set: {
-    //     status: "approved",
-    //   },
+    const updated = await Project.findByIdAndUpdate(id, {
+      $set: {
+        status: "approved",
+      },
+    });
+    if (updated) {
+      // notify to creator
+      await sendNotification(
+        "Campaign accepted",
+        `Admin has accepted ${updated.title} campaign`,
+        updated.creator
+      );
+    }
+    if (!updated) {
+      return ErrorHandler("Error approving campaign", 400, req, res);
+    }
+    // const project = await Project.findById(id).select("investment");
+    // console.log(project.investment);
+    // const investments = await Investment.find({
+    //   _id: { $in: project.investment },
     // });
-    // if (updated) {
-    //   // notify to creator
-    //   await sendNotification(
-    //     "Campaign accepted",
-    //     `Admin has accepted ${updated.title} campaign`,
-    //     updated.creator
-    //   );
-    // }
-    // if (!updated) {
-    //   return ErrorHandler("Error approving campaign", 400, req, res);
-    // }
-    // const investors = await Project.findById(id).select("investment");
-    const investors = await Project.aggregate([
-      {
-        $match: { _id: mongoose.Types.ObjectId(id) },
-      },
-      { $unwind: "$investment" },
+    // const investorsId = investments.map((val) => val.investor);
+    // console.log(investorIds);
 
-      {
-        $project: {
-          _id: 0,
-          investmentId: "$investment",
-        },
-      },
-      {
-        $lookup: {
-          from: "investment",
-          localField: "investment",
-          foreignField: "_id",
-          as: "investmentDetail",
-        },
-      },
-      // {
-      //   $match: {
-      //     "investmentDetail._id": "$investmentId",
-      //   },
-      // },
-      {
-        $project: {
-          investmentId: 1,
-          investmentDetail: 1,
-        },
-      },
-      // { $unwind: "$investmentDetail" },
-      // {
-      // },
+    // const investors = await Project.aggregate([
+    //   {
+    //     $match: { _id: mongoose.Types.ObjectId(id) },
+    //   },
+    //   { $unwind: "$investment" },
 
-      // {
-      //   $match:{
-      //     "$_id"
-      //   }
-      // }
-      // },
-    ]);
+    //   {
+    //     $project: {
+    //       _id: 0,
+    //       investmentId: "$investment",
+    //     },
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "investment",
+    //       localField: "investmentId",
+    //       foreignField: "_id",
+    //       as: "investmentDetail",
+    //     },
+    //   },
+    //   // {
+    //   //   $unwind: "$investmentDetail",
+    //   // },
+    //   // {
+    //   //   $match: {
+    //   //     "investmentDetail._id": "$investmentId",
+    //   //   },
+    //   // },
+    //   {
+    //     $project: {
+    //       investmentId: 1,
+    //       investmentDetail: 1,
+    //     },
+    //   },
+    //   // { $unwind: "$investmentDetail" },
+    //   // {
+    //   // },
 
-    return SuccessHandler(
-      { message: "Campaign approved!", investors },
-      200,
-      res
-    );
-    // return SuccessHandler("Campaign approved!", 200, res);
+    //   // {
+    //   //   $match:{
+    //   //     "$_id"
+    //   //   }
+    //   // }
+    //   // },
+    // ]);
+
+    // return SuccessHandler(
+    //   { message: "Campaign approved!", investorsId },
+    //   200,
+    //   res
+    // );
+    return SuccessHandler("Campaign approved!", 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }

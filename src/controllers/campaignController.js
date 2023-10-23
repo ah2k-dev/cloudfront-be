@@ -123,7 +123,22 @@ const update = async (req, res) => {
         slug,
       },
     });
-    if (updated) {
+    if (updated.status === "approved") {
+      const project = await Project.findById(id).select("investment");
+      // console.log(project.investment);
+      const investments = await Investment.find({
+        _id: { $in: project.investment },
+      });
+      const investorsId = investments.map((val) => val.investor);
+      if (investorsId.length > 0) {
+        // notify to investor
+        for (const investor of investorsId)
+          await sendNotification(
+            `${req.user._id} updated the campaign`,
+            `${title} campaign updated, you can check now`,
+            investor
+          );
+      }
       // notify to creator
       await sendNotification(
         "Campaign updated",
