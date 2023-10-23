@@ -641,7 +641,7 @@ const getCompleted = async (req, res) => {
         $limit: itemPerPage,
       },
       {
-        $sort: { createdAt: -1 },
+        $sort: { "investments.createdAt": -1 },
       },
     ];
 

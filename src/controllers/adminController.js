@@ -909,7 +909,7 @@ const userStats = async (req, res) => {
         $limit: itemPerPage,
       },
       {
-        sort: { createdAt: -1 },
+        $sort: { "creator.createdAt": -1 },
       },
     ]);
     // const creatorsWithCampaignsCount = await User.aggregate([
@@ -976,7 +976,7 @@ const userStats = async (req, res) => {
         $limit: itemPerPage,
       },
       {
-        $sort: { createdAt: -1 },
+        $sort: { "investor.createdAt": -1 },
       },
     ]);
     // const investorsWithInvestmentsCount = await User.aggregate([
