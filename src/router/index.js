@@ -6,6 +6,7 @@ const admin = require("./admin");
 const uploader = require("./uploader");
 const blog = require("./blog");
 const contact = require("./contact");
+const notification = require("./notification");
 // module.exports = {
 //   auth,
 // };
@@ -19,6 +20,6 @@ router.use("/admin", admin);
 router.use("/uploader", uploader);
 router.use("/blog", blog);
 router.use("/contact", contact);
-
+router.use("/notification", notification);
 
 module.exports = router;

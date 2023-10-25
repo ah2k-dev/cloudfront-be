@@ -30,7 +30,9 @@ router
   .get(isAuthenticated, adminAuth, admin.addToFeatured);
 
 // investors
-router.route("/createInvestor").post(admin.createInvestor);
+router
+  .route("/createInvestor")
+  .post(isAuthenticated, adminAuth, admin.createInvestor);
 router
   .route("/getInvestors")
   .post(isAuthenticated, adminAuth, admin.getInvestors);
@@ -42,7 +44,7 @@ router
   .delete(isAuthenticated, adminAuth, admin.deleteInvestor);
 
 // creators
-router.post("/createCreator", admin.createCreator);
+router.post("/createCreator", isAuthenticated, adminAuth, admin.createCreator);
 router
   .route("/getCreators")
   .post(isAuthenticated, adminAuth, admin.getCreators);
@@ -54,15 +56,17 @@ router
   .delete(isAuthenticated, adminAuth, admin.deleteCreator);
 
 // dashboard
-router.route("/dashboard").post(admin.dashboard);
+router.route("/dashboard").post(isAuthenticated, adminAuth, admin.dashboard);
 
-router.route("/userStats").post(admin.userStats);
+router.route("/userStats").post(isAuthenticated, adminAuth, admin.userStats);
 
 // web details
 router
   .route("/webDetails/addUpdate")
   .post(isAuthenticated, adminAuth, admin.addUpdateWebDetails);
-router.route("/weDetails/get").get(admin.getAllWebDetails);
+router
+  .route("/weDetails/get")
+  .get(isAuthenticated, adminAuth, admin.getAllWebDetails);
 
 // admin profile
 router.route("/get-profile").get(isAuthenticated, adminAuth, admin.getProfile);

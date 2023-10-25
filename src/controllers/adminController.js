@@ -1060,7 +1060,7 @@ const userStats = async (req, res) => {
                     $regex: req.body.search,
                     $options: "i",
                   }
-                : "",
+                : { $exists: true },
             },
             {
               "creator.lastName": req.body.search
@@ -1068,7 +1068,7 @@ const userStats = async (req, res) => {
                     $regex: req.body.search,
                     $options: "i",
                   }
-                : "",
+                : { $exists: true },
             },
           ],
         },
@@ -1150,7 +1150,7 @@ const userStats = async (req, res) => {
                     $regex: req.body.search,
                     $options: "i",
                   }
-                : "",
+                : { $exists: true },
             },
             {
               "creator.lastName": req.body.search
@@ -1158,7 +1158,7 @@ const userStats = async (req, res) => {
                     $regex: req.body.search,
                     $options: "i",
                   }
-                : "",
+                : { $exists: true },
             },
           ],
         },
