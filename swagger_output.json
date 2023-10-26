@@ -1410,7 +1410,7 @@
       }
     },
     "/campaign/getRequestedPayoutCampaigns": {
-      "get": {
+      "post": {
         "tags": [
           "campaign"
         ],
@@ -1420,6 +1420,24 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                },
+                "search": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -2181,13 +2199,22 @@
             "schema": {
               "type": "object",
               "properties": {
-                "itemPerPage": {
+                "creatorsPerPage": {
                   "example": "any"
                 },
-                "page": {
+                "creatorPage": {
                   "example": "any"
                 },
-                "search": {
+                "searchCreator": {
+                  "example": "any"
+                },
+                "investorsPerPage": {
+                  "example": "any"
+                },
+                "investorPage": {
+                  "example": "any"
+                },
+                "searchInvestor": {
                   "example": "any"
                 }
               }
@@ -2281,24 +2308,8 @@
           "admin"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+        "parameters": [],
+        "responses": {}
       }
     },
     "/admin/get-profile": {
@@ -2401,6 +2412,12 @@
             "schema": {
               "type": "object",
               "properties": {
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                },
                 "search": {
                   "example": "any"
                 },
