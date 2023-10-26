@@ -57,9 +57,9 @@ router
 
 // dashboard
 router.route("/dashboard").post(isAuthenticated, adminAuth, admin.dashboard);
+// router.route("/dashboard").post(admin.dashboard);
 
-// router.route("/userStats").post(isAuthenticated, adminAuth, admin.userStats);
-router.route("/userStats").post(admin.userStats);
+router.route("/userStats").post(isAuthenticated, adminAuth, admin.userStats);
 
 // web details
 router

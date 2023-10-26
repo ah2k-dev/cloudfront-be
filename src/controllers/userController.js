@@ -823,17 +823,17 @@ const getAllCreators = async (req, res) => {
     : {};
 
   try {
+    const creatorsCount = await creatorProfile.countDocuments();
     const creators = await creatorProfile
       .find()
       .populate("creator")
       .skip(skipProfiles)
       .limit(profilePerPage);
 
-    const countCreators = creators.length;
     return SuccessHandler(
       {
         message: `Creators fetched successfully!`,
-        countCreators,
+        creatorsCount,
         creators: creators,
         // filterInvestors,
       },

@@ -29,6 +29,6 @@ router
   .post(isAuthenticated, campaign.requestPayout);
 router
   .route("/getRequestedPayoutCampaigns")
-  .get(isAuthenticated, creatorAuth, campaign.getRequestedPayoutCampaigns);
+  .post(isAuthenticated, creatorAuth, campaign.getRequestedPayoutCampaigns);
 
 module.exports = router;

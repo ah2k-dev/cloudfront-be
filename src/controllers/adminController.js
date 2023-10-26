@@ -402,6 +402,9 @@ const getInvestors = async (req, res) => {
     // .select(
     //   "-password -emailVerificationToken -emailVerificationTokenExpires -passwordResetToken -passwordResetTokenExpires"
     // );
+    const investorProfileCount = await investorProfile.countDocuments({
+      investor: { $in: investors },
+    });
     const investrProfiles = await investorProfile
       .find({
         investor: { $in: investors },
@@ -415,7 +418,7 @@ const getInvestors = async (req, res) => {
       });
 
     return SuccessHandler(
-      { message: "Investors fetched", investrProfiles },
+      { message: "Investors fetched", investorProfileCount, investrProfiles },
       200,
       res
     );
@@ -578,6 +581,9 @@ const getCreators = async (req, res) => {
     // .select(
     //   "-password -emailVerificationToken -emailVerificationTokenExpires -passwordResetToken -passwordResetTokenExpires"
     // );
+    const creatorProfileCount = await creatorProfile.countDocuments({
+      creator: { $in: creators },
+    });
     const creatorProfiles = await creatorProfile
       .find({
         creator: { $in: creators },
@@ -591,7 +597,7 @@ const getCreators = async (req, res) => {
       });
 
     return SuccessHandler(
-      { message: "creators fetched", creatorProfiles },
+      { message: "creators fetched", creatorProfileCount, creatorProfiles },
       200,
       res
     );

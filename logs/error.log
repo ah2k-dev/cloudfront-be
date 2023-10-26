@@ -418,3 +418,9 @@
 {"date":"2023-10-26T13:26:11.108Z","level":"error","message":"Cannot destructure property 'role' of 'req.user' as it is undefined.","method":"POST","service":"user-service","url":"/transactions"}
 {"date":"2023-10-26T13:26:12.528Z","level":"error","message":"Cannot destructure property 'role' of 'req.user' as it is undefined.","method":"POST","service":"user-service","url":"/transactions"}
 {"date":"2023-10-26T13:26:14.392Z","level":"error","message":"Cannot destructure property 'role' of 'req.user' as it is undefined.","method":"POST","service":"user-service","url":"/transactions"}
+{"date":"2023-10-26T15:10:14.408Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}
+{"date":"2023-10-26T15:11:06.743Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}
+{"date":"2023-10-26T15:12:28.448Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}
+{"date":"2023-10-26T15:12:59.024Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}
+{"date":"2023-10-26T15:14:45.101Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}
+{"date":"2023-10-26T15:14:52.254Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}

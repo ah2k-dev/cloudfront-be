@@ -2,6 +2,7 @@ const SuccessHandler = require("../utils/SuccessHandler");
 const ErrorHandler = require("../utils/ErrorHandler");
 const Blog = require("../models/User/blog");
 const Comment = require("../models/User/blogComment");
+const { default: mongoose } = require("mongoose");
 
 const getBlog = async (req, res, next) => {
   // #swagger.tags = ['Blog'];
@@ -19,6 +20,7 @@ const getBlog = async (req, res, next) => {
       ? { category: { $regex: req.body.category, $options: "i" } }
       : {};
 
+    const blogsCount = await Blog.countDocuments();
     const blogs = await Blog.find({
       ...titleFilter,
       ...categoryFilter,
@@ -34,7 +36,7 @@ const getBlog = async (req, res, next) => {
           select: "firstName lastName profilePic role",
         },
       });
-    return SuccessHandler({ blogs }, 200, res);
+    return SuccessHandler({ blogsCount, blogs }, 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 400, req, res);
   }
@@ -136,7 +138,49 @@ const fetchBlogComments = async (req, res, next) => {
           select: "firstName lastName profilePic role",
         },
       });
-    return SuccessHandler({ blog }, 200, res);
+    // const blog = await Blog.aggregate([
+    //   {
+    //     $match: { _id: mongoose.Types.ObjectId(blogId) },
+    //   },
+    //   {
+    //     $unwind: "$comments",
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "comment",
+    //       localField: "comments",
+    //       foreignField: "_id",
+    //       as: "commentInfo",
+    //     },
+    //   },
+    //   {
+    //     $sort: { "commentInfo.date": -1 },
+    //   },
+    //   {
+    //     $skip: skipItems,
+    //   },
+    //   {
+    //     $limit: itemPerPage,
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "users",
+    //       localField: "commentInfo.user",
+    //       foreignField: "_id",
+    //       as: "commentInfo.user",
+    //     },
+    //   },
+    //   {
+    //     $unwind: "$commentInfo.user",
+    //   },
+    // ]);
+    const commentsCount = blog.comments.length;
+    const comments = blog.comments.slice(skipItems, skipItems + itemPerPage);
+    const paginatedBlog = {
+      ...blog._doc,
+      comments: comments,
+    };
+    return SuccessHandler({ commentsCount, paginatedBlog }, 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 400, req, res);
   }

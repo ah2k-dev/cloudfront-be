@@ -230,6 +230,8 @@ const getAll = async (req, res) => {
             },
           }
         : {};
+
+    const campaginsCount = await Project.countDocuments({ isActive: true });
     const campaigns = await Project.find({
       ...statusFilter,
       ...searchFilter,
@@ -263,6 +265,7 @@ const getAll = async (req, res) => {
         return SuccessHandler(
           {
             message: "Campaigns fetched!",
+            campaginsCount,
             campaigns: result,
           },
           200,
@@ -316,6 +319,9 @@ const getMine = async (req, res) => {
     //     },
     //   },
     // ];
+    const campaignsCount = await Project.countDocuments({
+      isActive: true,
+    });
     const campaigns = await Project.find({
       ...statusFilter,
       ...searchFilter,
@@ -360,6 +366,7 @@ const getMine = async (req, res) => {
         return SuccessHandler(
           {
             message: "Campaigns fetched!",
+            campaignsCount,
             campaigns: result,
           },
           200,
@@ -396,6 +403,11 @@ const getInvested = async (req, res) => {
     const investments = await Investment.find({
       investor: user,
     }).distinct("_id");
+
+    const campaignsCount = await Project.countDocuments({
+      investment: { $in: investments },
+      isActive: true,
+    });
     const campaigns = await Project.find({
       investment: { $in: investments },
       ...statusFilter,
@@ -437,6 +449,7 @@ const getInvested = async (req, res) => {
         return SuccessHandler(
           {
             message: "Campaigns fetched!",
+            campaignsCount,
             campaigns: result,
           },
           200,
@@ -637,6 +650,10 @@ const getLive = async (req, res) => {
           title: req.body.search,
         }
       : {};
+    const campaignsCount = await Project.countDocuments({
+      investment: { $exists: true, $ne: [] },
+      isActive: true,
+    });
     const campaigns = await Project.find({
       investment: { $exists: true, $ne: [] },
       isActive: true,
@@ -656,7 +673,7 @@ const getLive = async (req, res) => {
     }
 
     return SuccessHandler(
-      { message: "Campaigns fetched!", campaigns },
+      { message: "Campaigns fetched!", campaignsCount, campaigns },
       200,
       res
     );
@@ -671,6 +688,24 @@ const getCompleted = async (req, res) => {
     const itemPerPage = Number(req.body.itemPerPage);
     const pageNumber = Number(req.body.page) || 1;
     const skipItems = (pageNumber - 1) * itemPerPage;
+    const completedCampaignsCount = await Project.aggregate([
+      {
+        $lookup: {
+          from: "investments",
+          localField: "investment",
+          foreignField: "_id",
+          as: "investments",
+        },
+      },
+      {
+        $match: {
+          fundingGoal: { $lte: "$totalInvestmentAmount" },
+        },
+      },
+      {
+        $count: "totalCount",
+      },
+    ]);
     const aggregationPipeline = [
       {
         $lookup: {
@@ -706,7 +741,7 @@ const getCompleted = async (req, res) => {
       return ErrorHandler("Error fetching campaigns", 400, req, res);
     }
     return SuccessHandler(
-      { message: "Campaigns fetched!", campaigns },
+      { message: "Campaigns fetched!", completedCampaignsCount, campaigns },
       200,
       res
     );
