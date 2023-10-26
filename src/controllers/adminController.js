@@ -1037,16 +1037,15 @@ const userStats = async (req, res) => {
       {
         $unwind: "$creator",
       },
-      {
-        $project: {
-          _id: 0,
-        },
-      },
 
       {
         $count: "totalCount",
       },
     ]);
+    const totalCreatorsCampaignsCount =
+      creatorsWithCampaignsCount.length > 0
+        ? creatorsWithCampaignsCount[0].totalCount
+        : 0;
     const creatorsWithCampaigns = await Project.aggregate([
       {
         $group: {
@@ -1113,6 +1112,7 @@ const userStats = async (req, res) => {
         $sort: { "creator.createdAt": -1 },
       },
     ]);
+
     // const creatorsWithCampaignsCount = await User.aggregate([
     //   {
     //     $match: {
@@ -1160,16 +1160,16 @@ const userStats = async (req, res) => {
       {
         $unwind: "$investor",
       },
-      {
-        $project: {
-          _id: 0,
-        },
-      },
 
       {
         $count: "totalCount",
       },
     ]);
+
+    const totalInvestorsCampaignsCount =
+      investorsWithInvestmentsCount.length > 0
+        ? investorsWithInvestmentsCount[0].totalCount
+        : 0;
     const investorsWithInvestments = await Investment.aggregate([
       {
         $group: {
@@ -1263,8 +1263,8 @@ const userStats = async (req, res) => {
     return SuccessHandler(
       {
         message: "Data fetched!",
-        creatorsWithCampaignsCount,
-        investorsWithInvestmentsCount,
+        totalCreatorsCampaignsCount,
+        totalInvestorsCampaignsCount,
         creatorsWithCampaigns,
         investorsWithInvestments,
       },
