@@ -58,15 +58,14 @@ router
 // dashboard
 router.route("/dashboard").post(isAuthenticated, adminAuth, admin.dashboard);
 
-router.route("/userStats").post(isAuthenticated, adminAuth, admin.userStats);
+// router.route("/userStats").post(isAuthenticated, adminAuth, admin.userStats);
+router.route("/userStats").post(admin.userStats);
 
 // web details
 router
   .route("/webDetails/addUpdate")
   .post(isAuthenticated, adminAuth, admin.addUpdateWebDetails);
-router
-  .route("/weDetails/get")
-  .get(isAuthenticated, adminAuth, admin.getAllWebDetails);
+router.route("/weDetails/get").get(admin.getAllWebDetails);
 
 // admin profile
 router.route("/get-profile").get(isAuthenticated, adminAuth, admin.getProfile);

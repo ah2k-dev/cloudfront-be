@@ -410,3 +410,4 @@
 {"date":"2023-10-23T19:52:24.040Z","level":"error","message":"Cannot read properties of undefined (reading 'socket')","method":"POST","service":"user-service","url":"/create"}
 {"date":"2023-10-23T19:52:53.827Z","level":"error","message":"Cannot read properties of undefined (reading 'socket')","method":"POST","service":"user-service","url":"/create"}
 {"date":"2023-10-25T12:43:22.159Z","level":"error","message":"$or is not allowed or the syntax is incorrect, see the Atlas documentation for more information","method":"POST","service":"user-service","url":"/userStats"}
+{"date":"2023-10-26T08:16:21.707Z","level":"error","message":"invalid argument to $skip stage: Expected an integer, but found NaN in: $skip: nan.0","method":"POST","service":"user-service","url":"/userStats"}

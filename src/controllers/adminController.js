@@ -1015,9 +1015,10 @@ const createInvestor = async (req, res) => {
 const userStats = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
-    const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page) || 1;
-    const skipItems = (pageNumber - 1) * itemPerPage;
+    const creatorsPerPage = Number(req.body.creatorsPerPage);
+    const creatorPageNumber = Number(req.body.creatorPage) || 1;
+    const skipCreators = (creatorPageNumber - 1) * creatorsPerPage;
+
     const creatorsWithCampaigns = await Project.aggregate([
       {
         $group: {
@@ -1055,17 +1056,17 @@ const userStats = async (req, res) => {
         $match: {
           $or: [
             {
-              "creator.firstName": req.body.search
+              "creator.firstName": req.body.searchCreator
                 ? {
-                    $regex: req.body.search,
+                    $regex: req.body.searchCreator,
                     $options: "i",
                   }
                 : { $exists: true },
             },
             {
-              "creator.lastName": req.body.search
+              "creator.lastName": req.body.searchCreator
                 ? {
-                    $regex: req.body.search,
+                    $regex: req.body.searchCreator,
                     $options: "i",
                   }
                 : { $exists: true },
@@ -1075,10 +1076,10 @@ const userStats = async (req, res) => {
       },
 
       {
-        $skip: skipItems,
+        $skip: skipCreators,
       },
       {
-        $limit: itemPerPage,
+        $limit: creatorsPerPage,
       },
       {
         $sort: { "creator.createdAt": -1 },
@@ -1109,6 +1110,10 @@ const userStats = async (req, res) => {
     //     },
     //   },
     // ]);
+    const investorsPerPage = Number(req.body.investorsPerPage);
+    const investorPageNumber = Number(req.body.investorPage) || 1;
+    const skipInvestors = (investorPageNumber - 1) * investorsPerPage;
+
     const investorsWithInvestments = await Investment.aggregate([
       {
         $group: {
@@ -1145,17 +1150,17 @@ const userStats = async (req, res) => {
         $match: {
           $or: [
             {
-              "creator.firstName": req.body.search
+              "investor.firstName": req.body.searchInvestor
                 ? {
-                    $regex: req.body.search,
+                    $regex: req.body.searchInvestor,
                     $options: "i",
                   }
                 : { $exists: true },
             },
             {
-              "creator.lastName": req.body.search
+              "investor.lastName": req.body.searchInvestor
                 ? {
-                    $regex: req.body.search,
+                    $regex: req.body.searchInvestor,
                     $options: "i",
                   }
                 : { $exists: true },
@@ -1164,10 +1169,10 @@ const userStats = async (req, res) => {
         },
       },
       {
-        $skip: skipItems,
+        $skip: skipInvestors,
       },
       {
-        $limit: itemPerPage,
+        $limit: investorsPerPage,
       },
       {
         $sort: { "investor.createdAt": -1 },
