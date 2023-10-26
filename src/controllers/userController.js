@@ -526,18 +526,12 @@ const userStats = async (req, res) => {
 const getTransactions = async (req, res) => {
   // #swagger.tags = ['user']
   try {
-    const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page) || 1;
-    const skipItems = (pageNumber - 1) * itemPerPage;
     const { role } = req.user;
 
     if (role == "investor") {
       const transactions = await Investment.find({
         investor: req.user._id,
-      })
-        .sort({ createdAt: -1 })
-        .skip(skipItems)
-        .limit(itemPerPage);
+      });
 
       Promise.all(
         transactions.map(async (transaction) => {
@@ -565,6 +559,7 @@ const getTransactions = async (req, res) => {
         );
       });
     } else if (role == "creator") {
+      console.log("I am creator");
       // let creditedTransactions = await Project.aggregate([
       //   {
       //     $match: {
@@ -672,17 +667,13 @@ const getTransactions = async (req, res) => {
       const campaigns = await Project.find({
         creator: req.user._id,
         isActive: true,
-      })
-        .sort({ createdAt: -1 })
-        .skip(skipItems)
-        .limit(itemPerPage)
-        .populate({
-          path: "investment",
-          populate: {
-            path: "investor",
-            select: "firstName lastName email role createdAt profilePic",
-          },
-        });
+      }).populate({
+        path: "investment",
+        populate: {
+          path: "investor",
+          select: "firstName lastName email role createdAt profilePic",
+        },
+      });
 
       let allInvestments = [];
 
@@ -709,14 +700,10 @@ const getTransactions = async (req, res) => {
       );
       // return ErrorHandler(`Error fetching data! Under working`, 400, req, res);
     } else if (role == "admin") {
-      const transactions = await Investment.find({})
-        .populate({
-          path: "investor",
-          select: "firstName lastName email role createdAt profilePic",
-        })
-        .sort({ createdAt: -1 })
-        .skip(skipItems)
-        .limit(itemPerPage);
+      const transactions = await Investment.find({}).populate({
+        path: "investor",
+        select: "firstName lastName email role createdAt profilePic",
+      });
 
       Promise.all(
         transactions.map(async (transaction) => {
@@ -835,7 +822,7 @@ const getAllCreators = async (req, res) => {
         message: `Creators fetched successfully!`,
         creatorsCount,
         creators: creators,
-        // filterInvestors,
+        filterInvestors,
       },
       200,
       res

@@ -801,33 +801,45 @@ const dashboard = async (req, res) => {
     // 5)total investors
     // 6)total creators
     // 7)total earning of admin
+    const dateFilter = req.body.date
+      ? {
+          createdAt: { $lte: req.body.date },
+        }
+      : {};
 
     const totalCampaigns = await Project.countDocuments({
       isActive: true,
+      ...dateFilter,
     });
     const totalActiveCampaigns = await Project.countDocuments({
       isActive: true,
       status: "approved",
+      ...dateFilter,
     });
     const totalPendingCampaigns = await Project.countDocuments({
       isActive: true,
       status: "pending",
+      ...dateFilter,
     });
     const totalRejectedCampaigns = await Project.countDocuments({
       isActive: true,
       status: "rejected",
+      ...dateFilter,
     });
     const totalInvestors = await User.countDocuments({
       isActive: true,
       role: "investor",
+      ...dateFilter,
     });
     const totalCreators = await User.countDocuments({
       isActive: true,
       role: "creator",
+      ...dateFilter,
     });
     const closedCampaigns = await Project.find({
       isActive: true,
       status: "closed",
+      ...dateFilter,
     });
     const totalEarning = closedCampaigns.reduce((acc, val) => {
       return acc + val.fundingGoal;
