@@ -131,6 +131,11 @@ const getCampaigns = async (req, res) => {
     //     },
     //   },
     // ];
+    const campaignsCount = await Project.countDocuments({
+      ...statusFilter,
+      ...searchFilter,
+      isActive: true,
+    });
     const campaigns = await Project.find({
       ...statusFilter,
       ...searchFilter,
@@ -150,7 +155,7 @@ const getCampaigns = async (req, res) => {
     Promise.all(
       campaigns.map(async (val, ind) => {
         const profile = await creatorProfile.findOne({
-          creator: val.creator._id,
+          creator: val._id,
         });
         let data = { campaign: val, creatorProfile: profile };
         // val.creatorProfile = profile;
@@ -162,6 +167,7 @@ const getCampaigns = async (req, res) => {
         return SuccessHandler(
           {
             message: "Campaigns fetched!",
+            campaignsCount,
             campaigns: result,
           },
           200,
