@@ -414,3 +414,7 @@
 {"date":"2023-10-26T13:13:14.347Z","level":"error","message":"Cannot read properties of null (reading '_id')","method":"POST","service":"user-service","url":"/getCampaigns"}
 {"date":"2023-10-26T13:13:54.413Z","level":"error","message":"Cannot read properties of null (reading '_id')","method":"POST","service":"user-service","url":"/getCampaigns"}
 {"date":"2023-10-26T13:13:57.112Z","level":"error","message":"Cannot read properties of null (reading '_id')","method":"POST","service":"user-service","url":"/getCampaigns"}
+{"date":"2023-10-26T13:24:47.783Z","level":"error","message":"Cannot destructure property 'role' of 'req.user' as it is undefined.","method":"POST","service":"user-service","url":"/transactions"}
+{"date":"2023-10-26T13:26:11.108Z","level":"error","message":"Cannot destructure property 'role' of 'req.user' as it is undefined.","method":"POST","service":"user-service","url":"/transactions"}
+{"date":"2023-10-26T13:26:12.528Z","level":"error","message":"Cannot destructure property 'role' of 'req.user' as it is undefined.","method":"POST","service":"user-service","url":"/transactions"}
+{"date":"2023-10-26T13:26:14.392Z","level":"error","message":"Cannot destructure property 'role' of 'req.user' as it is undefined.","method":"POST","service":"user-service","url":"/transactions"}

@@ -10,8 +10,9 @@ router
 router
   .route("/rejectCampaign/:id")
   .put(isAuthenticated, adminAuth, admin.rejectCampaign);
-router.route("/getCampaigns").post(admin.getCampaigns);
-// .post(isAuthenticated, adminAuth, admin.getCampaigns);
+router
+  .route("/getCampaigns")
+  .post(isAuthenticated, adminAuth, admin.getCampaigns);
 
 router
   .route("/updateCampaign")

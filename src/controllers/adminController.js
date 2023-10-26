@@ -141,9 +141,9 @@ const getCampaigns = async (req, res) => {
       ...searchFilter,
       isActive: true,
     })
+      .sort({ createdAt: -1 })
       .skip(skipItems)
       .limit(itemPerPage)
-      .sort({ createdAt: -1 })
       .populate({
         path: "creator",
         select: "firstName middleName lastName profilePic email ",
@@ -1109,13 +1109,13 @@ const userStats = async (req, res) => {
       },
 
       {
+        $sort: { "creator.createdAt": -1 },
+      },
+      {
         $skip: skipCreators,
       },
       {
         $limit: creatorsPerPage,
-      },
-      {
-        $sort: { "creator.createdAt": -1 },
       },
     ]);
 
@@ -1231,13 +1231,13 @@ const userStats = async (req, res) => {
         },
       },
       {
+        $sort: { "investor.createdAt": -1 },
+      },
+      {
         $skip: skipInvestors,
       },
       {
         $limit: investorsPerPage,
-      },
-      {
-        $sort: { "investor.createdAt": -1 },
       },
     ]);
     // const investorsWithInvestmentsCount = await User.aggregate([

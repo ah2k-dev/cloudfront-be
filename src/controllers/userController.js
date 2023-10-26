@@ -535,9 +535,9 @@ const getTransactions = async (req, res) => {
       const transactions = await Investment.find({
         investor: req.user._id,
       })
+        .sort({ createdAt: -1 })
         .skip(skipItems)
-        .limit(itemPerPage)
-        .sort({ createdAt: -1 });
+        .limit(itemPerPage);
 
       Promise.all(
         transactions.map(async (transaction) => {
@@ -673,16 +673,16 @@ const getTransactions = async (req, res) => {
         creator: req.user._id,
         isActive: true,
       })
+        .sort({ createdAt: -1 })
+        .skip(skipItems)
+        .limit(itemPerPage)
         .populate({
           path: "investment",
           populate: {
             path: "investor",
             select: "firstName lastName email role createdAt profilePic",
           },
-        })
-        .skip(skipItems)
-        .limit(itemPerPage)
-        .sort({ createdAt: -1 });
+        });
 
       let allInvestments = [];
 
@@ -714,9 +714,9 @@ const getTransactions = async (req, res) => {
           path: "investor",
           select: "firstName lastName email role createdAt profilePic",
         })
+        .sort({ createdAt: -1 })
         .skip(skipItems)
-        .limit(itemPerPage)
-        .sort({ createdAt: -1 });
+        .limit(itemPerPage);
 
       Promise.all(
         transactions.map(async (transaction) => {
@@ -785,9 +785,9 @@ const getAllInvestors = async (req, res) => {
       investors = investors = await investorProfile
         .find()
         .populate("investor")
+        .sort({ createdAt: -1 })
         .skip(skipProfiles)
-        .limit(profilePerPage)
-        .sort({ createdAt: -1 });
+        .limit(profilePerPage);
     }
 
     const countInvestors = investors.length;

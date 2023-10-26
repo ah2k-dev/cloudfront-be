@@ -6,6 +6,9 @@ const Comment = require("../models/User/blogComment");
 const getBlog = async (req, res, next) => {
   // #swagger.tags = ['Blog'];
   try {
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
     // ✅ Filter
     const titleFilter = req.body.search
       ? {
@@ -20,6 +23,9 @@ const getBlog = async (req, res, next) => {
       ...titleFilter,
       ...categoryFilter,
     })
+      .sort({ date: -1 })
+      .skip(skipItems)
+      .limit(itemPerPage)
       .populate("author", "firstName lastName profilePic role")
       .populate({
         path: "comments",
@@ -124,7 +130,7 @@ const fetchBlogComments = async (req, res, next) => {
       .limit(itemPerPage)
       .populate({
         path: "comments",
-        options: { sort: { createdAt: -1 } },
+        options: { sort: { date: -1 } },
         populate: {
           path: "user",
           select: "firstName lastName profilePic role",

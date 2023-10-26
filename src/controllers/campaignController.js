@@ -237,9 +237,9 @@ const getAll = async (req, res) => {
       ...minMaxFilter,
       isActive: true,
     })
+      .sort({ createdAt: -1 })
       .skip(skipItems)
       .limit(itemPerPage)
-      .sort({ createdAt: -1 })
       .populate({
         path: "creator",
         select: "firstName middleName lastName profilePic email",
@@ -322,9 +322,9 @@ const getMine = async (req, res) => {
       creator: user,
       isActive: true,
     })
+      .sort({ createdAt: -1 })
       .skip(skipItems)
       .limit(itemPerPage)
-      .sort({ createdAt: -1 })
       .populate({
         path: "creator",
         select: "firstName middleName lastName profilePic email",
@@ -402,9 +402,9 @@ const getInvested = async (req, res) => {
       ...searchFilter,
       isActive: true,
     })
+      .sort({ createdAt: -1 })
       .skip(skipItems)
       .limit(itemPerPage)
-      .sort({ createdAt: -1 })
       .populate({
         path: "creator",
         select: "firstName middleName lastName profilePic email",
@@ -643,9 +643,9 @@ const getLive = async (req, res) => {
       ...categoryFilter,
       ...searchFilter,
     })
+      .sort({ createdAt: -1 })
       .skip(skipItems)
       .limit(itemPerPage)
-      .sort({ createdAt: -1 })
       .populate({
         path: "user",
         select: "firstName middleName lastName profilePic email",
@@ -691,13 +691,13 @@ const getCompleted = async (req, res) => {
         },
       },
       {
+        $sort: { "investments.createdAt": -1 },
+      },
+      {
         $skip: skipItems,
       },
       {
         $limit: itemPerPage,
-      },
-      {
-        $sort: { "investments.createdAt": -1 },
       },
     ];
 
@@ -780,28 +780,51 @@ const requestPayout = async (req, res) => {
 const getRequestedPayoutCampaigns = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
+    const itemPerPage = Number(req.body.itemPerPage);
+    const pageNumber = Number(req.body.page) || 1;
+    const skipItems = (pageNumber - 1) * itemPerPage;
     const creatorFilter =
       req.user.role === "creator" ? { creator: req.user._id } : {};
+    const searchFilter = req.body.search
+      ? {
+          $or: [
+            {
+              firstName: { $regex: req.body.search, $options: "i" },
+            },
+            {
+              lastName: { $regex: req.body.search, $options: "i" },
+            },
+            {},
+          ],
+        }
+      : {};
+    const campaignsCount = await Project.countDocuments({
+      payoutRequested: true,
+    });
     const campaigns = await Project.find({
       payoutRequested: true,
       ...creatorFilter,
+      ...searchFilter,
     })
+      .sort({ createdAt: -1 })
+      .skip(skipItems)
+      .limit(itemPerPage)
       .populate({
         path: "creator",
         select: "firstName middleName lastName profilePic email",
-      })
-      .populate({
-        path: "investment",
-        populate: {
-          path: "investor",
-          select: "firstName middleName lastName profilePic email",
-        },
       });
+    // .populate({
+    //   path: "investment",
+    //   populate: {
+    //     path: "investor",
+    //     select: "firstName middleName lastName profilePic email",
+    //   },
+    // });
     if (!campaigns) {
       return ErrorHandler("Campaign not found", 404, req, res);
     }
     return SuccessHandler(
-      { message: "Campaigns fetched!", campaigns },
+      { message: "Campaigns fetched!", campaignsCount, campaigns },
       200,
       res
     );
