@@ -1019,6 +1019,34 @@ const userStats = async (req, res) => {
     const creatorPageNumber = Number(req.body.creatorPage) || 1;
     const skipCreators = (creatorPageNumber - 1) * creatorsPerPage;
 
+    const creatorsWithCampaignsCount = await Project.aggregate([
+      {
+        $group: {
+          _id: "$creator",
+          campaigns: { $push: "$$ROOT" },
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "creator",
+        },
+      },
+      {
+        $unwind: "$creator",
+      },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+
+      {
+        $count: "totalCount",
+      },
+    ]);
     const creatorsWithCampaigns = await Project.aggregate([
       {
         $group: {
@@ -1114,6 +1142,34 @@ const userStats = async (req, res) => {
     const investorPageNumber = Number(req.body.investorPage) || 1;
     const skipInvestors = (investorPageNumber - 1) * investorsPerPage;
 
+    const investorsWithInvestmentsCount = await Investment.aggregate([
+      {
+        $group: {
+          _id: "$investor",
+          investments: { $push: "$$ROOT" },
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "investor",
+        },
+      },
+      {
+        $unwind: "$investor",
+      },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+
+      {
+        $count: "totalCount",
+      },
+    ]);
     const investorsWithInvestments = await Investment.aggregate([
       {
         $group: {
@@ -1207,10 +1263,10 @@ const userStats = async (req, res) => {
     return SuccessHandler(
       {
         message: "Data fetched!",
+        creatorsWithCampaignsCount,
+        investorsWithInvestmentsCount,
         creatorsWithCampaigns,
         investorsWithInvestments,
-        // creatorsWithCampaignsCount,
-        // investorsWithInvestmentsCount,
       },
       200,
       res
