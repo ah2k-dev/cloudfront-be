@@ -252,10 +252,20 @@ const getAll = async (req, res) => {
       });
     Promise.all(
       campaigns.map(async (val, ind) => {
+        if (val.creator) {
+          console.log(val.creator._id);
+        } else {
+          console.log(val);
+        }
         const profile = await creatorProfile.findOne({
           creator: val.creator._id,
         });
-        let data = { campaign: val, creatorProfile: profile };
+        let data;
+        if (profile) {
+          data = { campaign: val, creatorProfile: profile };
+        } else {
+          data = { campaign: val, creatorProfile: {} };
+        }
         // val.creatorProfile = profile;
         return data;
       })
@@ -273,6 +283,7 @@ const getAll = async (req, res) => {
         );
       })
       .catch((error) => {
+        console.log(error);
         return ErrorHandler(error.message, 500, req, res);
       });
 
@@ -288,6 +299,7 @@ const getAll = async (req, res) => {
     //   res
     // );
   } catch (error) {
+    console.log(error);
     return ErrorHandler(error.message, 500, req, res);
   }
 };
@@ -824,22 +836,46 @@ const getRequestedPayoutCampaigns = async (req, res) => {
       ? {
           $or: [
             {
-              firstName: { $regex: req.body.search, $options: "i" },
+              title: { $regex: req.body.search, $options: "i" },
             },
             {
-              lastName: { $regex: req.body.search, $options: "i" },
+              shortDesc: { $regex: req.body.search, $options: "i" },
             },
             {},
           ],
         }
       : {};
+
+    const dateFilter =
+      req.body.dateFilter && req.body.dateFilter.length > 0
+        ? {
+            createdAt: {
+              $gte: new Date(req.body.dateFilter[0]),
+              $lte: new Date(req.body.dateFilter[1]),
+            },
+          }
+        : {};
+
+      const categoryFilter = req.body.categoryFilter
+      ? {
+          projectCategory: {
+            $in: req.body.categoryFilter,
+          }
+        }
+      : {};
     const campaignsCount = await Project.countDocuments({
       payoutRequested: true,
+      ...creatorFilter,
+      ...searchFilter,
+      ...dateFilter,
+      ...categoryFilter,
     });
     const campaigns = await Project.find({
       payoutRequested: true,
       ...creatorFilter,
       ...searchFilter,
+      ...dateFilter,
+      ...categoryFilter,
     })
       .sort({ createdAt: -1 })
       .skip(skipItems)

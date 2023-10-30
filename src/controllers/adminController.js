@@ -131,14 +131,25 @@ const getCampaigns = async (req, res) => {
     //     },
     //   },
     // ];
+
+    const categoryFilter =
+      req.body.categoryFilter && req.body.categoryFilter.length > 0
+        ? {
+            projectCategory: {
+              $in: req.body.categoryFilter,
+            },
+          }
+        : {};
     const campaignsCount = await Project.countDocuments({
       ...statusFilter,
       ...searchFilter,
+      ...categoryFilter,
       isActive: true,
     });
     const campaigns = await Project.find({
       ...statusFilter,
       ...searchFilter,
+      ...categoryFilter,
       isActive: true,
     })
       .sort({ createdAt: -1 })
@@ -1039,9 +1050,9 @@ const createInvestor = async (req, res) => {
 const userStats = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
-    const creatorsPerPage = Number(req.body.creatorsPerPage);
-    const creatorPageNumber = Number(req.body.creatorPage) || 1;
-    const skipCreators = (creatorPageNumber - 1) * creatorsPerPage;
+    // const creatorsPerPage = Number(req.body.creatorsPerPage) ;
+    // const creatorPageNumber = Number(req.body.creatorPage) || 1;
+    // const skipCreators = (creatorPageNumber - 1) * creatorsPerPage;
 
     const creatorsWithCampaignsCount = await Project.aggregate([
       {
@@ -1130,10 +1141,14 @@ const userStats = async (req, res) => {
         $sort: { "creator.createdAt": -1 },
       },
       {
-        $skip: skipCreators,
+        $skip:
+          req.body.creatorsPerPage && req.body.creatorPage
+            ? (Number(req.body.creatorPage) - 1) *
+              Number(req.body.creatorsPerPage)
+            : 0,
       },
       {
-        $limit: creatorsPerPage,
+        $limit: req.body.creatorsPerPage ? Number(req.body.creatorsPerPage) : 0,
       },
     ]);
 
