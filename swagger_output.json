@@ -808,6 +808,21 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "search": {
+                  "example": "any"
+                },
+                "categoryArray": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -992,6 +1007,21 @@
                 },
                 "slug": {
                   "example": "any"
+                },
+                "linkToPreviousCampaign": {
+                  "example": "any"
+                },
+                "termsAndConditions": {
+                  "example": "any"
+                },
+                "socialMediaLinks": {
+                  "example": "any"
+                },
+                "videoUrl": {
+                  "example": "any"
+                },
+                "additionalImageUrls": {
+                  "example": "any"
                 }
               }
             }
@@ -1052,10 +1082,25 @@
                 "imageUrl": {
                   "example": "any"
                 },
+                "videoUrl": {
+                  "example": "any"
+                },
                 "rewards": {
                   "example": "any"
                 },
+                "socialMediaLinks": {
+                  "example": "any"
+                },
+                "additionalImageUrls": {
+                  "example": "any"
+                },
+                "termsAndConditions": {
+                  "example": "any"
+                },
                 "slug": {
+                  "example": "any"
+                },
+                "linkToPreviousCampaign": {
                   "example": "any"
                 }
               }
@@ -1420,6 +1465,12 @@
                 },
                 "search": {
                   "example": "any"
+                },
+                "dateFilter": {
+                  "example": "any"
+                },
+                "categoryFilter": {
+                  "example": "any"
                 }
               }
             }
@@ -1530,6 +1581,9 @@
                   "example": "any"
                 },
                 "search": {
+                  "example": "any"
+                },
+                "categoryFilter": {
                   "example": "any"
                 }
               }
@@ -2196,13 +2250,13 @@
             "schema": {
               "type": "object",
               "properties": {
+                "searchCreator": {
+                  "example": "any"
+                },
                 "creatorsPerPage": {
                   "example": "any"
                 },
                 "creatorPage": {
-                  "example": "any"
-                },
-                "searchCreator": {
                   "example": "any"
                 },
                 "investorsPerPage": {

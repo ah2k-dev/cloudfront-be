@@ -19,7 +19,7 @@ const projectSchema = new Schema({
     required: true,
   },
   duration: {
-    type: [String],
+    type: String,
     required: true,
   },
   projectCategory: {
@@ -50,7 +50,7 @@ const projectSchema = new Schema({
     type: [String],
   },
   termsAndConditions: {
-    type: String,
+    type: Boolean,
   },
   status: {
     type: String,
@@ -95,6 +95,9 @@ const projectSchema = new Schema({
   featured: {
     type: Boolean,
     default: false,
+  },
+  linkToPreviousCampaign: {
+    type: String,
   },
 });
 

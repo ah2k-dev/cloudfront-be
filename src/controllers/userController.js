@@ -528,6 +528,35 @@ const getTransactions = async (req, res) => {
   try {
     const { role } = req.user;
 
+    const searchFilter = req.body.search
+      ? {
+          $or: [
+            {
+              title: {
+                $regex: req.body.search,
+                $options: "i",
+              },
+            },
+            {
+              shortDesc: {
+                $regex: req.body.search,
+                $options: "i",
+              },
+            },
+          ],
+        }
+      : {};
+
+    const categoryFilter =
+      req.body.categoryArray && req.body.categoryArray.length > 0
+        ? {
+            projectCategory: {
+              $in: req.body.categoryArray,
+            },
+          }
+        : {};
+        
+        
     if (role == "investor") {
       const transactions = await Investment.find({
         investor: req.user._id,
