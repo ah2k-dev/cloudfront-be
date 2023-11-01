@@ -8,7 +8,6 @@ const campaign = require("../controllers/campaignController.js");
 
 router.route("/create").post(isAuthenticated, creatorAuth, campaign.create);
 router.route("/update").put(isAuthenticated, creatorAuth, campaign.update);
-// router.route("/update").put(campaign.update);
 router.route("/getAll").post(campaign.getAll);
 router.route("/getMine").post(isAuthenticated, creatorAuth, campaign.getMine);
 router.route("/get/:id").get(campaign.get);

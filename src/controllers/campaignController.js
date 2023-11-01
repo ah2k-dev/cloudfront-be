@@ -33,7 +33,7 @@ const create = async (req, res) => {
       termsAndConditions,
       socialMediaLinks,
       videoUrl,
-      additionalImageUrls
+      additionalImageUrls,
     } = req.body;
 
     const prevCampaign = await Project.findOne({
@@ -67,7 +67,7 @@ const create = async (req, res) => {
       termsAndConditions,
       socialMediaLinks,
       videoUrl,
-      additionalImageUrls
+      additionalImageUrls,
     });
     await newProject.save();
     const adminId = await getAdminId();
@@ -251,9 +251,7 @@ const getAll = async (req, res) => {
       ...minMaxFilter,
       isActive: true,
     })
-      .sort({ createdAt: -1 })
-      .skip(skipItems)
-      .limit(itemPerPage)
+
       .populate({
         path: "creator",
         select: "firstName middleName lastName profilePic email",
@@ -261,7 +259,10 @@ const getAll = async (req, res) => {
       .populate({
         path: "investment",
         populate: "investor",
-      });
+      })
+      .sort({ createdAt: -1 })
+      .skip(skipItems)
+      .limit(itemPerPage);
     Promise.all(
       campaigns.map(async (val, ind) => {
         if (val.creator) {
@@ -562,10 +563,10 @@ const getEditorPicks = async (req, res) => {
     const investedCampaigns = await Project.find({
       investments: { $in: investments },
       isActive: true,
-    }).distinct("category");
+    }).distinct("projectCategory");
 
     const editorPicks = await Project.find({
-      category: { $in: investedCampaigns },
+      projectCategory: { $in: investedCampaigns },
       isActive: true,
     });
     if (!campaigns) {
@@ -580,7 +581,10 @@ const getEditorPicks = async (req, res) => {
 const invest = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
+    console.log("req.body");
     const { campaign, amount, currency, stripeToken } = req.body;
+    console.log("req.body");
+    console.log(req.body);
     const user = req.user._id;
 
     //equity calculations
@@ -660,40 +664,57 @@ const invest = async (req, res) => {
 const getLive = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
-    const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page) || 1;
-    const skipItems = (pageNumber - 1) * itemPerPage;
-
     const categoryFilter = req.body.category
       ? {
-          category: req.body.category,
+          projectCategory: req.body.category,
         }
       : {};
     const searchFilter = req.body.search
       ? {
-          title: req.body.search,
+          title: { $regex: req.body.search, $options: "i" },
         }
       : {};
     const campaignsCount = await Project.countDocuments({
       investment: { $exists: true, $ne: [] },
       isActive: true,
     });
-    const campaigns = await Project.find({
-      investment: { $exists: true, $ne: [] },
-      isActive: true,
-      ...categoryFilter,
-      ...searchFilter,
-    })
-      .sort({ createdAt: -1 })
-      .skip(skipItems)
-      .limit(itemPerPage)
-      .populate({
-        path: "user",
-        select: "firstName middleName lastName profilePic email",
+
+    let campaigns;
+    // pagination
+    if (req.body.itemPerPage && req.body.page) {
+      const itemPerPage = Number(req.body.itemPerPage);
+      const pageNumber = Number(req.body.page) || 1;
+      const skipItems = (pageNumber - 1) * itemPerPage;
+      campaigns = await Project.find({
+        investment: { $exists: true, $ne: [] },
+        isActive: true,
+        ...categoryFilter,
+        ...searchFilter,
       })
-      .populate("investment");
-    if (!campaigns) {
-      return ErrorHandler("Error fetching campaigns", 400, req, res);
+        .sort({ createdAt: -1 })
+        .skip(skipItems)
+        .limit(itemPerPage);
+      // .populate({
+      //   path: "user",
+      //   select: "firstName middleName lastName profilePic email",
+      // });
+      // .populate("investment");
+    } else {
+      campaigns = await Project.find({
+        investment: { $exists: true, $ne: [] },
+        isActive: true,
+        ...categoryFilter,
+        ...searchFilter,
+      }).sort({ createdAt: -1 });
+      // .populate({
+      //   path: "user",
+      //   select: "firstName lastName profilePic email",
+      // });
+      // .populate("investment");
+
+      if (!campaigns) {
+        return ErrorHandler("Error fetching campaigns", 400, req, res);
+      }
     }
 
     return SuccessHandler(
@@ -709,9 +730,6 @@ const getLive = async (req, res) => {
 const getCompleted = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
-    const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page) || 1;
-    const skipItems = (pageNumber - 1) * itemPerPage;
     const completedCampaignsCount = await Project.aggregate([
       {
         $lookup: {
@@ -730,36 +748,65 @@ const getCompleted = async (req, res) => {
         $count: "totalCount",
       },
     ]);
-    const aggregationPipeline = [
-      {
-        $lookup: {
-          from: "investments",
-          localField: "investment",
-          foreignField: "_id",
-          as: "investments",
+    let aggregationPipeline;
+    if (req.body.itemPerPage && req.body.page) {
+      const itemPerPage = Number(req.body.itemPerPage);
+      const pageNumber = Number(req.body.page) | req.body.itemPerPage | 1;
+      const skipItems = (pageNumber - 1) * itemPerPage;
+      aggregationPipeline = [
+        {
+          $lookup: {
+            from: "investments",
+            localField: "investment",
+            foreignField: "_id",
+            as: "investments",
+          },
         },
-      },
-      {
-        $addFields: {
-          totalInvestmentAmount: { $sum: "$investments.amount" },
+        {
+          $addFields: {
+            totalInvestmentAmount: { $sum: "$investments.amount" },
+          },
         },
-      },
-      {
-        $match: {
-          fundingGoal: { $lte: "$totalInvestmentAmount" },
+        {
+          $match: {
+            fundingGoal: { $lte: "$totalInvestmentAmount" },
+          },
         },
-      },
-      {
-        $sort: { "investments.createdAt": -1 },
-      },
-      {
-        $skip: skipItems,
-      },
-      {
-        $limit: itemPerPage,
-      },
-    ];
-
+        {
+          $sort: { "investments.createdAt": -1 },
+        },
+        {
+          $skip: skipItems,
+        },
+        {
+          $limit: itemPerPage,
+        },
+      ];
+    } else {
+      aggregationPipeline = [
+        {
+          $lookup: {
+            from: "investments",
+            localField: "investment",
+            foreignField: "_id",
+            as: "investments",
+          },
+        },
+        {
+          $addFields: {
+            totalInvestmentAmount: { $sum: "$investments.amount" },
+          },
+        },
+        {
+          $match: {
+            fundingGoal: { $lte: "$totalInvestmentAmount" },
+          },
+        },
+        {
+          $sort: { "investments.createdAt": -1 },
+        },
+      ];
+    }
     const campaigns = await Project.aggregate(aggregationPipeline);
     if (!campaigns) {
       return ErrorHandler("Error fetching campaigns", 400, req, res);
@@ -868,11 +915,11 @@ const getRequestedPayoutCampaigns = async (req, res) => {
           }
         : {};
 
-      const categoryFilter = req.body.categoryFilter
+    const categoryFilter = req.body.categoryFilter
       ? {
           projectCategory: {
             $in: req.body.categoryFilter,
-          }
+          },
         }
       : {};
     const campaignsCount = await Project.countDocuments({

@@ -35,7 +35,7 @@ const userSchema = new Schema({
   password: {
     type: String,
     // required: true,
-    select : false
+    select: false,
     //validation will be before saving to db
   },
   role: {
