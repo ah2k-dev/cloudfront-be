@@ -99,6 +99,14 @@ const projectSchema = new Schema({
   linkToPreviousCampaign: {
     type: String,
   },
+  socialMediaLinks: [
+    {
+      type: String,
+    },
+  ],
+  videoUrl: {
+    type: String,
+  },
 });
 
 const Project = mongoose.model("project", projectSchema);

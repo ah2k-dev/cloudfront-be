@@ -27,13 +27,13 @@ const create = async (req, res) => {
       projectCategory,
       imageUrl,
       rewards,
+      additionalImageUrls,
+      termsAndConditions,
       equity,
       slug,
       linkToPreviousCampaign,
-      termsAndConditions,
       socialMediaLinks,
       videoUrl,
-      additionalImageUrls,
     } = req.body;
 
     const prevCampaign = await Project.findOne({
