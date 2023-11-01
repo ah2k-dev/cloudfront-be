@@ -8,7 +8,7 @@ const dotenv = require("dotenv");
 const { sendNotification } = require("../middleware/notification");
 const mongoose = require("mongoose");
 const { getAdminId } = require("../utils/adminUtils");
-
+const moment = require("moment");
 dotenv.config({
   path: "./src/config/config.env",
 });
@@ -204,7 +204,7 @@ const getAll = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
     const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page) || 1;
+    const pageNumber = Number(req.body.page);
     const skipItems = (pageNumber - 1) * itemPerPage;
     const statusFilter = req.body.statusFilter
       ? {
@@ -320,7 +320,7 @@ const getMine = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
     const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page) || 1;
+    const pageNumber = Number(req.body.page);
     const skipItems = (pageNumber - 1) * itemPerPage;
     const statusFilter = req.body.statusFilter
       ? {
@@ -409,7 +409,7 @@ const getInvested = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
     const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page) || 1;
+    const pageNumber = Number(req.body.page);
     const skipItems = (pageNumber - 1) * itemPerPage;
     const user = req.user._id;
     const statusFilter = req.body.statusFilter
@@ -683,7 +683,7 @@ const getLive = async (req, res) => {
     // pagination
     if (req.body.itemPerPage && req.body.page) {
       const itemPerPage = Number(req.body.itemPerPage);
-      const pageNumber = Number(req.body.page) || 1;
+      const pageNumber = Number(req.body.page);
       const skipItems = (pageNumber - 1) * itemPerPage;
       campaigns = await Project.find({
         investment: { $exists: true, $ne: [] },
@@ -886,9 +886,6 @@ const requestPayout = async (req, res) => {
 const getRequestedPayoutCampaigns = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
-    const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page) || 1;
-    const skipItems = (pageNumber - 1) * itemPerPage;
     const creatorFilter =
       req.user.role === "creator" ? { creator: req.user._id } : {};
     const searchFilter = req.body.search
@@ -900,7 +897,6 @@ const getRequestedPayoutCampaigns = async (req, res) => {
             {
               shortDesc: { $regex: req.body.search, $options: "i" },
             },
-            {},
           ],
         }
       : {};
@@ -909,19 +905,23 @@ const getRequestedPayoutCampaigns = async (req, res) => {
       req.body.dateFilter && req.body.dateFilter.length > 0
         ? {
             createdAt: {
-              $gte: new Date(req.body.dateFilter[0]),
-              $lte: new Date(req.body.dateFilter[1]),
+              $gte: new Date(
+                moment(req.body.dateFilter[0]).startOf("day").format()
+              ),
+
+              $lte: new Date(
+                moment(req.body.dateFilter[1]).endOf("day").format()
+              ),
             },
           }
         : {};
 
     const categoryFilter = req.body.categoryFilter
       ? {
-          projectCategory: {
-            $in: req.body.categoryFilter,
-          },
+          projectCategory: req.body.categoryFilter,
         }
       : {};
+
     const campaignsCount = await Project.countDocuments({
       payoutRequested: true,
       ...creatorFilter,
@@ -929,27 +929,54 @@ const getRequestedPayoutCampaigns = async (req, res) => {
       ...dateFilter,
       ...categoryFilter,
     });
-    const campaigns = await Project.find({
-      payoutRequested: true,
-      ...creatorFilter,
-      ...searchFilter,
-      ...dateFilter,
-      ...categoryFilter,
-    })
-      .sort({ createdAt: -1 })
-      .skip(skipItems)
-      .limit(itemPerPage)
-      .populate({
-        path: "creator",
-        select: "firstName middleName lastName profilePic email",
-      });
-    // .populate({
-    //   path: "investment",
-    //   populate: {
-    //     path: "investor",
-    //     select: "firstName middleName lastName profilePic email",
-    //   },
-    // });
+    let campaigns;
+    if (req.body.itemPerPage && req.body.page) {
+      const itemPerPage = Number(req.body.itemPerPage);
+      const pageNumber = Number(req.body.page);
+      const skipItems = (pageNumber - 1) * itemPerPage;
+
+      campaigns = await Project.find({
+        payoutRequested: true,
+        ...creatorFilter,
+        ...searchFilter,
+        ...dateFilter,
+        ...categoryFilter,
+      })
+        .sort({ createdAt: -1 })
+        .skip(skipItems)
+        .limit(itemPerPage)
+        .populate({
+          path: "creator",
+          select: "firstName middleName lastName profilePic email",
+        });
+      // .populate({
+      //   path: "investment",
+      //   populate: {
+      //     path: "investor",
+      //     select: "firstName middleName lastName profilePic email",
+      //   },
+      // });
+    } else {
+      campaigns = await Project.find({
+        payoutRequested: true,
+        ...creatorFilter,
+        ...searchFilter,
+        ...dateFilter,
+        ...categoryFilter,
+      })
+        .sort({ createdAt: -1 })
+        .populate({
+          path: "creator",
+          select: "firstName middleName lastName profilePic email",
+        });
+      // .populate({
+      //   path: "investment",
+      //   populate: {
+      //     path: "investor",
+      //     select: "firstName middleName lastName profilePic email",
+      //   },
+      // });
+    }
     if (!campaigns) {
       return ErrorHandler("Campaign not found", 404, req, res);
     }
