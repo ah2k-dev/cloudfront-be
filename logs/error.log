@@ -465,3 +465,6 @@
 {"date":"2023-11-01T17:32:47.334Z","level":"error","message":"invalid argument to $skip stage: Expected a number in: $skip: \"\"","method":"POST","service":"user-service","url":"/userStats"}
 {"date":"2023-11-01T17:33:45.648Z","level":"error","message":"the limit must be positive","method":"POST","service":"user-service","url":"/userStats"}
 {"date":"2023-11-01T17:41:49.705Z","level":"error","message":"invalid argument to $skip stage: Expected a number in: $skip: { $cond: { if: { $and: [ null, null ] }, then: nan.0, else: 0 } }","method":"POST","service":"user-service","url":"/userStats"}
+{"date":"2023-11-01T18:03:24.949Z","level":"error","message":"blog validation failed: thumbnailImage: Path `thumbnailImage` is required.","method":"POST","service":"user-service","url":"/"}
+{"date":"2023-11-01T18:03:33.175Z","level":"error","message":"blog validation failed: thumbnailImage: Path `thumbnailImage` is required.","method":"POST","service":"user-service","url":"/"}
+{"date":"2023-11-01T18:03:35.725Z","level":"error","message":"blog validation failed: thumbnailImage: Path `thumbnailImage` is required.","method":"POST","service":"user-service","url":"/"}

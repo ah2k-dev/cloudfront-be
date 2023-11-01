@@ -1365,16 +1365,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "itemPerPage": {
-                  "example": "any"
-                },
-                "page": {
-                  "example": "any"
-                },
                 "category": {
                   "example": "any"
                 },
                 "search": {
+                  "example": "any"
+                },
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
                   "example": "any"
                 }
               }
@@ -1457,12 +1457,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "itemPerPage": {
-                  "example": "any"
-                },
-                "page": {
-                  "example": "any"
-                },
                 "search": {
                   "example": "any"
                 },
@@ -1470,6 +1464,12 @@
                   "example": "any"
                 },
                 "categoryFilter": {
+                  "example": "any"
+                },
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
                   "example": "any"
                 }
               }
@@ -2212,7 +2212,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "date": {
+                "dateFilter": {
                   "example": "any"
                 }
               }
@@ -2250,13 +2250,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "searchCreator": {
-                  "example": "any"
-                },
                 "creatorsPerPage": {
                   "example": "any"
                 },
                 "creatorPage": {
+                  "example": "any"
+                },
+                "searchCreator": {
                   "example": "any"
                 },
                 "investorsPerPage": {
