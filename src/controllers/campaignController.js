@@ -693,24 +693,25 @@ const getLive = async (req, res) => {
       })
         .sort({ createdAt: -1 })
         .skip(skipItems)
-        .limit(itemPerPage);
-      // .populate({
-      //   path: "user",
-      //   select: "firstName middleName lastName profilePic email",
-      // });
-      // .populate("investment");
+        .limit(itemPerPage)
+        .populate({
+          path: "user",
+          select: "firstName middleName lastName profilePic email",
+        })
+        .populate("investment");
     } else {
       campaigns = await Project.find({
         investment: { $exists: true, $ne: [] },
         isActive: true,
         ...categoryFilter,
         ...searchFilter,
-      }).sort({ createdAt: -1 });
-      // .populate({
-      //   path: "user",
-      //   select: "firstName lastName profilePic email",
-      // });
-      // .populate("investment");
+      })
+        .sort({ createdAt: -1 })
+        .populate({
+          path: "user",
+          select: "firstName lastName profilePic email",
+        })
+        .populate("investment");
 
       if (!campaigns) {
         return ErrorHandler("Error fetching campaigns", 400, req, res);
