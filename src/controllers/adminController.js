@@ -8,6 +8,7 @@ const creatorProfile = require("../models/User/creatorProfile");
 const WebDetails = require("../models/Website/webDetails");
 const { sendNotification } = require("../middleware/notification");
 const mongoose = require("mongoose");
+const moment = require("moment");
 
 const dotenv = require("dotenv");
 
@@ -108,7 +109,7 @@ const getCampaigns = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
     const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page) || 1;
+    const pageNumber = Number(req.body.page);
     const skipItems = (pageNumber - 1) * itemPerPage;
     const statusFilter = req.body.statusFilter
       ? {
@@ -296,14 +297,14 @@ const deleteCampaign = async (req, res) => {
       },
       { new: true }
     );
-    // if (deleted) {
-    //   // notify to creator
-    //   await sendNotification(
-    //     "Campaign deleted",
-    //     `Admin has deleted ${updated.title} campaign`,
-    //     updated.creator
-    //   );
-    // }
+    if (deleted) {
+      // notify to creator
+      await sendNotification(
+        "Campaign deleted",
+        `Admin has deleted ${deleted.title} campaign`,
+        deleted.creator
+      );
+    }
     if (!deleted) {
       return ErrorHandler("Error deleting campaign", 400, req, res);
     }
@@ -385,7 +386,7 @@ const getInvestors = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
     const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page) || 1;
+    const pageNumber = Number(req.body.page);
     const skipItems = (pageNumber - 1) * itemPerPage;
     const searchFilter = req.body.search
       ? {
@@ -479,7 +480,7 @@ const updateInvestor = async (req, res) => {
     if (updated) {
       // notify to investor
       await sendNotification(
-        "profile updated",
+        "Profile updated",
         `Admin has updated your profile`,
         id
       );
@@ -510,6 +511,15 @@ const deleteInvestor = async (req, res) => {
       },
       { new: true }
     );
+
+    if (deleted) {
+      // notify to investor
+      await sendNotification(
+        "Profile deleted",
+        `Admin has deleted your profile`,
+        id
+      );
+    }
     // if (deleted) {
     //   // notify to investor
     //   // await sendNotification(
@@ -564,7 +574,7 @@ const getCreators = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
     const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page) || 1;
+    const pageNumber = Number(req.body.page);
     const skipItems = (pageNumber - 1) * itemPerPage;
     const searchFilter = req.body.search
       ? {
@@ -812,11 +822,20 @@ const dashboard = async (req, res) => {
     // 5)total investors
     // 6)total creators
     // 7)total earning of admin
-    const dateFilter = req.body.date
-      ? {
-          createdAt: { $lte: req.body.date },
-        }
-      : {};
+    const dateFilter =
+      req.body.dateFilter && req.body.dateFilter.length > 0
+        ? {
+            createdAt: {
+              $gte: new Date(
+                moment(req.body.dateFilter[0]).startOf("day").format()
+              ),
+
+              $lte: new Date(
+                moment(req.body.dateFilter[1]).endOf("day").format()
+              ),
+            },
+          }
+        : {};
 
     const totalCampaigns = await Project.countDocuments({
       isActive: true,
@@ -1050,7 +1069,7 @@ const createInvestor = async (req, res) => {
 const userStats = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
-    // const creatorsPerPage = Number(req.body.creatorsPerPage) ;
+    // const creatorsPerPage = Number(req.body.creatorsPerPage);
     // const creatorPageNumber = Number(req.body.creatorPage) || 1;
     // const skipCreators = (creatorPageNumber - 1) * creatorsPerPage;
 
@@ -1077,81 +1096,146 @@ const userStats = async (req, res) => {
         $count: "totalCount",
       },
     ]);
+
     const totalCreatorsCampaignsCount =
       creatorsWithCampaignsCount.length > 0
         ? creatorsWithCampaignsCount[0].totalCount
         : 0;
-    const creatorsWithCampaigns = await Project.aggregate([
-      {
-        $group: {
-          _id: "$creator",
-          campaigns: { $push: "$$ROOT" },
-        },
-      },
-      {
-        $lookup: {
-          from: "users",
-          localField: "_id",
-          foreignField: "_id",
-          as: "creator",
-        },
-      },
-      {
-        $unwind: "$creator",
-      },
-      {
-        $project: {
-          _id: 0,
-          creator: {
-            _id: "$creator._id",
-            firstName: "$creator.firstName",
-            lastName: "$creator.lastName",
-            email: "$creator.email",
-            profilePic: "$creator.profilePic",
-            campaigns: "$campaigns",
-            campaignsCount: { $size: "$campaigns" },
+
+    let creatorsWithCampaigns;
+    if (req.body.creatorsPerPage && req.body.creatorPage) {
+      const creatorsPerPage = Number(req.body.creatorsPerPage);
+      const creatorPageNumber = Number(req.body.creatorPage) || 1;
+      const skipCreators = (creatorPageNumber - 1) * creatorsPerPage;
+      creatorsWithCampaigns = await Project.aggregate([
+        {
+          $group: {
+            _id: "$creator",
+            campaigns: { $push: "$$ROOT" },
           },
         },
-      },
-
-      {
-        $match: {
-          $or: [
-            {
-              "creator.firstName": req.body.searchCreator
-                ? {
-                    $regex: req.body.searchCreator,
-                    $options: "i",
-                  }
-                : { $exists: true },
-            },
-            {
-              "creator.lastName": req.body.searchCreator
-                ? {
-                    $regex: req.body.searchCreator,
-                    $options: "i",
-                  }
-                : { $exists: true },
-            },
-          ],
+        {
+          $lookup: {
+            from: "users",
+            localField: "_id",
+            foreignField: "_id",
+            as: "creator",
+          },
         },
-      },
+        {
+          $unwind: "$creator",
+        },
+        {
+          $project: {
+            _id: 0,
+            creator: {
+              _id: "$creator._id",
+              firstName: "$creator.firstName",
+              lastName: "$creator.lastName",
+              email: "$creator.email",
+              profilePic: "$creator.profilePic",
+              campaigns: "$campaigns",
+              campaignsCount: { $size: "$campaigns" },
+            },
+          },
+        },
 
-      {
-        $sort: { "creator.createdAt": -1 },
-      },
-      {
-        $skip:
-          req.body.creatorsPerPage && req.body.creatorPage
-            ? (Number(req.body.creatorPage) - 1) *
-              Number(req.body.creatorsPerPage)
-            : 0,
-      },
-      {
-        $limit: req.body.creatorsPerPage ? Number(req.body.creatorsPerPage) : 0,
-      },
-    ]);
+        {
+          $match: {
+            $or: [
+              {
+                "creator.firstName": req.body.searchCreator
+                  ? {
+                      $regex: req.body.searchCreator,
+                      $options: "i",
+                    }
+                  : { $exists: true },
+              },
+              {
+                "creator.lastName": req.body.searchCreator
+                  ? {
+                      $regex: req.body.searchCreator,
+                      $options: "i",
+                    }
+                  : { $exists: true },
+              },
+            ],
+          },
+        },
 
+        {
+          $sort: { "creator.createdAt": -1 },
+        },
+
+        {
+          $skip: skipCreators,
+        },
+        {
+          $limit: creatorsPerPage,
+        },
+      ]);
+    } else if (!(req.body.creatorsPerPage && req.body.creatorPage)) {
+      creatorsWithCampaigns = await Project.aggregate([
+        {
+          $group: {
+            _id: "$creator",
+            campaigns: { $push: "$$ROOT" },
+          },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "_id",
+            foreignField: "_id",
+            as: "creator",
+          },
+        },
+        {
+          $unwind: "$creator",
+        },
+        {
+          $project: {
+            _id: 0,
+            creator: {
+              _id: "$creator._id",
+              firstName: "$creator.firstName",
+              lastName: "$creator.lastName",
+              email: "$creator.email",
+              profilePic: "$creator.profilePic",
+              campaigns: "$campaigns",
+              campaignsCount: { $size: "$campaigns" },
+            },
+          },
+        },
+
+        {
+          $match: {
+            $or: [
+              {
+                "creator.firstName": req.body.searchCreator
+                  ? {
+                      $regex: req.body.searchCreator,
+                      $options: "i",
+                    }
+                  : { $exists: true },
+              },
+              {
+                "creator.lastName": req.body.searchCreator
+                  ? {
+                      $regex: req.body.searchCreator,
+                      $options: "i",
+                    }
+                  : { $exists: true },
+              },
+            ],
+          },
+        },
+
+        {
+          $sort: { "creator.createdAt": -1 },
+        },
+      ]);
+    }
     // const creatorsWithCampaignsCount = await User.aggregate([
     //   {
     //     $match: {
@@ -1177,9 +1261,6 @@ const userStats = async (req, res) => {
     //     },
     //   },
     // ]);
-    const investorsPerPage = Number(req.body.investorsPerPage);
-    const investorPageNumber = Number(req.body.investorPage) || 1;
-    const skipInvestors = (investorPageNumber - 1) * investorsPerPage;
 
     const investorsWithInvestmentsCount = await Investment.aggregate([
       {
@@ -1209,70 +1290,136 @@ const userStats = async (req, res) => {
       investorsWithInvestmentsCount.length > 0
         ? investorsWithInvestmentsCount[0].totalCount
         : 0;
-    const investorsWithInvestments = await Investment.aggregate([
-      {
-        $group: {
-          _id: "$investor",
-          investments: { $push: "$$ROOT" },
-        },
-      },
-      {
-        $lookup: {
-          from: "users",
-          localField: "_id",
-          foreignField: "_id",
-          as: "investor",
-        },
-      },
-      {
-        $unwind: "$investor",
-      },
-      {
-        $project: {
-          _id: 0,
-          investor: {
-            _id: "$investor._id",
-            firstName: "$investor.firstName",
-            lastName: "$investor.lastName",
-            email: "$investor.email",
-            profilePic: "$investor.profilePic",
-            investments: "$investments",
-            investmentsCount: { $size: "$investments" },
+
+    let investorsWithInvestments;
+    if (req.body.investorsPerPage && req.body.investorPage) {
+      const investorsPerPage = Number(req.body.investorsPerPage);
+      const investorPageNumber = Number(req.body.investorPage) || 1;
+      const skipInvestors = (investorPageNumber - 1) * investorsPerPage;
+      investorsWithInvestments = await Investment.aggregate([
+        {
+          $group: {
+            _id: "$investor",
+            investments: { $push: "$$ROOT" },
           },
         },
-      },
-      {
-        $match: {
-          $or: [
-            {
-              "investor.firstName": req.body.searchInvestor
-                ? {
-                    $regex: req.body.searchInvestor,
-                    $options: "i",
-                  }
-                : { $exists: true },
-            },
-            {
-              "investor.lastName": req.body.searchInvestor
-                ? {
-                    $regex: req.body.searchInvestor,
-                    $options: "i",
-                  }
-                : { $exists: true },
-            },
-          ],
+        {
+          $lookup: {
+            from: "users",
+            localField: "_id",
+            foreignField: "_id",
+            as: "investor",
+          },
         },
-      },
-      {
-        $sort: { "investor.createdAt": -1 },
-      },
-      {
-        $skip: skipInvestors,
-      },
-      {
-        $limit: investorsPerPage,
-      },
-    ]);
+        {
+          $unwind: "$investor",
+        },
+        {
+          $project: {
+            _id: 0,
+            investor: {
+              _id: "$investor._id",
+              firstName: "$investor.firstName",
+              lastName: "$investor.lastName",
+              email: "$investor.email",
+              profilePic: "$investor.profilePic",
+              investments: "$investments",
+              investmentsCount: { $size: "$investments" },
+            },
+          },
+        },
+        {
+          $match: {
+            $or: [
+              {
+                "investor.firstName": req.body.searchInvestor
+                  ? {
+                      $regex: req.body.searchInvestor,
+                      $options: "i",
+                    }
+                  : { $exists: true },
+              },
+              {
+                "investor.lastName": req.body.searchInvestor
+                  ? {
+                      $regex: req.body.searchInvestor,
+                      $options: "i",
+                    }
+                  : { $exists: true },
+              },
+            ],
+          },
+        },
+        {
+          $sort: { "investor.createdAt": -1 },
+        },
+        {
+          $skip: skipInvestors,
+        },
+        {
+          $limit: investorsPerPage,
+        },
+      ]);
+    } else if (!(req.body.investorsPerPage && req.body.investorPage)) {
+      investorsWithInvestments = await Investment.aggregate([
+        {
+          $group: {
+            _id: "$investor",
+            investments: { $push: "$$ROOT" },
+          },
+        },
+        {
+          $lookup: {
+            from: "users",
+            localField: "_id",
+            foreignField: "_id",
+            as: "investor",
+          },
+        },
+        {
+          $unwind: "$investor",
+        },
+        {
+          $project: {
+            _id: 0,
+            investor: {
+              _id: "$investor._id",
+              firstName: "$investor.firstName",
+              lastName: "$investor.lastName",
+              email: "$investor.email",
+              profilePic: "$investor.profilePic",
+              investments: "$investments",
+              investmentsCount: { $size: "$investments" },
+            },
+          },
+        },
+        {
+          $match: {
+            $or: [
+              {
+                "investor.firstName": req.body.searchInvestor
+                  ? {
+                      $regex: req.body.searchInvestor,
+                      $options: "i",
+                    }
+                  : { $exists: true },
+              },
+              {
+                "investor.lastName": req.body.searchInvestor
+                  ? {
+                      $regex: req.body.searchInvestor,
+                      $options: "i",
+                    }
+                  : { $exists: true },
+              },
+            ],
+          },
+        },
+        {
+          $sort: { "investor.createdAt": -1 },
+        },
+      ]);
+    }
     // const investorsWithInvestmentsCount = await User.aggregate([
     //   {
     //     $match: {
