@@ -782,7 +782,7 @@ const getCompleted = async (req, res) => {
           $limit: itemPerPage,
         },
       ];
-    } else {
+    } else if (!(req.body.itemPerPage && req.body.page)) {
       aggregationPipeline = [
         {
           $lookup: {
@@ -956,7 +956,7 @@ const getRequestedPayoutCampaigns = async (req, res) => {
       //     select: "firstName middleName lastName profilePic email",
       //   },
       // });
-    } else {
+    } else if (!(req.body.itemPerPage && req.body.page)) {
       campaigns = await Project.find({
         payoutRequested: true,
         ...creatorFilter,
