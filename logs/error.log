@@ -468,3 +468,9 @@
 {"date":"2023-11-01T18:03:24.949Z","level":"error","message":"blog validation failed: thumbnailImage: Path `thumbnailImage` is required.","method":"POST","service":"user-service","url":"/"}
 {"date":"2023-11-01T18:03:33.175Z","level":"error","message":"blog validation failed: thumbnailImage: Path `thumbnailImage` is required.","method":"POST","service":"user-service","url":"/"}
 {"date":"2023-11-01T18:03:35.725Z","level":"error","message":"blog validation failed: thumbnailImage: Path `thumbnailImage` is required.","method":"POST","service":"user-service","url":"/"}
+{"date":"2023-11-02T15:09:49.091Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}
+{"date":"2023-11-02T15:10:34.246Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}
+{"date":"2023-11-02T15:10:36.715Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}
+{"date":"2023-11-02T15:12:12.353Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}
+{"date":"2023-11-02T15:12:14.775Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}
+{"date":"2023-11-02T15:12:37.204Z","level":"error","message":"Cannot read properties of null (reading 'comment')","method":"POST","service":"user-service","url":"/blogCommnets"}

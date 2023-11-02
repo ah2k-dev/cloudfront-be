@@ -72,10 +72,11 @@ const postComment = async (req, res, next) => {
     const newComment = new Comment({
       comment,
       user: req.user._id,
+      blogId,
     });
     await newComment.save();
     await Blog.findByIdAndUpdate(
-      blogId,
+      { _id: blogId },
       { $push: { comments: newComment._id } },
       { new: true }
     );
@@ -106,7 +107,7 @@ const postLike = async (req, res, next) => {
       );
     }
     const blogs = await Blog.findByIdAndUpdate(
-      blogId,
+      { _id: blogId },
       { $push: { likes: req.user._id } },
       { new: true }
     );
@@ -124,7 +125,7 @@ const fetchBlogComments = async (req, res, next) => {
   // #swagger.tags = ['Blog'];
   try {
     const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page) || 1;
+    const pageNumber = Number(req.body.page);
     const skipItems = (pageNumber - 1) * itemPerPage;
     const { blogId } = req.body;
     const blog = await Blog.findById(blogId)
@@ -175,12 +176,17 @@ const fetchBlogComments = async (req, res, next) => {
     //   },
     // ]);
     const commentsCount = blog.comments.length;
-    const comments = blog.comments.slice(skipItems, skipItems + itemPerPage);
-    const paginatedBlog = {
-      ...blog._doc,
-      comments: comments,
-    };
-    return SuccessHandler({ commentsCount, paginatedBlog }, 200, res);
+    if (req.body.itemPerPage && req.body.page) {
+      let comments = blog.comments.slice(skipItems, skipItems + itemPerPage);
+      const paginatedBlog = {
+        ...blog._doc,
+        comments: comments,
+      };
+      return SuccessHandler({ commentsCount, paginatedBlog }, 200, res);
+    } else if (!(req.body.itemPerPage && req.body.page)) {
+      const paginatedBlog = blog ? blog.comments : [];
+      return SuccessHandler({ commentsCount, paginatedBlog }, 200, res);
+    }
   } catch (error) {
     return ErrorHandler(error.message, 400, req, res);
   }

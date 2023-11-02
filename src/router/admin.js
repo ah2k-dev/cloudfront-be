@@ -64,9 +64,7 @@ router.route("/userStats").post(isAuthenticated, adminAuth, admin.userStats);
 router
   .route("/webDetails/addUpdate")
   .post(isAuthenticated, adminAuth, admin.addUpdateWebDetails);
-router
-  .route("/weDetails/get")
-  .get(isAuthenticated, adminAuth, admin.getAllWebDetails);
+router.route("/weDetails/get").get(admin.getAllWebDetails);
 
 // admin profile
 router.route("/get-profile").get(isAuthenticated, adminAuth, admin.getProfile);

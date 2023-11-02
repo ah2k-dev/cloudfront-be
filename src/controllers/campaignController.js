@@ -335,6 +335,15 @@ const getMine = async (req, res) => {
           },
         }
       : {};
+
+    const categoryFilter =
+      req.body.categoryFilter && req.body.categoryFilter.length > 0
+        ? {
+            projectCategory: {
+              $in: req.body.categoryFilter,
+            },
+          }
+        : {};
     const user = req.user._id;
     // const pipeLine = [
     //   {
@@ -350,6 +359,7 @@ const getMine = async (req, res) => {
     const campaigns = await Project.find({
       ...statusFilter,
       ...searchFilter,
+      ...categoryFilter,
       creator: user,
       isActive: true,
     })
@@ -425,6 +435,14 @@ const getInvested = async (req, res) => {
           },
         }
       : {};
+    const categoryFilter =
+      req.body.categoryFilter && req.body.categoryFilter.length > 0
+        ? {
+            projectCategory: {
+              $in: req.body.categoryFilter,
+            },
+          }
+        : {};
     const investments = await Investment.find({
       investor: user,
     }).distinct("_id");
@@ -437,6 +455,7 @@ const getInvested = async (req, res) => {
       investment: { $in: investments },
       ...statusFilter,
       ...searchFilter,
+      ...categoryFilter,
       isActive: true,
     })
       .sort({ createdAt: -1 })
@@ -969,14 +988,14 @@ const getRequestedPayoutCampaigns = async (req, res) => {
         .populate({
           path: "creator",
           select: "firstName middleName lastName profilePic email",
+        })
+        .populate({
+          path: "investment",
+          populate: {
+            path: "investor",
+            select: "firstName middleName lastName profilePic email",
+          },
         });
-      // .populate({
-      //   path: "investment",
-      //   populate: {
-      //     path: "investor",
-      //     select: "firstName middleName lastName profilePic email",
-      //   },
-      // });
     }
     if (!campaigns) {
       return ErrorHandler("Campaign not found", 404, req, res);

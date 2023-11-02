@@ -555,8 +555,7 @@ const getTransactions = async (req, res) => {
             },
           }
         : {};
-        
-        
+
     if (role == "investor") {
       const transactions = await Investment.find({
         investor: req.user._id,
