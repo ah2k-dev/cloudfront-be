@@ -355,6 +355,7 @@ const getMine = async (req, res) => {
     // ];
     const campaignsCount = await Project.countDocuments({
       isActive: true,
+      creator: req.user._id,
     });
     const campaigns = await Project.find({
       ...statusFilter,
