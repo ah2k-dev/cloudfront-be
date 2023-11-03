@@ -474,3 +474,4 @@
 {"date":"2023-11-02T15:12:12.353Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}
 {"date":"2023-11-02T15:12:14.775Z","level":"error","message":"Cannot read properties of null (reading 'comments')","method":"POST","service":"user-service","url":"/blogCommnets"}
 {"date":"2023-11-02T15:12:37.204Z","level":"error","message":"Cannot read properties of null (reading 'comment')","method":"POST","service":"user-service","url":"/blogCommnets"}
+{"date":"2023-11-03T17:36:33.335Z","level":"error","message":"Cannot read properties of undefined (reading 'socket')","method":"PUT","service":"user-service","url":"/approveCampaign/6542554e55fc1df7b887c8ec"}

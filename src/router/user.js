@@ -29,7 +29,6 @@ router
 router.route("/userStats", isAuthenticated, user.userStats);
 
 router.route("/transactions").post(isAuthenticated, user.getTransactions);
-// router.route("/transactions").post(user.getTransactions);
 
 // delete
 
