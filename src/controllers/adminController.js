@@ -417,17 +417,68 @@ const getInvestors = async (req, res) => {
     const investorProfileCount = await investorProfile.countDocuments({
       investor: { $in: investors },
     });
-    const investrProfiles = await investorProfile
-      .find({
-        investor: { $in: investors },
-      })
-      .skip(skipItems)
-      .limit(itemPerPage)
-      .populate({
-        path: "investor",
-        select:
-          "-password -emailVerificationToken -emailVerificationTokenExpires -passwordResetToken -passwordResetTokenExpires",
-      });
+    // const investrProfiles = await investorProfile
+    //   .find({
+    //     investor: { $in: investors },
+    //   })
+    //   .skip(skipItems)
+    //   .limit(itemPerPage)
+    //   .populate({
+    //     path: "investor",
+    //     select:
+    //       "-password -emailVerificationToken -emailVerificationTokenExpires -passwordResetToken -passwordResetTokenExpires",
+    //   });
+
+    const investrProfiles = await investorProfile.aggregate([
+      {
+        $match: {
+          investor: { $in: investors },
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "investor",
+          foreignField: "_id",
+          as: "investor",
+        },
+      },
+      {
+        $unwind: "$investor",
+      },
+      {
+        $lookup: {
+          from: "investments",
+          localField: "investor._id",
+          foreignField: "investor",
+          as: "investments",
+        },
+      },
+      // sum investment amount
+      {
+        $addFields: {
+          totalInvestment: {
+            $sum: "$investments.amount",
+          },
+        },
+      },
+      {
+        $project: {
+          // project everything except investor.password
+          "investor.password": 0,
+          "investor.emailVerificationToken": 0,
+          "investor.emailVerificationTokenExpires": 0,
+          "investor.passwordResetToken": 0,
+          "investor.passwordResetTokenExpires": 0,
+        },
+      },
+      {
+        $skip: skipItems,
+      },
+      {
+        $limit: itemPerPage,
+      },
+    ]);
 
     return SuccessHandler(
       { message: "Investors fetched", investorProfileCount, investrProfiles },
@@ -605,17 +656,68 @@ const getCreators = async (req, res) => {
     const creatorProfileCount = await creatorProfile.countDocuments({
       creator: { $in: creators },
     });
-    const creatorProfiles = await creatorProfile
-      .find({
-        creator: { $in: creators },
-      })
-      .skip(skipItems)
-      .limit(itemPerPage)
-      .populate({
-        path: "creator",
-        select:
-          "-password -emailVerificationToken -emailVerificationTokenExpires -passwordResetToken -passwordResetTokenExpires",
-      });
+    // const creatorProfiles = await creatorProfile
+    //   .find({
+    //     creator: { $in: creators },
+    //   })
+    //   .skip(skipItems)
+    //   .limit(itemPerPage)
+    //   .populate({
+    //     path: "creator",
+    //     select:
+    //       "-password -emailVerificationToken -emailVerificationTokenExpires -passwordResetToken -passwordResetTokenExpires",
+    //   });
+
+    const creatorProfiles = await creatorProfile.aggregate([
+      {
+        $match: {
+          creator: { $in: creators },
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "creator",
+          foreignField: "_id",
+          as: "creator",
+        },
+      },
+      {
+        $unwind: "$creator",
+      },
+      {
+        $lookup: {
+          from: "projects",
+          localField: "creator._id",
+          foreignField: "creator",
+          as: "projects",
+        },
+      },
+      // sum projects length
+      {
+        $addFields: {
+          totalProjects: {
+            $size: "$projects",
+          },
+        },
+      },
+      {
+        $project: {
+          // project everything except investor.password
+          "creator.password": 0,
+          "creator.emailVerificationToken": 0,
+          "creator.emailVerificationTokenExpires": 0,
+          "creator.passwordResetToken": 0,
+          "creator.passwordResetTokenExpires": 0,
+        },
+      },
+      {
+        $skip: skipItems,
+      },
+      {
+        $limit: itemPerPage,
+      },
+    ]);
 
     return SuccessHandler(
       { message: "creators fetched", creatorProfileCount, creatorProfiles },
