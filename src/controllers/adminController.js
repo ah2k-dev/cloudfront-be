@@ -385,8 +385,8 @@ const releaseFunds = async (req, res) => {
 const getInvestors = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
-    const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page);
+    const itemPerPage = Number(req.body.itemPerPage || 10);
+    const pageNumber = Number(req.body.page || 1);
     const skipItems = (pageNumber - 1) * itemPerPage;
     const searchFilter = req.body.search
       ? {
@@ -624,8 +624,8 @@ const deleteInvestor = async (req, res) => {
 const getCreators = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
-    const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page);
+    const itemPerPage = Number(req.body.itemPerPage || 10);
+    const pageNumber = Number(req.body.page || 1);
     const skipItems = (pageNumber - 1) * itemPerPage;
     const searchFilter = req.body.search
       ? {

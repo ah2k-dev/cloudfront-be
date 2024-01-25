@@ -715,7 +715,7 @@ const getLive = async (req, res) => {
         .skip(skipItems)
         .limit(itemPerPage)
         .populate({
-          path: "user",
+          path: "creator",
           select: "firstName middleName lastName profilePic email",
         })
         .populate("investment");
