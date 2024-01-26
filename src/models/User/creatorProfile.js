@@ -26,10 +26,10 @@ const creatorProfileSchema = new Schema({
     type: String,
     required: true,
   },
-  streetAddress: {
-    type: String,
-    required: true,
-  },
+  // streetAddress: {
+  //   type: String,
+  //   required: true,
+  // },
   postalCode: {
     type: Number,
     required: true,
@@ -79,8 +79,40 @@ const creatorProfileSchema = new Schema({
   spotifyData: {
     type: String,
   },
-  instagramUsername: {
+  // instagramUsername: {
+  //   type: String,
+  // },
+  bio: {
     type: String,
+    required: true,
+  },
+  hearAboutBacked: {
+    type: String,
+    required: true,
+  },
+  cardName: {
+    type: String,
+    default: null,
+  },
+  cardNumber: {
+    type: String,
+    default: null,
+  },
+  bankName: {
+    type: String,
+    default: null,
+  },
+  expMonth: {
+    type: String,
+    default: null,
+  },
+  cvc: {
+    type: String,
+    default: null,
+  },
+  occupation: {
+    type: String,
+    default: null,
   },
 });
 

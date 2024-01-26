@@ -410,6 +410,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "password": {
+                  "example": "any"
+                },
                 "country": {
                   "example": "any"
                 },
@@ -417,9 +420,6 @@
                   "example": "any"
                 },
                 "city": {
-                  "example": "any"
-                },
-                "streetAddress": {
                   "example": "any"
                 },
                 "postalCode": {
@@ -440,9 +440,6 @@
                 "occupation": {
                   "example": "any"
                 },
-                "investmentExperience": {
-                  "example": "any"
-                },
                 "musicGenres": {
                   "example": "any"
                 },
@@ -456,6 +453,18 @@
                   "example": "any"
                 },
                 "profilepic": {
+                  "example": "any"
+                },
+                "bio": {
+                  "example": "any"
+                },
+                "hearAboutBacked": {
+                  "example": "any"
+                },
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
                   "example": "any"
                 }
               }
@@ -490,6 +499,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "password": {
+                  "example": "any"
+                },
                 "bandName": {
                   "example": "any"
                 },
@@ -500,9 +512,6 @@
                   "example": "any"
                 },
                 "city": {
-                  "example": "any"
-                },
-                "streetAddress": {
                   "example": "any"
                 },
                 "postalCode": {
@@ -541,7 +550,34 @@
                 "profilepic": {
                   "example": "any"
                 },
-                "instagramUsername": {
+                "bio": {
+                  "example": "any"
+                },
+                "hearAboutBacked": {
+                  "example": "any"
+                },
+                "cardName": {
+                  "example": "any"
+                },
+                "bankName": {
+                  "example": "any"
+                },
+                "cardNumber": {
+                  "example": "any"
+                },
+                "expMonth": {
+                  "example": "any"
+                },
+                "cvc": {
+                  "example": "any"
+                },
+                "occupation": {
+                  "example": "any"
+                },
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
                   "example": "any"
                 }
               }
@@ -649,6 +685,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "password": {
+                  "example": "any"
+                },
                 "country": {
                   "example": "any"
                 },
@@ -656,9 +695,6 @@
                   "example": "any"
                 },
                 "city": {
-                  "example": "any"
-                },
-                "streetAddress": {
                   "example": "any"
                 },
                 "postalCode": {
@@ -679,9 +715,6 @@
                 "occupation": {
                   "example": "any"
                 },
-                "investmentExperience": {
-                  "example": "any"
-                },
                 "musicGenres": {
                   "example": "any"
                 },
@@ -695,6 +728,18 @@
                   "example": "any"
                 },
                 "profilepic": {
+                  "example": "any"
+                },
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
+                  "example": "any"
+                },
+                "bio": {
+                  "example": "any"
+                },
+                "hearAboutBacked": {
                   "example": "any"
                 }
               }
@@ -729,6 +774,9 @@
             "schema": {
               "type": "object",
               "properties": {
+                "password": {
+                  "example": "any"
+                },
                 "bandName": {
                   "example": "any"
                 },
@@ -739,9 +787,6 @@
                   "example": "any"
                 },
                 "city": {
-                  "example": "any"
-                },
-                "streetAddress": {
                   "example": "any"
                 },
                 "postalCode": {
@@ -780,7 +825,34 @@
                 "profilepic": {
                   "example": "any"
                 },
-                "instagramUsername": {
+                "bio": {
+                  "example": "any"
+                },
+                "hearAboutBacked": {
+                  "example": "any"
+                },
+                "cardName": {
+                  "example": "any"
+                },
+                "bankName": {
+                  "example": "any"
+                },
+                "cardNumber": {
+                  "example": "any"
+                },
+                "expMonth": {
+                  "example": "any"
+                },
+                "cvc": {
+                  "example": "any"
+                },
+                "occupation": {
+                  "example": "any"
+                },
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
                   "example": "any"
                 }
               }
@@ -1866,6 +1938,9 @@
         "responses": {
           "401": {
             "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"

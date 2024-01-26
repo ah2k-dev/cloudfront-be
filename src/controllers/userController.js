@@ -52,19 +52,23 @@ const completeInvestorProfile = async (req, res) => {
       country,
       state,
       city,
-      streetAddress,
+      // streetAddress,
       postalCode,
       phoneNumber,
       dob,
       preferredLanguage,
       nationality,
       occupation,
-      investmentExperience,
+      // investmentExperience,
       musicGenres,
       reference,
       termsAndConditions,
       privacyPolicy,
       profilepic,
+      bio,
+      hearAboutBacked,
+      firstName,
+      lastName,
     } = req.body;
     const prvProfile = await investorProfile.findOne({
       investor: req.user._id,
@@ -82,7 +86,7 @@ const completeInvestorProfile = async (req, res) => {
       city,
       country,
       dob,
-      investmentExperience,
+      // investmentExperience,
       musicGenres,
       nationality,
       phoneNumber,
@@ -90,16 +94,43 @@ const completeInvestorProfile = async (req, res) => {
       preferredLanguage,
       privacyPolicy,
       state,
-      streetAddress,
+      // streetAddress,
       termsAndConditions,
       occupation,
       reference,
+      bio,
+      hearAboutBacked,
     });
     await newProfile.save();
-    await User.findByIdAndUpdate(req.user._id, {
-      profilePic: profilepic,
-      // isProfileComplete: true,
-    });
+    if (req.body.password) {
+      if (
+        !req.body.password.match(
+          /(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+!=])(?=.{8,}).*$/
+        )
+      ) {
+        return ErrorHandler(
+          "Password must contain atleast one uppercase letter, one special character and one number",
+          400,
+          req,
+          res
+        );
+      }
+      const hashedPassword = await bcrypt.hash(req.body.password, 10); // comment if passswrd issue kry.
+      await User.findByIdAndUpdate(req.user._id, {
+        password: hashedPassword,
+        profilePic: profilepic,
+        // isProfileComplete: true,
+        firstName,
+        lastName,
+      });
+    } else {
+      await User.findByIdAndUpdate(req.user._id, {
+        profilePic: profilepic,
+        // isProfileComplete: true,
+        firstName,
+        lastName,
+      });
+    }
     return SuccessHandler("Profile created successfully", 201, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
@@ -113,7 +144,7 @@ const completeCreatorProfile = async (req, res) => {
       country,
       state,
       city,
-      streetAddress,
+      // streetAddress,
       postalCode,
       phoneNumber,
       dob,
@@ -126,7 +157,17 @@ const completeCreatorProfile = async (req, res) => {
       privacyPolicy,
       iban,
       profilepic,
-      instagramUsername,
+      // instagramUsername,
+      bio,
+      hearAboutBacked,
+      cardName,
+      bankName,
+      cardNumber,
+      expMonth,
+      cvc,
+      occupation,
+      firstName,
+      lastName,
     } = req.body;
 
     const prvProfile = await creatorProfile.findOne({ creator: req.user._id });
@@ -144,7 +185,7 @@ const completeCreatorProfile = async (req, res) => {
       country,
       state,
       city,
-      streetAddress,
+      // streetAddress,
       postalCode,
       phoneNumber,
       dob,
@@ -156,13 +197,46 @@ const completeCreatorProfile = async (req, res) => {
       termsAndConditions,
       privacyPolicy,
       iban,
-      instagramUsername,
+      // instagramUsername,
+      bio,
+      hearAboutBacked,
+      cardName,
+      bankName,
+      cardNumber,
+      expMonth,
+      cvc,
+      occupation,
     });
     await newProfile.save();
-    await User.findByIdAndUpdate(req.user._id, {
-      profilePic: profilepic,
-      // isProfileComplete: true,
-    });
+    if (req.body.password) {
+      if (
+        !req.body.password.match(
+          /(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+!=])(?=.{8,}).*$/
+        )
+      ) {
+        return ErrorHandler(
+          "Password must contain atleast one uppercase letter, one special character and one number",
+          400,
+          req,
+          res
+        );
+      }
+      const hashedPassword = await bcrypt.hash(req.body.password, 10); // comment if passswrd issue kry.
+      await User.findByIdAndUpdate(req.user._id, {
+        password: hashedPassword,
+        profilePic: profilepic,
+        // isProfileComplete: true,
+        firstName,
+        lastName,
+      });
+    } else {
+      await User.findByIdAndUpdate(req.user._id, {
+        profilePic: profilepic,
+        // isProfileComplete: true,
+        firstName,
+        lastName,
+      });
+    }
     return SuccessHandler("Profile created!", 201, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
@@ -176,19 +250,23 @@ const updateInvestorProfile = async (req, res) => {
       country,
       state,
       city,
-      streetAddress,
+      // streetAddress,
       postalCode,
       phoneNumber,
       dob,
       preferredLanguage,
       nationality,
       occupation,
-      investmentExperience,
+      // investmentExperience,
       musicGenres,
       reference,
       termsAndConditions,
       privacyPolicy,
       profilepic,
+      firstName,
+      lastName,
+      bio,
+      hearAboutBacked,
     } = req.body;
     const updated = await investorProfile.findOneAndUpdate(
       { investor: req.user._id },
@@ -197,25 +275,52 @@ const updateInvestorProfile = async (req, res) => {
           country,
           state,
           city,
-          streetAddress,
+          // streetAddress,
           postalCode,
           phoneNumber,
           dob,
           preferredLanguage,
           nationality,
           occupation,
-          investmentExperience,
+          // investmentExperience,
           musicGenres,
           reference,
           termsAndConditions,
           privacyPolicy,
+          bio,
+          hearAboutBacked,
         },
       }
     );
     console.log(updated);
-    await User.findByIdAndUpdate(req.user._id, {
-      profilePic: profilepic,
-    });
+
+    if (req.body.password) {
+      if (
+        !req.body.password.match(
+          /(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+!=])(?=.{8,}).*$/
+        )
+      ) {
+        return ErrorHandler(
+          "Password must contain atleast one uppercase letter, one special character and one number",
+          400,
+          req,
+          res
+        );
+      }
+      const hashedPassword = await bcrypt.hash(req.body.password, 10); // comment if passswrd issue kry.
+      await User.findByIdAndUpdate(req.user._id, {
+        password: hashedPassword,
+        profilePic: profilepic,
+        firstName,
+        lastName,
+      });
+    } else {
+      await User.findByIdAndUpdate(req.user._id, {
+        profilePic: profilepic,
+        firstName,
+        lastName,
+      });
+    }
     return SuccessHandler("Profile updated!", 201, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
@@ -230,7 +335,7 @@ const updateCreatorProfile = async (req, res) => {
       country,
       state,
       city,
-      streetAddress,
+      // streetAddress,
       postalCode,
       phoneNumber,
       dob,
@@ -243,7 +348,17 @@ const updateCreatorProfile = async (req, res) => {
       privacyPolicy,
       iban,
       profilepic,
-      instagramUsername,
+      // instagramUsername,
+      bio,
+      hearAboutBacked,
+      cardName,
+      bankName,
+      cardNumber,
+      expMonth,
+      cvc,
+      occupation,
+      firstName,
+      lastName,
     } = req.body;
     const updated = await creatorProfile.findOneAndUpdate(
       {
@@ -255,7 +370,7 @@ const updateCreatorProfile = async (req, res) => {
           country,
           state,
           city,
-          streetAddress,
+          // streetAddress,
           postalCode,
           phoneNumber,
           dob,
@@ -267,14 +382,46 @@ const updateCreatorProfile = async (req, res) => {
           termsAndConditions,
           privacyPolicy,
           iban,
-          instagramUsername,
+          // instagramUsername,
+          bio,
+          hearAboutBacked,
+          cardName,
+          bankName,
+          cardNumber,
+          expMonth,
+          cvc,
+          occupation,
         },
       }
     );
     console.log(updated);
-    await User.findByIdAndUpdate(req.user._id, {
-      profilePic: profilepic,
-    });
+    if (req.body.password) {
+      if (
+        !req.body.password.match(
+          /(?=[A-Za-z0-9@#$%^&+!=]+$)^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&+!=])(?=.{8,}).*$/
+        )
+      ) {
+        return ErrorHandler(
+          "Password must contain atleast one uppercase letter, one special character and one number",
+          400,
+          req,
+          res
+        );
+      }
+      const hashedPassword = await bcrypt.hash(req.body.password, 10); // comment if passswrd issue kry.
+      await User.findByIdAndUpdate(req.user._id, {
+        password: hashedPassword,
+        profilePic: profilepic,
+        firstName,
+        lastName,
+      });
+    } else {
+      await User.findByIdAndUpdate(req.user._id, {
+        profilePic: profilepic,
+        firstName,
+        lastName,
+      });
+    }
     return SuccessHandler("Profile updated!", 201, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);

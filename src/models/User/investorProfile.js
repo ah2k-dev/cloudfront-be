@@ -23,10 +23,10 @@ const investorProfileSchema = new Schema({
     type: String,
     required: true,
   },
-  streetAddress: {
-    type: String,
-    required: true,
-  },
+  // streetAddress: {
+  //   type: String,
+  //   required: true,
+  // },
   postalCode: {
     type: Number,
     required: true,
@@ -51,10 +51,10 @@ const investorProfileSchema = new Schema({
     type: String,
     // required: true,
   },
-  investmentExperience: {
-    type: String,
-    required: true,
-  },
+  // investmentExperience: {
+  //   type: String,
+  //   required: true,
+  // },
   musicGenres: {
     type: [String],
     // required: true,
@@ -67,6 +67,14 @@ const investorProfileSchema = new Schema({
     required: true,
   },
   privacyPolicy: {
+    type: String,
+    required: true,
+  },
+  bio: {
+    type: String,
+    required: true,
+  },
+  hearAboutBacked: {
     type: String,
     required: true,
   },
