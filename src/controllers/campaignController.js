@@ -1011,6 +1011,114 @@ const getRequestedPayoutCampaigns = async (req, res) => {
   }
 };
 
+const saveFavCampaigns = async (req, res) => {
+  // #swagger.tags = ['campaign']
+  try {
+    const id = req.params.id;
+    const user = req.user._id;
+    const campaign = await Project.findOne({
+      _id: id,
+      isActive: true,
+    });
+    if (!campaign) {
+      return ErrorHandler("Campaign not found", 404, req, res);
+    }
+    if(req.user.favCampaigns){
+      const favCampaigns = req.user.favCampaigns;
+      if (favCampaigns.includes(id)) {
+        return ErrorHandler("Campaign already saved", 400, req, res);
+      } else {
+        const updated = await User.findByIdAndUpdate(
+          user._id,
+          {
+            $push: { favCampaigns: id },
+          },
+          {
+            new: true,
+          }
+        );
+        if (!updated) {
+          return ErrorHandler("Error saving campaign", 400, req, res);
+        }
+        return SuccessHandler(
+          { message: "Campaign saved successfully!", campaign: updated },
+          201,
+          res
+        );
+      }
+    } else {
+      const updated = await User.findByIdAndUpdate(
+        user._id,
+        {
+          favCampaigns: [id],
+        },
+        {
+          new: true,
+        }
+      );
+      if (!updated) {
+        return ErrorHandler("Error saving campaign", 400, req, res);
+      }
+      return SuccessHandler(
+        { message: "Campaign saved successfully!", campaign: updated },
+        201,
+        res
+      );
+    }
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+}
+
+const getFavCampaigns = async (req, res) => {
+  // #swagger.tags = ['campaign']
+  try {
+    const campaigns = await Project.find({
+      _id: { $in: req.user.favCampaigns },
+      isActive: true,
+    });
+    if (!campaigns) {
+      return ErrorHandler("Campaigns not found", 404, req, res);
+    }
+    return SuccessHandler(
+      { message: "Campaigns fetched!", campaigns },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+}
+
+const unsaveFavCampaigns = async (req, res) => {
+  // #swagger.tags = ['campaign']
+  try {
+    const {
+      ids
+    } = req.body;
+    const user = req.user._id;
+    const updated = await User.findByIdAndUpdate(
+      user._id,
+      {
+        $pull: { favCampaigns: { $in: ids } },
+      },
+      {
+        new: true,
+      }
+    );
+    if (!updated) {
+      return ErrorHandler("Error removing campaign", 400, req, res);
+    }
+    return SuccessHandler(
+      { message: "Campaign removed successfully!", campaign: updated },
+      201,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);   
+  }
+}
+
 module.exports = {
   create,
   getAll,
@@ -1025,4 +1133,7 @@ module.exports = {
   get,
   requestPayout,
   getRequestedPayoutCampaigns,
+  saveFavCampaigns, 
+  getFavCampaigns,
+  unsaveFavCampaigns
 };

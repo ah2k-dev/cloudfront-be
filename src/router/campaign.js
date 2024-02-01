@@ -30,4 +30,12 @@ router
   .route("/getRequestedPayoutCampaigns")
   .post(isAuthenticated, creatorAuth, campaign.getRequestedPayoutCampaigns);
 
+router
+  .route("/save-fav/:id")
+  .get(isAuthenticated, campaign.saveFavCampaigns);
+
+router.route("/getFavCampaigns").get(isAuthenticated, campaign.getFavCampaigns);
+
+router.route("/unsave-fav").post(isAuthenticated, campaign.unsaveFavCampaigns);
+
 module.exports = router;

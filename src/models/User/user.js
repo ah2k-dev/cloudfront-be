@@ -81,6 +81,12 @@ const userSchema = new Schema({
   accessToken: {
     type: String,
   },
+  favCampaigns: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "campaign",
+    },
+  ],
 });
 
 //hash password before saving

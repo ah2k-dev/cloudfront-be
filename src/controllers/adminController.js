@@ -27,6 +27,7 @@ const approveCampaign = async (req, res) => {
     const updated = await Project.findByIdAndUpdate(id, {
       $set: {
         status: "approved",
+        createdAt: Date.now(),
       },
     });
     if (updated) {
