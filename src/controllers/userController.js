@@ -7,6 +7,7 @@ const { findOneAndUpdate } = require("../models/User/user");
 const Project = require("../models/Campaign/projects");
 const Investment = require("../models/Campaign/investments");
 const { Mongoose } = require("mongoose");
+const bcrypt = require("bcryptjs");
 const updatePassword = async (req, res) => {
   // #swagger.tags = ['user']
   try {
