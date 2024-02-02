@@ -8,6 +8,7 @@ router.route("/investors").post(isAuthenticated, user.getAllInvestors);
 router.route("/creators").post(isAuthenticated, user.getAllCreators);
 router.route("/investor/:id").get(isAuthenticated, user.getInvestorProfile);
 router.route("/creator/:id").get(isAuthenticated, user.getCreatorProfile);
+router.route("/featured-creators").get(isAuthenticated, user.getFeaturedCreators);
 
 // post
 router

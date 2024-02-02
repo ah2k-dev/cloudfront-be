@@ -392,6 +392,29 @@
         }
       }
     },
+    "/user/featured-creators": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/user/completeInvestorProfile": {
       "post": {
         "tags": [
@@ -554,21 +577,6 @@
                   "example": "any"
                 },
                 "hearAboutBacked": {
-                  "example": "any"
-                },
-                "cardName": {
-                  "example": "any"
-                },
-                "bankName": {
-                  "example": "any"
-                },
-                "cardNumber": {
-                  "example": "any"
-                },
-                "expMonth": {
-                  "example": "any"
-                },
-                "cvc": {
                   "example": "any"
                 },
                 "occupation": {
@@ -831,21 +839,6 @@
                 "hearAboutBacked": {
                   "example": "any"
                 },
-                "cardName": {
-                  "example": "any"
-                },
-                "bankName": {
-                  "example": "any"
-                },
-                "cardNumber": {
-                  "example": "any"
-                },
-                "expMonth": {
-                  "example": "any"
-                },
-                "cvc": {
-                  "example": "any"
-                },
                 "occupation": {
                   "example": "any"
                 },
@@ -1071,9 +1064,6 @@
                 "imageUrl": {
                   "example": "any"
                 },
-                "rewards": {
-                  "example": "any"
-                },
                 "additionalImageUrls": {
                   "example": "any"
                 },
@@ -1083,9 +1073,6 @@
                 "equity": {
                   "example": "any"
                 },
-                "slug": {
-                  "example": "any"
-                },
                 "linkToPreviousCampaign": {
                   "example": "any"
                 },
@@ -1093,6 +1080,9 @@
                   "example": "any"
                 },
                 "videoUrl": {
+                  "example": "any"
+                },
+                "videoDesc": {
                   "example": "any"
                 }
               }
@@ -1157,9 +1147,6 @@
                 "videoUrl": {
                   "example": "any"
                 },
-                "rewards": {
-                  "example": "any"
-                },
                 "socialMediaLinks": {
                   "example": "any"
                 },
@@ -1169,10 +1156,10 @@
                 "termsAndConditions": {
                   "example": "any"
                 },
-                "slug": {
+                "linkToPreviousCampaign": {
                   "example": "any"
                 },
-                "linkToPreviousCampaign": {
+                "videoDesc": {
                   "example": "any"
                 }
               }
@@ -1560,6 +1547,93 @@
           },
           "403": {
             "description": "Forbidden"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/campaign/save-fav/{id}": {
+      "get": {
+        "tags": [
+          "campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/campaign/getFavCampaigns": {
+      "get": {
+        "tags": [
+          "campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/campaign/unsave-fav": {
+      "post": {
+        "tags": [
+          "campaign"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "ids": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
           },
           "500": {
             "description": "Internal Server Error"

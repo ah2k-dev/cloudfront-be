@@ -30,22 +30,22 @@ const projectSchema = new Schema({
     type: String,
     required: true,
   },
-  rewards: [
-    {
-      minContribution: {
-        type: String,
-        required: true,
-      },
-      desc: {
-        type: String,
-        required: true,
-      },
-      deliveryDate: {
-        type: String,
-        required: true,
-      },
-    },
-  ],
+  // rewards: [
+  //   {
+  //     minContribution: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //     desc: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //     deliveryDate: {
+  //       type: String,
+  //       required: true,
+  //     },
+  //   },
+  // ],
   additionalImageUrls: {
     type: [String],
   },
@@ -84,10 +84,10 @@ const projectSchema = new Schema({
     type: Number,
     required: true,
   },
-  slug: {
-    type: String,
-    // required: true,
-  },
+  // slug: {
+  //   type: String,
+  //   // required: true,
+  // },
   payoutRequested: {
     type: Boolean,
     default: false,
@@ -105,6 +105,9 @@ const projectSchema = new Schema({
     },
   ],
   videoUrl: {
+    type: String,
+  },
+  videoDesc: {
     type: String,
   },
 });

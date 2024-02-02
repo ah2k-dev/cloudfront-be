@@ -161,11 +161,11 @@ const completeCreatorProfile = async (req, res) => {
       // instagramUsername,
       bio,
       hearAboutBacked,
-      cardName,
-      bankName,
-      cardNumber,
-      expMonth,
-      cvc,
+      // cardName,
+      // bankName,
+      // cardNumber,
+      // expMonth,
+      // cvc,
       occupation,
       firstName,
       lastName,
@@ -201,11 +201,11 @@ const completeCreatorProfile = async (req, res) => {
       // instagramUsername,
       bio,
       hearAboutBacked,
-      cardName,
-      bankName,
-      cardNumber,
-      expMonth,
-      cvc,
+      // cardName,
+      // bankName,
+      // cardNumber,
+      // expMonth,
+      // cvc,
       occupation,
     });
     await newProfile.save();
@@ -352,11 +352,11 @@ const updateCreatorProfile = async (req, res) => {
       // instagramUsername,
       bio,
       hearAboutBacked,
-      cardName,
-      bankName,
-      cardNumber,
-      expMonth,
-      cvc,
+      // cardName,
+      // bankName,
+      // cardNumber,
+      // expMonth,
+      // cvc,
       occupation,
       firstName,
       lastName,
@@ -386,11 +386,11 @@ const updateCreatorProfile = async (req, res) => {
           // instagramUsername,
           bio,
           hearAboutBacked,
-          cardName,
-          bankName,
-          cardNumber,
-          expMonth,
-          cvc,
+          // cardName,
+          // bankName,
+          // cardNumber,
+          // expMonth,
+          // cvc,
           occupation,
         },
       }
@@ -1058,6 +1058,67 @@ const getCreatorProfile = async (req, res) => {
   }
 };
 
+const getFeaturedCreators = async (req, res) => {
+  // #swagger.tags = ['user']
+  try {
+    // group campaigns by creator and return those creators who have most campaigns that have availableEquity = 0
+    let creators = await Project.aggregate([
+      {
+        $match: {
+          isActive: true,
+          availableEquity: 0,
+        },
+      },
+      {
+        $group: {
+          _id: "$creator",
+          count: { $sum: 1 },
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "creator",
+        },
+      },
+      {
+        $unwind: "$creator",
+      },
+      {
+        $project: {
+          _id: 0,
+          creator: 1,
+          count: 1,
+        },
+      },
+      {
+        $sort: { count: -1 },
+      },
+    ]);
+
+    if(creators.length > 3) {
+      creators = creators.slice(0, 3);
+    }
+
+    if (!creators) {
+      return ErrorHandler("No creators found", 500, req, res);
+    }
+
+    return SuccessHandler(
+      {
+        message: `Featured Creators fetched successfully!`,
+        creators,
+      },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   updatePassword,
   completeInvestorProfile,
@@ -1072,4 +1133,5 @@ module.exports = {
   getAllCreators,
   getInvestorProfile,
   getCreatorProfile,
+  getFeaturedCreators
 };

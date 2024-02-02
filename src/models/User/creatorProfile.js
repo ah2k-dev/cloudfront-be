@@ -90,26 +90,26 @@ const creatorProfileSchema = new Schema({
     type: String,
     required: true,
   },
-  cardName: {
-    type: String,
-    default: null,
-  },
-  cardNumber: {
-    type: String,
-    default: null,
-  },
-  bankName: {
-    type: String,
-    default: null,
-  },
-  expMonth: {
-    type: String,
-    default: null,
-  },
-  cvc: {
-    type: String,
-    default: null,
-  },
+  // cardName: {
+  //   type: String,
+  //   default: null,
+  // },
+  // cardNumber: {
+  //   type: String,
+  //   default: null,
+  // },
+  // bankName: {
+  //   type: String,
+  //   default: null,
+  // },
+  // expMonth: {
+  //   type: String,
+  //   default: null,
+  // },
+  // cvc: {
+  //   type: String,
+  //   default: null,
+  // },
   occupation: {
     type: String,
     default: null,

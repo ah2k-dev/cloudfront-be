@@ -26,14 +26,15 @@ const create = async (req, res) => {
       duration,
       projectCategory,
       imageUrl,
-      rewards,
+      // rewards,
       additionalImageUrls,
       termsAndConditions,
       equity,
-      slug,
+      // slug,
       linkToPreviousCampaign,
       socialMediaLinks,
       videoUrl,
+      videoDesc
     } = req.body;
 
     const prevCampaign = await Project.findOne({
@@ -58,16 +59,17 @@ const create = async (req, res) => {
       duration,
       projectCategory,
       imageUrl,
-      rewards,
+      // rewards,
       creator: user,
       equity: Number(equity),
       availableEquity: Number(equity),
-      slug,
+      // slug,
       linkToPreviousCampaign,
       termsAndConditions,
       socialMediaLinks,
       videoUrl,
       additionalImageUrls,
+      videoDesc
     });
     await newProject.save();
     const adminId = await getAdminId();
@@ -110,13 +112,14 @@ const update = async (req, res) => {
       projectCategory,
       imageUrl,
       videoUrl,
-      rewards,
+      // rewards,
       // creatorBio,
       socialMediaLinks,
       additionalImageUrls,
       termsAndConditions,
-      slug,
+      // slug,
       linkToPreviousCampaign,
+      videoDesc
     } = req.body;
     const updated = await Project.findByIdAndUpdate(id, {
       $set: {
@@ -128,13 +131,14 @@ const update = async (req, res) => {
         projectCategory,
         imageUrl,
         videoUrl,
-        rewards,
+        // rewards,
         // creatorBio,
         socialMediaLinks,
         additionalImageUrls,
         termsAndConditions,
-        slug,
+        // slug,
         linkToPreviousCampaign,
+        videoDesc
       },
     });
     if (updated.status === "approved") {
