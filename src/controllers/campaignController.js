@@ -645,12 +645,6 @@ const invest = async (req, res) => {
 
         const adminId = await getAdminId();
         if (investment) {
-          // notify to investor
-          await sendNotification(
-            "New investment",
-            `You investmented in ${project.title} campaign`,
-            req.user._id
-          );
           // notify to creator
           await sendNotification(
             "New investment",
@@ -663,6 +657,72 @@ const invest = async (req, res) => {
             `${req.user.firstName} ${req.user.lastName} invested in ${project.title} campaign`,
             adminId
           );
+
+          // sending notification to other investors
+          const investors = await Project.aggregate([
+            {
+              $match: {
+                _id: mongoose.Types.ObjectId(campaign),
+              },
+            },
+            {
+              $unwind: "$investment",
+            },
+            {
+              $project: {
+                _id: 0,
+                investment: 1,
+              },
+            },
+            {
+              $lookup: {
+                from: "investments",
+                localField: "investment",
+                foreignField: "_id",
+                as: "Investors",
+              },
+            },
+            {
+              $unwind: "$Investors",
+            },
+
+            {
+              $match: {
+                "Investors.investor": {
+                  $ne: mongoose.Types.ObjectId(user),
+                },
+              },
+            },
+
+            {
+              $group: {
+                _id: null,
+                investors: {
+                  $addToSet: "$Investors.investor",
+                },
+              },
+            },
+            {
+              $unwind: "$investors",
+            },
+            {
+              $project: {
+                _id: 0,
+                investorId: "$investors",
+              },
+            },
+          ]);
+          if (investors.length > 0) {
+            Promise.all(
+              investors.map(async (id) => {
+                await sendNotification(
+                  "New investment",
+                  `New investement added in ${project.title} campaign`,
+                  id.investorId
+                );
+              })
+            );
+          }
           await Project.findByIdAndUpdate(campaign, {
             $push: { investment: investment._id },
             $set: { availableEquity: equityLeft },
@@ -898,6 +958,14 @@ const requestPayout = async (req, res) => {
     if (!campaign) {
       return ErrorHandler("Campaign not found", 404, req, res);
     }
+
+    const adminId = await getAdminId();
+    await sendNotification(
+      "Payout Request",
+      `${req.user.firstName} ${req.user.lastName} has requested for payout`,
+      adminId
+    );
+
     return SuccessHandler(
       { message: "Payout requested successfully!", campaign },
       200,

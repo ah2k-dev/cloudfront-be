@@ -476,3 +476,35 @@
 {"date":"2023-11-02T15:12:37.204Z","level":"error","message":"Cannot read properties of null (reading 'comment')","method":"POST","service":"user-service","url":"/blogCommnets"}
 {"date":"2023-11-03T17:36:33.335Z","level":"error","message":"Cannot read properties of undefined (reading 'socket')","method":"PUT","service":"user-service","url":"/approveCampaign/6542554e55fc1df7b887c8ec"}
 {"date":"2024-01-24T17:53:34.050Z","level":"error","message":"invalid argument to $skip stage: Expected an integer, but found NaN in: $skip: nan.0","method":"POST","service":"user-service","url":"/getInvestors"}
+{"date":"2024-02-03T11:02:06.732Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:02:09.365Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:02:50.091Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:02:51.575Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:03:51.150Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:04:17.833Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:05:01.651Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:05:03.286Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:05:45.264Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:06:02.280Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:06:03.875Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:06:05.230Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:06:06.576Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:06:08.087Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:06:42.420Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-03T11:10:19.511Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2024-02-03T11:10:21.029Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2024-02-03T11:10:22.216Z","level":"error","message":"User already exists","method":"POST","service":"user-service","url":"/register"}
+{"date":"2024-02-03T11:11:19.227Z","level":"error","message":"investment validation failed: equityBought: Cast to Number failed for value \"NaN\" (type number) at path \"equityBought\"","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T11:12:05.639Z","level":"error","message":"investment validation failed: equityBought: Cast to Number failed for value \"NaN\" (type number) at path \"equityBought\"","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T11:16:41.940Z","level":"error","message":"unknown top level operator: $Investors.investor. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T11:17:57.411Z","level":"error","message":"unknown top level operator: $Investors.investor. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T11:18:17.213Z","level":"error","message":"Cast to Number failed for value \"NaN\" (type number) at path \"availableEquity\"","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T11:20:40.624Z","level":"error","message":"FieldPath field names may not start with '$'. Consider using $getField or $setField.","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T11:21:03.765Z","level":"error","message":"unknown top level operator: $Investors.investor. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T11:47:04.737Z","level":"error","message":"unknown top level operator: $Investors.investor. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T11:47:45.418Z","level":"error","message":"unknown top level operator: $Investors.investor. If you have a field name that starts with a '$' symbol, consider using $getField or $setField.","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T12:20:29.387Z","level":"error","message":"Amount exceeds equity","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T12:23:03.786Z","level":"error","message":"Invalid $project :: caused by :: Cannot do exclusion on field investment in inclusion projection","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T12:35:37.394Z","level":"error","message":"PlanExecutor error during aggregation :: caused by :: $arrayElemAt's first argument must be an array, but is objectId","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T12:58:02.464Z","level":"error","message":"investorsId is not defined","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-03T13:00:36.748Z","level":"error","message":"investorsId is not defined","method":"POST","service":"user-service","url":"/invest"}

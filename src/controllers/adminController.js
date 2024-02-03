@@ -366,6 +366,69 @@ const releaseFunds = async (req, res) => {
           .catch((error) => {
             return ErrorHandler(error.message, 400, req, res);
           });
+        // send notif to creator
+        await sendNotification(
+          "Payout Released",
+          `Admin has released payout for the campaign: ${campaign.title}`,
+          campaign.creator
+        );
+        // sending notification to other investors
+        const investors = await Project.aggregate([
+          {
+            $match: {
+              _id: mongoose.Types.ObjectId(id),
+            },
+          },
+          {
+            $unwind: "$investment",
+          },
+          {
+            $project: {
+              _id: 0,
+              investment: 1,
+            },
+          },
+          {
+            $lookup: {
+              from: "investments",
+              localField: "investment",
+              foreignField: "_id",
+              as: "Investors",
+            },
+          },
+          {
+            $unwind: "$Investors",
+          },
+
+          {
+            $group: {
+              _id: null,
+              investors: {
+                $addToSet: "$Investors.investor",
+              },
+            },
+          },
+          {
+            $unwind: "$investors",
+          },
+          {
+            $project: {
+              _id: 0,
+              investorId: "$investors",
+            },
+          },
+        ]);
+        if (investors.length > 0) {
+          Promise.all(
+            investors.map(async (id) => {
+              await sendNotification(
+                "Payout Released",
+                `Admin has released payout for the campaign: ${campaign.title}`,
+                id.investorId
+              );
+            })
+          );
+        }
       } else {
         return ErrorHandler(
           "No investments on this campaign found!",
