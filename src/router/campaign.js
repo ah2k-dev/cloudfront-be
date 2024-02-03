@@ -34,7 +34,7 @@ router
   .route("/save-fav/:id")
   .get(isAuthenticated, campaign.saveFavCampaigns);
 
-router.route("/getFavCampaigns").get(isAuthenticated, campaign.getFavCampaigns);
+router.route("/getFavCampaigns").post(isAuthenticated, campaign.getFavCampaigns);
 
 router.route("/unsave-fav").post(isAuthenticated, campaign.unsaveFavCampaigns);
 

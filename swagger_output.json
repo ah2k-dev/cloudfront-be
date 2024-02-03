@@ -1584,7 +1584,7 @@
       }
     },
     "/campaign/getFavCampaigns": {
-      "get": {
+      "post": {
         "tags": [
           "campaign"
         ],
@@ -1594,6 +1594,24 @@
             "name": "authorization",
             "in": "header",
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "search": {
+                  "example": "any"
+                },
+                "page": {
+                  "example": "any"
+                },
+                "itemPerPage": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {

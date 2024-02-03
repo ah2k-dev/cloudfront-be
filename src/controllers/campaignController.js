@@ -34,7 +34,7 @@ const create = async (req, res) => {
       linkToPreviousCampaign,
       socialMediaLinks,
       videoUrl,
-      videoDesc
+      videoDesc,
     } = req.body;
 
     const prevCampaign = await Project.findOne({
@@ -69,7 +69,7 @@ const create = async (req, res) => {
       socialMediaLinks,
       videoUrl,
       additionalImageUrls,
-      videoDesc
+      videoDesc,
     });
     await newProject.save();
     const adminId = await getAdminId();
@@ -119,7 +119,7 @@ const update = async (req, res) => {
       termsAndConditions,
       // slug,
       linkToPreviousCampaign,
-      videoDesc
+      videoDesc,
     } = req.body;
     const updated = await Project.findByIdAndUpdate(id, {
       $set: {
@@ -138,7 +138,7 @@ const update = async (req, res) => {
         termsAndConditions,
         // slug,
         linkToPreviousCampaign,
-        videoDesc
+        videoDesc,
       },
     });
     if (updated.status === "approved") {
@@ -1027,7 +1027,7 @@ const saveFavCampaigns = async (req, res) => {
     if (!campaign) {
       return ErrorHandler("Campaign not found", 404, req, res);
     }
-    if(req.user.favCampaigns){
+    if (req.user.favCampaigns) {
       const favCampaigns = req.user.favCampaigns;
       if (favCampaigns.includes(id)) {
         return ErrorHandler("Campaign already saved", 400, req, res);
@@ -1072,15 +1072,29 @@ const saveFavCampaigns = async (req, res) => {
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
-}
+};
 
 const getFavCampaigns = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
+    const searchFilter = req.body.search
+      ? {
+          title: { $regex: req.body.search, $options: "i" },
+        }
+      : {};
+
+    const page = req.body.page || 1;
+    const itemPerPage = req.body.itemPerPage || 10;
+    const skipItems = (page - 1) * itemPerPage;
+
     const campaigns = await Project.find({
       _id: { $in: req.user.favCampaigns },
+      ...searchFilter,
       isActive: true,
-    });
+    })
+      .sort({ createdAt: -1 })
+      .skip(skipItems)
+      .limit(itemPerPage);
     if (!campaigns) {
       return ErrorHandler("Campaigns not found", 404, req, res);
     }
@@ -1092,14 +1106,12 @@ const getFavCampaigns = async (req, res) => {
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
-}
+};
 
 const unsaveFavCampaigns = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
-    const {
-      ids
-    } = req.body;
+    const { ids } = req.body;
     const user = req.user._id;
     const updated = await User.findByIdAndUpdate(
       user._id,
@@ -1119,9 +1131,9 @@ const unsaveFavCampaigns = async (req, res) => {
       res
     );
   } catch (error) {
-    return ErrorHandler(error.message, 500, req, res);   
+    return ErrorHandler(error.message, 500, req, res);
   }
-}
+};
 
 module.exports = {
   create,
@@ -1137,7 +1149,7 @@ module.exports = {
   get,
   requestPayout,
   getRequestedPayoutCampaigns,
-  saveFavCampaigns, 
+  saveFavCampaigns,
   getFavCampaigns,
-  unsaveFavCampaigns
+  unsaveFavCampaigns,
 };
