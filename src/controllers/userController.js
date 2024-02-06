@@ -6,8 +6,9 @@ const creatorProfile = require("../models/User/creatorProfile");
 const { findOneAndUpdate } = require("../models/User/user");
 const Project = require("../models/Campaign/projects");
 const Investment = require("../models/Campaign/investments");
-const { Mongoose } = require("mongoose");
+const { Mongoose, mongo } = require("mongoose");
 const bcrypt = require("bcryptjs");
+const { default: mongoose } = require("mongoose");
 const updatePassword = async (req, res) => {
   // #swagger.tags = ['user']
   try {
@@ -1098,7 +1099,7 @@ const getFeaturedCreators = async (req, res) => {
       },
     ]);
 
-    if(creators.length > 3) {
+    if (creators.length > 3) {
       creators = creators.slice(0, 3);
     }
 
@@ -1119,6 +1120,124 @@ const getFeaturedCreators = async (req, res) => {
   }
 };
 
+//  Investors who have highest investment
+const getFeaturedInvestors = async (req, res) => {
+  // #swagger.tags = ['user']
+
+  try {
+    const data = await Investment.aggregate([
+      {
+        $group: {
+          _id: "$investor",
+          amountInvested: { $sum: "$amount" },
+        },
+      },
+      {
+        $sort: {
+          amountInvested: -1,
+        },
+      },
+      {
+        $limit: 3,
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "_id",
+          foreignField: "_id",
+          as: "investor",
+        },
+      },
+      {
+        $unwind: "$investor",
+      },
+    ]);
+    return SuccessHandler(
+      { message: "Fetched Featured Investors", data: data },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
+// for graph
+const investmentDetail = async (req, res) => {
+  try {
+    console.log(req.user._id);
+    const totalInvestment = await Investment.aggregate([
+      {
+        $match: {
+          investor: mongoose.Types.ObjectId(req.user._id),
+        },
+      },
+      {
+        $group: {
+          _id: "$investor",
+          amountInvested: { $sum: "$amount" },
+        },
+      },
+    ]);
+    const totalCampaign = await Investment.aggregate([
+      {
+        $match: {
+          investor: mongoose.Types.ObjectId(req.user._id),
+        },
+      },
+      {
+        $group: {
+          _id: "$investor",
+          investmentIds: { $push: "$_id" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          investmentIds: 1,
+        },
+      },
+      {
+        $lookup: {
+          from: "projects",
+          localField: "",
+          foreignField: "",
+          as: "",
+        },
+      },
+    ]);
+    const investmentIds =
+      totalCampaign[0].investmentIds.length > 0
+        ? totalCampaign[0].investmentIds
+        : [];
+    const total = await Project.aggregate([
+      {
+        $match: {
+          investment: {
+            $in: investmentIds.map((id) => mongoose.Types.ObjectId(id)),
+          },
+        },
+      },
+      {
+        $addFields: {
+          uniqueInvestmentCount: { $size: "$investment" },
+        },
+      },
+      {
+        $project: {
+          uniqueInvestmentCount: 1,
+        },
+      },
+    ]);
+    return SuccessHandler(
+      { message: "Fetched", totalInvestment, totalCampaign },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
 module.exports = {
   updatePassword,
   completeInvestorProfile,
@@ -1133,5 +1252,7 @@ module.exports = {
   getAllCreators,
   getInvestorProfile,
   getCreatorProfile,
-  getFeaturedCreators
+  getFeaturedCreators,
+  getFeaturedInvestors,
+  investmentDetail,
 };

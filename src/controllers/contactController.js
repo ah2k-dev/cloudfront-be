@@ -5,14 +5,13 @@ const ContactUs = require("../models/Website/contactUs");
 const contactUs = async (req, res) => {
   // #swagger.tags = ['contact']
   try {
-    const { name, email, message, phone, subject } = req.body;
+    const { firstName, lastName, email, message } = req.body;
 
     const contact = await ContactUs.create({
-      name,
+      firstName,
+      lastName,
       email,
       message,
-      phone,
-      subject,
     });
 
     return SuccessHandler("Message sent successfully", 200, res);
@@ -33,6 +32,6 @@ const getContactUs = async (req, res) => {
 };
 
 module.exports = {
-    contactUs,
-    getContactUs
+  contactUs,
+  getContactUs,
 };

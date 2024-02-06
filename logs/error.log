@@ -508,3 +508,16 @@
 {"date":"2024-02-03T12:35:37.394Z","level":"error","message":"PlanExecutor error during aggregation :: caused by :: $arrayElemAt's first argument must be an array, but is objectId","method":"POST","service":"user-service","url":"/invest"}
 {"date":"2024-02-03T12:58:02.464Z","level":"error","message":"investorsId is not defined","method":"POST","service":"user-service","url":"/invest"}
 {"date":"2024-02-03T13:00:36.748Z","level":"error","message":"investorsId is not defined","method":"POST","service":"user-service","url":"/invest"}
+{"date":"2024-02-06T15:27:15.718Z","level":"error","message":"Email not verified","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-06T16:34:55.956Z","level":"error","message":"searchFilter is not defined","method":"POST","service":"user-service","url":"/getAll"}
+{"date":"2024-02-06T16:39:38.879Z","level":"error","message":"Cast to ObjectId failed for value \"{ firstName: { '$regex': 'Asad', '$options': 'i' } }\" (type Object) at path \"creator\" for model \"project\"","method":"POST","service":"user-service","url":"/getAll"}
+{"date":"2024-02-06T17:38:40.311Z","level":"error","message":"Invalid sort value: { $options: i }","method":"POST","service":"user-service","url":"/getAll"}
+{"date":"2024-02-06T17:42:28.233Z","level":"error","message":"Invalid sort value: { $options: i }","method":"POST","service":"user-service","url":"/getAll"}
+{"date":"2024-02-06T17:42:31.270Z","level":"error","message":"Invalid sort value: { $options: i }","method":"POST","service":"user-service","url":"/getAll"}
+{"date":"2024-02-06T17:42:55.907Z","level":"error","message":"Invalid sort value: { $collation: [object Object] }","method":"POST","service":"user-service","url":"/getAll"}
+{"date":"2024-02-06T17:42:58.102Z","level":"error","message":"Invalid sort value: { $collation: [object Object] }","method":"POST","service":"user-service","url":"/getAll"}
+{"date":"2024-02-06T19:57:02.054Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-06T19:57:14.808Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-06T20:00:39.276Z","level":"error","message":"Cannot read properties of undefined (reading '_id')","method":"GET","service":"user-service","url":"/investment-detail"}
+{"date":"2024-02-06T20:04:49.783Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-06T20:06:46.713Z","level":"error","message":"PlanExecutor error during aggregation :: caused by :: 'newRoot' expression  must evaluate to an object, but resulting value was: 741. Type of resulting value: 'int'. Input document: {_id: 658abf6968ae3b8372e48e5a, amountInvested: 741}","method":"GET","service":"user-service","url":"/investment-detail"}

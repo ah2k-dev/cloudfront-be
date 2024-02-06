@@ -415,6 +415,36 @@
         }
       }
     },
+    "/user/featured-investors": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/investment-detail": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/user/completeInvestorProfile": {
       "post": {
         "tags": [
@@ -1208,6 +1238,12 @@
                   "example": "any"
                 },
                 "minMaxFilter": {
+                  "example": "any"
+                },
+                "artist": {
+                  "example": "any"
+                },
+                "sortBy": {
                   "example": "any"
                 }
               }
@@ -2932,19 +2968,16 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "firstName": {
+                  "example": "any"
+                },
+                "lastName": {
                   "example": "any"
                 },
                 "email": {
                   "example": "any"
                 },
                 "message": {
-                  "example": "any"
-                },
-                "phone": {
-                  "example": "any"
-                },
-                "subject": {
                   "example": "any"
                 }
               }

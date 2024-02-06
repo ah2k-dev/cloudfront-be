@@ -8,7 +8,11 @@ router.route("/investors").post(isAuthenticated, user.getAllInvestors);
 router.route("/creators").post(isAuthenticated, user.getAllCreators);
 router.route("/investor/:id").get(isAuthenticated, user.getInvestorProfile);
 router.route("/creator/:id").get(isAuthenticated, user.getCreatorProfile);
-router.route("/featured-creators").get(isAuthenticated, user.getFeaturedCreators);
+router
+  .route("/featured-creators")
+  .get(isAuthenticated, user.getFeaturedCreators);
+router.route("/featured-investors").get(user.getFeaturedInvestors);
+router.route("/investment-detail").get(isAuthenticated, user.investmentDetail);
 
 // post
 router

@@ -14,6 +14,10 @@ const notficationSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
+    sender: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
     isRead: {
       type: Boolean,
       default: false,
