@@ -8,7 +8,12 @@ const ErrorHandler = require("../utils/ErrorHandler");
 const getAllNotifications = async (req, res) => {
   // #swagger.tags = ['notification']
   try {
-    const notifications = await Notification.find({ user: req.user._id });
+    const notifications = await Notification.find({
+      user: req.user._id,
+    }).populate({
+      path: "user",
+      select: "firstName lastName email profilePic",
+    });
     return SuccessHandler(
       { message: "Fetched all notification", notifications },
       200,
@@ -60,6 +65,9 @@ const getUnreadNotifications = async (req, res) => {
     const unreadNotification = await Notification.find({
       user: req.user._id,
       isRead: false,
+    }).populate({
+      path: "user",
+      select: "firstName lastName email profilePic",
     });
     return SuccessHandler(
       { message: "Fetched unread Notifications", unreadNotification },

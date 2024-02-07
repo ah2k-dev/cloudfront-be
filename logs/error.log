@@ -521,3 +521,5 @@
 {"date":"2024-02-06T20:00:39.276Z","level":"error","message":"Cannot read properties of undefined (reading '_id')","method":"GET","service":"user-service","url":"/investment-detail"}
 {"date":"2024-02-06T20:04:49.783Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
 {"date":"2024-02-06T20:06:46.713Z","level":"error","message":"PlanExecutor error during aggregation :: caused by :: 'newRoot' expression  must evaluate to an object, but resulting value was: 741. Type of resulting value: 'int'. Input document: {_id: 658abf6968ae3b8372e48e5a, amountInvested: 741}","method":"GET","service":"user-service","url":"/investment-detail"}
+{"date":"2024-02-07T12:59:29.062Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-07T13:02:19.398Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
