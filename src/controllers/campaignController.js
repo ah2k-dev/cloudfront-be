@@ -94,13 +94,15 @@ const create = async (req, res) => {
       await sendNotification(
         "New Campaign created",
         `${title} campaign has been created successfully`,
-        req.user._id
+        req.user._id,
+        req.user
       );
       // notify to admin
       await sendNotification(
         "New Campaign created",
         `${req.user.firstName} ${req.user.lastName} has created a new campaign`,
-        adminId
+        adminId,
+        req.user
       );
     }
     return SuccessHandler(
@@ -169,20 +171,23 @@ const update = async (req, res) => {
           await sendNotification(
             `${req.user._id} updated the campaign`,
             `${title} campaign updated, you can check now`,
-            investor
+            investor,
+            req.user
           );
       }
       // notify to creator
       await sendNotification(
         "Campaign updated",
         `${title} campaign has been updated successfully`,
-        req.user._id
+        req.user._id,
+        req.user
       );
       // notify to admin
       await sendNotification(
         "Campaign updated",
         `${req.user.firstName} ${req.user.lastName} has updated his/her campaign`,
-        adminId
+        adminId,
+        req.user
       );
     }
     if (!updated) {
@@ -698,13 +703,15 @@ const invest = async (req, res) => {
           await sendNotification(
             "New investment",
             `${req.user.firstName} ${req.user.lastName} has invested in ${project.title} campaign`,
-            project.creator
+            project.creator,
+            req.user
           );
           // notify to admin
           await sendNotification(
             "New investment",
             `${req.user.firstName} ${req.user.lastName} invested in ${project.title} campaign`,
-            adminId
+            adminId,
+            req.user
           );
 
           // sending notification to other investors
@@ -767,7 +774,8 @@ const invest = async (req, res) => {
                 await sendNotification(
                   "New investment",
                   `New investement added in ${project.title} campaign`,
-                  id.investorId
+                  id.investorId,
+                  req.user
                 );
               })
             );
@@ -1012,7 +1020,8 @@ const requestPayout = async (req, res) => {
     await sendNotification(
       "Payout Request",
       `${req.user.firstName} ${req.user.lastName} has requested for payout`,
-      adminId
+      adminId,
+      req.user
     );
 
     return SuccessHandler(

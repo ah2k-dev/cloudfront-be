@@ -35,7 +35,8 @@ const approveCampaign = async (req, res) => {
       await sendNotification(
         "Campaign accepted",
         `Admin has accepted ${updated.title} campaign`,
-        updated.creator
+        updated.creator,
+        req.user
       );
     }
     if (!updated) {
@@ -273,7 +274,8 @@ const editCampaign = async (req, res) => {
       await sendNotification(
         "Campaign edited",
         `Admin has edited ${updated.title} campaign`,
-        updated.creator
+        updated.creator,
+        req.user
       );
     }
     if (!updated) {
@@ -303,7 +305,8 @@ const deleteCampaign = async (req, res) => {
       await sendNotification(
         "Campaign deleted",
         `Admin has deleted ${deleted.title} campaign`,
-        deleted.creator
+        deleted.creator,
+        req.user
       );
     }
     if (!deleted) {
@@ -370,7 +373,8 @@ const releaseFunds = async (req, res) => {
         await sendNotification(
           "Payout Released",
           `Admin has released payout for the campaign: ${campaign.title}`,
-          campaign.creator
+          campaign.creator,
+          req.user
         );
         // sending notification to other investors
         const investors = await Project.aggregate([
@@ -424,7 +428,8 @@ const releaseFunds = async (req, res) => {
               await sendNotification(
                 "Payout Released",
                 `Admin has released payout for the campaign: ${campaign.title}`,
-                id.investorId
+                id.investorId,
+                req.user
               );
             })
           );
@@ -597,7 +602,8 @@ const updateInvestor = async (req, res) => {
       await sendNotification(
         "Profile updated",
         `Admin has updated your profile`,
-        id
+        id,
+        req.user
       );
     }
     if (!updated) {
@@ -632,7 +638,8 @@ const deleteInvestor = async (req, res) => {
       await sendNotification(
         "Profile deleted",
         `Admin has deleted your profile`,
-        id
+        id,
+        req.user
       );
     }
     // if (deleted) {
@@ -839,7 +846,8 @@ const updateCreator = async (req, res) => {
       await sendNotification(
         "Profile updated",
         `Admin has updated your profile`,
-        id
+        id,
+        req.user
       );
     }
     if (!updated) {
@@ -1183,7 +1191,8 @@ const createCreator = async (req, res) => {
       await sendNotification(
         "Profile created",
         `Admin has created your profile`,
-        user._id
+        user._id,
+        req.user
       );
       return SuccessHandler({ message: "Creator created!", user }, 201, res);
     } else {
@@ -1214,7 +1223,8 @@ const createInvestor = async (req, res) => {
       await sendNotification(
         "Profile created",
         `Admin has created your profile`,
-        user._id
+        user._id,
+        req.user
       );
       return SuccessHandler(
         {

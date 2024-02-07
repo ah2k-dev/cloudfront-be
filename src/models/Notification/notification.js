@@ -22,6 +22,10 @@ const notficationSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    generatedBy: {
+      type: Object,
+      required: true,
+    },
   },
   { timestamps: true }
 );
