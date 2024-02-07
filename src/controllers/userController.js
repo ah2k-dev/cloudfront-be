@@ -1166,7 +1166,7 @@ const getFeaturedInvestors = async (req, res) => {
 const investmentDetail = async (req, res) => {
   try {
     console.log(req.user._id);
-    const totalInvestment = await Investment.aggregate([
+    const investments = await Investment.aggregate([
       {
         $match: {
           investor: mongoose.Types.ObjectId(req.user._id),
@@ -1179,6 +1179,9 @@ const investmentDetail = async (req, res) => {
         },
       },
     ]);
+    const totalInvestment = investments[0].amountInvested
+      ? investments[0].amountInvested
+      : 0;
     const totalCampaign = await Investment.aggregate([
       {
         $match: {
@@ -1197,20 +1200,13 @@ const investmentDetail = async (req, res) => {
           investmentIds: 1,
         },
       },
-      {
-        $lookup: {
-          from: "projects",
-          localField: "",
-          foreignField: "",
-          as: "",
-        },
-      },
     ]);
     const investmentIds =
       totalCampaign[0].investmentIds.length > 0
         ? totalCampaign[0].investmentIds
         : [];
-    const total = await Project.aggregate([
+
+    let totalCampaigns = await Project.aggregate([
       {
         $match: {
           investment: {
@@ -1218,19 +1214,15 @@ const investmentDetail = async (req, res) => {
           },
         },
       },
+
       {
-        $addFields: {
-          uniqueInvestmentCount: { $size: "$investment" },
-        },
-      },
-      {
-        $project: {
-          uniqueInvestmentCount: 1,
-        },
+        $count: "campaigns",
       },
     ]);
+    totalCampaigns = totalCampaigns[0].campaigns || 0;
+
     return SuccessHandler(
-      { message: "Fetched", totalInvestment, totalCampaign },
+      { message: "Fetched", totalInvestment, totalCampaigns },
       200,
       res
     );
