@@ -1151,6 +1151,17 @@ const getFeaturedInvestors = async (req, res) => {
       {
         $unwind: "$investor",
       },
+      {
+        $lookup: {
+          from: "investorprofiles",
+          localField: "investor._id",
+          foreignField: "investor",
+          as: "investorProfile",
+        },
+      },
+      {
+        $unwind: "$investorProfile",
+      },
     ]);
     return SuccessHandler(
       { message: "Fetched Featured Investors", data: data },
