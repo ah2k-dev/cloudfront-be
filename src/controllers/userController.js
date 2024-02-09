@@ -1173,8 +1173,8 @@ const getFeaturedInvestors = async (req, res) => {
   }
 };
 
-// for graph
-const investmentDetail = async (req, res) => {
+//? Creator Dashboard
+const investorDetail = async (req, res) => {
   try {
     console.log(req.user._id);
     const investments = await Investment.aggregate([
@@ -1241,6 +1241,96 @@ const investmentDetail = async (req, res) => {
     return ErrorHandler(error.message, 500, req, res);
   }
 };
+
+//? Artist Dashboard
+const creatorStats = async (req, res) => {
+  try {
+    const totalCampaignCount = await Project.countDocuments({
+      creator: req.user._id,
+    });
+    const activeCampaign = await Project.countDocuments({
+      creator: req.user._id,
+      status: "approved",
+    });
+    let totalInvestors = await Project.aggregate([
+      {
+        $match: {
+          creator: req.user._id,
+        },
+      },
+      {
+        $lookup: {
+          from: "investments",
+          localField: "investment",
+          foreignField: "_id",
+          as: "InvestmentsDetail",
+        },
+      },
+      {
+        $unwind: "$InvestmentsDetail",
+      },
+      {
+        $group: {
+          _id: null,
+          investors: { $addToSet: "$InvestmentsDetail.investor" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+          count: { $size: "$investors" },
+        },
+      },
+    ]);
+    totalInvestors = totalInvestors[0].count || 0;
+    let totalInvestments = await Project.aggregate([
+      {
+        $match: {
+          creator: req.user._id,
+        },
+      },
+      {
+        $lookup: {
+          from: "investments",
+          localField: "investment",
+          foreignField: "_id",
+          as: "InvestmentsDetail",
+        },
+      },
+      {
+        $unwind: "$InvestmentsDetail",
+      },
+      {
+        $project: {
+          _id: 0,
+          investmentAmount: "$InvestmentsDetail.amount",
+        },
+      },
+      {
+        $group: {
+          _id: null,
+          investments: { $sum: "$investmentAmount" },
+        },
+      },
+    ]);
+    totalInvestments = totalInvestments[0].investments || 0;
+
+    return SuccessHandler(
+      {
+        message: "Creator Stats fetched",
+        totalCampaignCount,
+        activeCampaign,
+        totalInvestors,
+        totalInvestments,
+      },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   updatePassword,
   completeInvestorProfile,
@@ -1257,5 +1347,6 @@ module.exports = {
   getCreatorProfile,
   getFeaturedCreators,
   getFeaturedInvestors,
-  investmentDetail,
+  investorDetail,
+  creatorStats,
 };

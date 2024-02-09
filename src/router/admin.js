@@ -72,4 +72,6 @@ router
   .route("/update-profile")
   .put(isAuthenticated, adminAuth, admin.updateProfile);
 
+router.route("/stats").get(isAuthenticated, adminAuth, admin.dashboardStats);
+
 module.exports = router;

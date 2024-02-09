@@ -523,3 +523,16 @@
 {"date":"2024-02-06T20:06:46.713Z","level":"error","message":"PlanExecutor error during aggregation :: caused by :: 'newRoot' expression  must evaluate to an object, but resulting value was: 741. Type of resulting value: 'int'. Input document: {_id: 658abf6968ae3b8372e48e5a, amountInvested: 741}","method":"GET","service":"user-service","url":"/investment-detail"}
 {"date":"2024-02-07T12:59:29.062Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
 {"date":"2024-02-07T13:02:19.398Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-09T18:44:33.794Z","level":"error","message":"Unrecognized expression '$addToSet'","method":"GET","service":"user-service","url":"/creator-stats"}
+{"date":"2024-02-09T19:15:48.336Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-09T19:36:32.019Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-09T19:42:46.269Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-09T19:43:43.195Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-09T19:43:46.683Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-09T19:43:51.101Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-09T19:55:26.489Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"level":"error","message":{"date":"2024-02-09T19:56:18.232Z","method":"GET","url":"/status"},"service":"user-service"}
+{"level":"error","message":{"date":"2024-02-09T19:56:22.771Z","method":"GET","url":"/status"},"service":"user-service"}
+{"level":"error","message":{"date":"2024-02-09T19:56:54.160Z","method":"GET","url":"/status"},"service":"user-service"}
+{"level":"error","message":{"date":"2024-02-09T19:57:44.127Z","method":"GET","url":"/status"},"service":"user-service"}
+{"level":"error","message":{"date":"2024-02-09T19:57:45.796Z","method":"GET","url":"/status"},"service":"user-service"}

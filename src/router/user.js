@@ -12,7 +12,6 @@ router
   .route("/featured-creators")
   .get(isAuthenticated, user.getFeaturedCreators);
 router.route("/featured-investors").get(user.getFeaturedInvestors);
-router.route("/investment-detail").get(isAuthenticated, user.investmentDetail);
 
 // post
 router
@@ -35,6 +34,8 @@ router.route("/userStats", isAuthenticated, user.userStats);
 
 router.route("/transactions").post(isAuthenticated, user.getTransactions);
 
-// delete
+// dashboard apis
+router.route("/creator-stats").get(isAuthenticated, user.creatorStats);
+router.route("/investor-stats").get(isAuthenticated, user.investorDetail);
 
 module.exports = router;

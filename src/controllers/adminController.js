@@ -1709,6 +1709,43 @@ const updateProfile = async (req, res) => {
   }
 };
 
+const dashboardStats = async (req, res) => {
+  try {
+    let totalArtist = await Project.distinct("creator");
+    totalArtist = totalArtist.length;
+    let totalInvestors = await Investment.distinct("investor");
+    totalInvestors = totalInvestors.length;
+    const totalCampaigns = await Project.countDocuments({ isActive: true });
+    let totalFunding = await Investment.aggregate([
+      {
+        $group: {
+          _id: null,
+          totalAmount: { $sum: "$amount" },
+        },
+      },
+      {
+        $project: {
+          _id: 0,
+        },
+      },
+    ]);
+    totalFunding = totalFunding[0].totalAmount || 0;
+    return SuccessHandler(
+      {
+        mesage: "Fetched Stats",
+        totalArtist,
+        totalInvestors,
+        totalCampaigns,
+        totalFunding,
+      },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.mesage, 500, req, res);
+  }
+};
+
 module.exports = {
   approveCampaign,
   getCampaigns,
@@ -1731,4 +1768,5 @@ module.exports = {
   addToFeatured,
   getProfile,
   updateProfile,
+  dashboardStats,
 };
