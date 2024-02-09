@@ -221,7 +221,8 @@ const rejectCampaign = async (req, res) => {
       await sendNotification(
         "Campaign rejected",
         `Admin has rejected ${updated.title} campaign`,
-        updated.creator
+        updated.creator,
+        req.user
       );
     }
     if (!updated) {
