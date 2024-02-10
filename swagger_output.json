@@ -1242,12 +1242,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "itemPerPage": {
-                  "example": "any"
-                },
-                "page": {
-                  "example": "any"
-                },
                 "statusFilter": {
                   "example": "any"
                 },
@@ -1261,6 +1255,12 @@
                   "example": "any"
                 },
                 "artist": {
+                  "example": "any"
+                },
+                "itemPerPage": {
+                  "example": "any"
+                },
+                "page": {
                   "example": "any"
                 },
                 "sortBy": {

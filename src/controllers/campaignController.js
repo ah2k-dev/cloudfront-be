@@ -224,13 +224,163 @@ const update = async (req, res) => {
     return ErrorHandler(error.message, 500, req, res);
   }
 };
+// const getAll = async (req, res) => {
+//   // #swagger.tags = ['campaign']
+//   try {
+//     const itemPerPage = Number((req.body.itemPerPage = 10));
+//     const pageNumber = Number(req.body.page);
+//     const skipItems = (pageNumber - 1) * itemPerPage;
+//     const { sortBy } = req.body;
+//     let sortOption = { createdAt: -1 };
+//     if (sortBy) {
+//       switch (sortBy) {
+//         case "newest-oldest":
+//           sortOption = { createdAt: -1 };
+//           break;
+//         case "oldest-newest":
+//           sortOption = { createdAt: 1 };
+//           break;
+//         case "highest-lowest funding":
+//           sortOption = { fundingGoal: -1 };
+//           break;
+//         case "lowest-highest funding":
+//           sortOption = { fundingGoal: 1 };
+//           break;
+//         case "alphabetic":
+//           sortOption = { title: 1 };
+//           break;
+//       }
+//     }
+
+//     const statusFilter = req.body.statusFilter
+//       ? {
+//           status: req.body.statusFilter,
+//         }
+//       : {};
+//     const searchFilter = req.body.search
+//       ? {
+//           title: {
+//             $regex: req.body.search,
+//             $options: "i",
+//           },
+//         }
+//       : {};
+//     const categoryFilter = req.body.categoryFilter
+//       ? {
+//           projectCategory: req.body.categoryFilter,
+//         }
+//       : {};
+
+//     const minMaxFilter =
+//       req.body.minMaxFilter && req.body.minMaxFilter.length > 0
+//         ? {
+//             fundingGoal: {
+//               $gte: req.body.minMaxFilter[0],
+//               $lte: req.body.minMaxFilter[1],
+//             },
+//           }
+//         : {};
+
+//     console.log(req.body.artist);
+//     const artistFilter = req.body.artist
+//       ? {
+//           $or: [
+//             {
+//               "creator.firstName": {
+//                 $regex: req.body.artist,
+//                 $options: "i",
+//               },
+//             },
+//             {
+//               "creator.lastName": {
+//                 $regex: req.body.artist,
+//                 $options: "i",
+//               },
+//             },
+//           ],
+//         }
+//       : {};
+
+//     const campaginsCount = await Project.countDocuments({ isActive: true });
+//     const campaigns = await Project.find({
+//       ...statusFilter,
+//       ...searchFilter,
+//       ...categoryFilter,
+//       ...minMaxFilter,
+//       isActive: true,
+//     })
+
+//       .populate({
+//         path: "creator",
+//         select: "firstName middleName lastName profilePic email",
+//       })
+//       .populate({
+//         path: "investment",
+//         populate: "investor",
+//       })
+//       .sort(sortOption)
+//       .skip(skipItems)
+//       .limit(itemPerPage);
+//     Promise.all(
+//       campaigns.map(async (val, ind) => {
+//         if (val.creator) {
+//           // console.log(val.creator._id);
+//         } else {
+//           // console.log(val);
+//         }
+//         const profile = await creatorProfile.findOne({
+//           creator: val.creator._id,
+//         });
+//         let data;
+//         if (profile) {
+//           data = { campaign: val, creatorProfile: profile };
+//         } else {
+//           data = { campaign: val, creatorProfile: {} };
+//         }
+//         return data;
+//       })
+//     )
+//       .then((result) => {
+//         // console.log(result);
+//         return SuccessHandler(
+//           {
+//             message: "Campaigns fetched!",
+//             campaginsCount,
+//             campaigns: result,
+//           },
+//           200,
+//           res
+//         );
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//         return ErrorHandler(error.message, 500, req, res);
+//       });
+
+//     // if (!campaigns) {
+//     //   return ErrorHandler("Error fetching campaigns", 400, req, res);
+//     // }
+//     // return SuccessHandler(
+//     //   {
+//     //     message: "Campaiigns fetched!",
+//     //     campaigns,
+//     //   },
+//     //   200,
+//     //   res
+//     // );
+//   } catch (error) {
+//     console.log(error);
+//     return ErrorHandler(error.message, 500, req, res);
+//   }
+// };
+
 const getAll = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
-    const itemPerPage = Number(req.body.itemPerPage);
-    const pageNumber = Number(req.body.page);
-    const skipItems = (pageNumber - 1) * itemPerPage;
-    const { sortBy } = req.body;
+    const { itemPerPage = 10, page = 1, sortBy } = req.body;
+    const skipItems = (Number(page) - 1) * Number(itemPerPage);
+
+    // sorting filter
     let sortOption = { createdAt: -1 };
     if (sortBy) {
       switch (sortBy) {
@@ -252,11 +402,13 @@ const getAll = async (req, res) => {
       }
     }
 
+    // status filter
     const statusFilter = req.body.statusFilter
       ? {
           status: req.body.statusFilter,
         }
       : {};
+    // search filter
     const searchFilter = req.body.search
       ? {
           title: {
@@ -265,12 +417,14 @@ const getAll = async (req, res) => {
           },
         }
       : {};
+    // category filter
     const categoryFilter = req.body.categoryFilter
       ? {
           projectCategory: req.body.categoryFilter,
         }
       : {};
 
+    // funding filter
     const minMaxFilter =
       req.body.minMaxFilter && req.body.minMaxFilter.length > 0
         ? {
@@ -282,98 +436,91 @@ const getAll = async (req, res) => {
         : {};
 
     console.log(req.body.artist);
-    const artistFilter = req.body.artist
-      ? {
-          $or: [
-            {
-              "creator.firstName": {
-                $regex: req.body.artist,
-                $options: "i",
-              },
-            },
-            {
-              "creator.lastName": {
-                $regex: req.body.artist,
-                $options: "i",
-              },
-            },
-          ],
-        }
-      : {};
 
     const campaginsCount = await Project.countDocuments({ isActive: true });
-    const campaigns = await Project.find({
-      ...statusFilter,
-      ...searchFilter,
-      ...categoryFilter,
-      ...minMaxFilter,
-      isActive: true,
-    })
+    const campaigns = await Project.aggregate([
+      {
+        $match: {
+          $and: [statusFilter, searchFilter, categoryFilter, minMaxFilter],
+        },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "creator",
+          foreignField: "_id",
+          as: "creator",
+        },
+      },
+      {
+        $unwind: "$creator",
+      },
+      {
+        $match: {
+          $or: [
+            req.body.artist
+              ? {
+                  "creator.firstName": {
+                    $regex: req.body.artist,
+                    $options: "i",
+                  },
+                }
+              : {
+                  "creator.firstName": {
+                    $exists: true,
+                  },
+                },
 
-      .populate({
-        path: "creator",
-        select: "firstName middleName lastName profilePic email",
-      })
-      .populate({
-        path: "investment",
-        populate: "investor",
-      })
-      .sort(sortOption)
-      .skip(skipItems)
-      .limit(itemPerPage);
-    Promise.all(
-      campaigns.map(async (val, ind) => {
-        if (val.creator) {
-          // console.log(val.creator._id);
-        } else {
-          // console.log(val);
-        }
-        const profile = await creatorProfile.findOne({
-          creator: val.creator._id,
-        });
-        let data;
-        if (profile) {
-          data = { campaign: val, creatorProfile: profile };
-        } else {
-          data = { campaign: val, creatorProfile: {} };
-        }
-        // val.creatorProfile = profile;
-        return data;
-      })
-    )
-      .then((result) => {
-        // console.log(result);
-        return SuccessHandler(
-          {
-            message: "Campaigns fetched!",
-            campaginsCount,
-            campaigns: result,
-          },
-          200,
-          res
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-        return ErrorHandler(error.message, 500, req, res);
-      });
+            req.body.artist
+              ? {
+                  "creator.lastName": {
+                    $regex: req.body.artist,
+                    $options: "i",
+                  },
+                }
+              : {
+                  "creator.lastName": {
+                    $exists: true,
+                  },
+                },
+          ],
+        },
+      },
+      {
+        $lookup: {
+          from: "investments",
+          localField: "investment",
+          foreignField: "_id",
+          as: "investment",
+        },
+      },
 
-    // if (!campaigns) {
-    //   return ErrorHandler("Error fetching campaigns", 400, req, res);
-    // }
-    // return SuccessHandler(
-    //   {
-    //     message: "Campaiigns fetched!",
-    //     campaigns,
-    //   },
-    //   200,
-    //   res
-    // );
+      {
+        $sort: sortOption,
+      },
+      {
+        $skip: skipItems,
+      },
+      {
+        $limit: itemPerPage,
+      },
+    ]);
+
+    return SuccessHandler(
+      {
+        message: "Campaigns fetched!",
+        campaginsCount,
+        campaigns,
+      },
+      200,
+      res
+    );
   } catch (error) {
     console.log(error);
     return ErrorHandler(error.message, 500, req, res);
   }
 };
+
 const getMine = async (req, res) => {
   // #swagger.tags = ['campaign']
   try {
