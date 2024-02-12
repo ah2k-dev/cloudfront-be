@@ -100,5 +100,5 @@ const spotifyFunction = async (spotifyId) => {
 
 module.exports = {
   spotifyFunction,
-  fetchInstagramFollowers,
+  // fetchInstagramFollowers,
 };
