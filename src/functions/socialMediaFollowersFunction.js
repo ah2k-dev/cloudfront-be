@@ -19,7 +19,7 @@ const formatFollowers = (number) => {
   }
 };
 
-const spotifyFunction = async (link) => {
+const spotifyFunction = async (spotifyId) => {
   try {
     const tokenResponse = await fetch(
       "https://accounts.spotify.com/api/token",
@@ -27,29 +27,23 @@ const spotifyFunction = async (link) => {
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
-          //   "grant_type"="client_credentials&client_id=your-client-id&client_secret=your-client-secret"
           Authorization: `Basic ${btoa(
-            `${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`
+            `430f6b1e5e904acf9dbb2e66da920ca8:d9cdf2f2745944e1a22f83204ec13afd`
           )}`,
         },
         body: "grant_type=client_credentials",
       }
     );
-    // console.log("spotify response", tokenResponse);
+    const tokenData = await tokenResponse.json();
     if (!tokenResponse) {
       throw new Error("Failed to fetch access token");
     }
 
-    const tokenData = await tokenResponse.json();
     const accessToken = tokenData.access_token;
-    // console.log(accessToken);
 
-    if (link) {
-      const spotifyLink = link?.split("?")[0];
-      const spotifyId = spotifyLink.split("/")[4];
-
+    if (accessToken) {
       const artistResponse = await fetch(
-        `https://api.spotify.com/v1/artists/${spotifyId}`,
+        `https://api.spotify.com/v1/users/${spotifyId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -63,47 +57,46 @@ const spotifyFunction = async (link) => {
       }
 
       const artistData = await artistResponse.json();
+      console.log("profile", artistData);
       const followers = artistData.followers.total;
       const formattedFollowers = formatFollowers(followers);
+      console.log(formattedFollowers);
       return formattedFollowers;
-      // } else {
-      //   console.error("The provided link is not from Spotify");
-      // }
     }
   } catch (err) {
     console.log("error", err);
   }
 };
 
-const fetchInstagramFollowers = async (link) => {
-  // Initialize the ApifyClient with API token
-  // console.log(link.split("/")[3]);
-  const client = new ApifyClient({
-    token: process.env.APIFY_TOKEN,
-  });
+// const fetchInstagramFollowers = async (link) => {
+//   // Initialize the ApifyClient with API token
+//   // console.log(link.split("/")[3]);
+//   const client = new ApifyClient({
+//     token: process.env.APIFY_TOKEN,
+//   });
 
-  const instagramUsername = link?.split("/")[3];
-  // Prepare Actor input
-  const input = {
-    usernames: [instagramUsername],
-  };
+//   const instagramUsername = link?.split("/")[3];
+//   // Prepare Actor input
+//   const input = {
+//     usernames: [instagramUsername],
+//   };
 
-  try {
-    // Run the Actor and wait for it to finish
-    const run = await client
-      .actor("apify/instagram-followers-count-scraper")
-      .call(input);
+//   try {
+//     // Run the Actor and wait for it to finish
+//     const run = await client
+//       .actor("apify/instagram-followers-count-scraper")
+//       .call(input);
 
-    // Fetch and print Actor results from the run's dataset (if any)
+//     // Fetch and print Actor results from the run's dataset (if any)
 
-    const { items } = await client.dataset(run.defaultDatasetId).listItems();
-    const formattedFollowers = formatFollowers(items[0]?.followersCount);
+//     const { items } = await client.dataset(run.defaultDatasetId).listItems();
+//     const formattedFollowers = formatFollowers(items[0]?.followersCount);
 
-    return formattedFollowers;
-  } catch (error) {
-    console.error("Error:", error);
-  }
-};
+//     return formattedFollowers;
+//   } catch (error) {
+//     console.error("Error:", error);
+//   }
+// };
 
 module.exports = {
   spotifyFunction,
