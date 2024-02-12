@@ -3,7 +3,7 @@ const notification = require("../controllers/notificationController");
 const { isAuthenticated } = require("../middleware/auth");
 //get
 router.route("/getNotifications");
-// .get(isAuthenticated, notification.getAllNotifications);
+ .get(isAuthenticated, notification.getAllNotifications);
 router
   .route("/getUnreadNotifications")
   .get(isAuthenticated, notification.getUnreadNotifications);
