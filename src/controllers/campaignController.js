@@ -49,16 +49,18 @@ const create = async (req, res) => {
       creator: req.user._id,
     });
 
-    if (prevCampaign.status === "pending") {
-      return ErrorHandler(
-        "You already have pending campaign, cann't create new one",
-        401,
-        req,
-        res
-      );
-    }
-    if (prevCampaign.status === "approved") {
-      return ErrorHandler("You already have a live campaign", 401, req, res);
+    if (prevCampaign) {
+      if (prevCampaign.status === "pending") {
+        return ErrorHandler(
+          "You already have pending campaign, cann't create new one",
+          401,
+          req,
+          res
+        );
+      }
+      if (prevCampaign.status === "approved") {
+        return ErrorHandler("You already have a live campaign", 401, req, res);
+      }
     }
 
     const user = req.user._id;
