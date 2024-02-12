@@ -1250,7 +1250,7 @@ const creatorStats = async (req, res) => {
     });
     const activeCampaign = await Project.countDocuments({
       creator: req.user._id,
-      status: "approved",
+      status: "closed",
     });
     let totalInvestors = await Project.aggregate([
       {
@@ -1331,6 +1331,245 @@ const creatorStats = async (req, res) => {
   }
 };
 
+const generateCreatorGraph = async (req, res) => {
+  try {
+    // const years = await Project.aggregate([
+    //   { $match: { creator: req.user._id } },
+    //   {
+    //     $group: {
+    //       _id: "$creator",
+    //       firstProjectDate: { $min: "$createdAt" },
+    //     },
+    //   },
+    //   {
+    //     $addFields: {
+    //       firstYear: {
+    //         $substr: [
+    //           { $dateToString: { format: "%Y", date: "$firstProjectDate" } },
+    //           0,
+    //           4,
+    //         ],
+    //       },
+    //     },
+    //   },
+    //   {
+    //     $project: {
+    //       creator: "$_id",
+    //       years: {
+    //         $range: [
+    //           { $toInt: "$firstYear" },
+    //           { $toInt: { $dateToString: { format: "%Y", date: new Date() } } },
+    //         ],
+    //       },
+    //     },
+    //   },
+    // ]);
+
+    console.log("year:", req.body.year);
+
+    let data = await Project.aggregate([
+      { $match: { creator: req.user._id } },
+      {
+        $lookup: {
+          from: "investments",
+          localField: "investment",
+          foreignField: "_id",
+          as: "InvestmentDetail",
+        },
+      },
+      {
+        $unwind: "$InvestmentDetail",
+      },
+      {
+        $project: {
+          _id: 1,
+          investmentAmount: "$InvestmentDetail.amount",
+          investmentDate: "$InvestmentDetail.createdAt",
+        },
+      },
+      {
+        $group: {
+          _id: {
+            month: { $month: "$investmentDate" },
+            year: { $year: "$investmentDate" },
+          },
+          totalAmount: { $sum: "$investmentAmount" },
+        },
+      },
+      {
+        $project: {
+          monthName: {
+            $switch: {
+              branches: [
+                { case: { $eq: ["$_id.month", 1] }, then: "January" },
+                { case: { $eq: ["$_id.month", 2] }, then: "February" },
+                { case: { $eq: ["$_id.month", 3] }, then: "March" },
+                { case: { $eq: ["$_id.month", 4] }, then: "April" },
+                { case: { $eq: ["$_id.month", 5] }, then: "May" },
+                { case: { $eq: ["$_id.month", 6] }, then: "June" },
+                { case: { $eq: ["$_id.month", 7] }, then: "July" },
+                { case: { $eq: ["$_id.month", 8] }, then: "August" },
+                { case: { $eq: ["$_id.month", 9] }, then: "September" },
+                { case: { $eq: ["$_id.month", 10] }, then: "October" },
+                { case: { $eq: ["$_id.month", 11] }, then: "November" },
+                { case: { $eq: ["$_id.month", 12] }, then: "December" },
+              ],
+            },
+          },
+          totalAmount: 1,
+          month: "$_id.month",
+          year: "$_id.year",
+          _id: 0,
+        },
+      },
+      {
+        $match: {
+          $or: [
+            req.body.year
+              ? { year: req.body.year }
+              : { year: new Date().getFullYear() },
+          ],
+        },
+      },
+    ]);
+
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    // array of all months from 1 to 12
+    const allMonths = Array.from({ length: 12 }, (_, i) => i + 1);
+    console.log(allMonths);
+
+    const amountMap = new Map(data.map((entry) => [entry.month, entry]));
+    console.log(amountMap);
+    // Iterate through all months and add entries with zero amount if missing
+    data = allMonths.map((month) => {
+      const existingEntry = amountMap.get(month);
+      if (existingEntry) {
+        return existingEntry;
+      } else {
+        return {
+          year: req.body.year ? req.body.year : new Date().getFullYear(),
+          month: month,
+          totalAmount: 0,
+          monthName: `${monthNames[month - 1]}`,
+        };
+      }
+    });
+
+    // Sort the result by month
+    data.sort((a, b) => {
+      return a.month - b.month;
+    });
+
+    return SuccessHandler({ message: "Creator graph fetched", data }, 200, res);
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
+const generateInvestorGraph = async (req, res) => {
+  try {
+    let data = await Investment.aggregate([
+      { $match: { investor: req.user._id } },
+      {
+        $group: {
+          _id: {
+            month: { $month: "$createdAt" },
+            year: { $year: "$createdAt" },
+          },
+          totalAmount: { $sum: "$amount" },
+        },
+      },
+      {
+        $project: {
+          monthName: {
+            $switch: {
+              branches: [
+                { case: { $eq: ["$_id.month", 1] }, then: "January" },
+                { case: { $eq: ["$_id.month", 2] }, then: "February" },
+                { case: { $eq: ["$_id.month", 3] }, then: "March" },
+                { case: { $eq: ["$_id.month", 4] }, then: "April" },
+                { case: { $eq: ["$_id.month", 5] }, then: "May" },
+                { case: { $eq: ["$_id.month", 6] }, then: "June" },
+                { case: { $eq: ["$_id.month", 7] }, then: "July" },
+                { case: { $eq: ["$_id.month", 8] }, then: "August" },
+                { case: { $eq: ["$_id.month", 9] }, then: "September" },
+                { case: { $eq: ["$_id.month", 10] }, then: "October" },
+                { case: { $eq: ["$_id.month", 11] }, then: "November" },
+                { case: { $eq: ["$_id.month", 12] }, then: "December" },
+              ],
+            },
+          },
+          totalAmount: 1,
+          month: "$_id.month",
+          year: "$_id.year",
+          _id: 0,
+        },
+      },
+      {
+        $match: {
+          $or: [
+            req.body.year
+              ? { year: req.body.year }
+              : { year: new Date().getFullYear() },
+          ],
+        },
+      },
+    ]);
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const allMonths = Array.from({ length: 12 }, (_, i) => i + 1);
+    console.log(allMonths);
+    const amountMap = new Map(data.map((entry) => [entry.month, entry]));
+    console.log(amountMap);
+    data = allMonths.map((month) => {
+      const existingEntry = amountMap.get(month);
+      if (existingEntry) {
+        return existingEntry;
+      } else {
+        return {
+          year: req.body.year ? req.body.year : new Date().getFullYear(),
+          month: month,
+          totalAmount: 0,
+          monthName: `${monthNames[month - 1]}`,
+        };
+      }
+    });
+    return SuccessHandler(
+      { message: "Investor graph fetched", data },
+      200,
+      res
+    );
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   updatePassword,
   completeInvestorProfile,
@@ -1349,4 +1588,6 @@ module.exports = {
   getFeaturedInvestors,
   investorDetail,
   creatorStats,
+  generateCreatorGraph,
+  generateInvestorGraph,
 };

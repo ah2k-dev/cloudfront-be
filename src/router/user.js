@@ -37,5 +37,9 @@ router.route("/transactions").post(isAuthenticated, user.getTransactions);
 // dashboard apis
 router.route("/creator-stats").get(isAuthenticated, user.creatorStats);
 router.route("/investor-stats").get(isAuthenticated, user.investorDetail);
+router.route("/creator-graph").post(isAuthenticated, user.generateCreatorGraph);
+router
+  .route("/investor-graph")
+  .post(isAuthenticated, user.generateInvestorGraph);
 
 module.exports = router;

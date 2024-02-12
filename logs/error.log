@@ -536,3 +536,20 @@
 {"level":"error","message":{"date":"2024-02-09T19:56:54.160Z","method":"GET","url":"/status"},"service":"user-service"}
 {"level":"error","message":{"date":"2024-02-09T19:57:44.127Z","method":"GET","url":"/status"},"service":"user-service"}
 {"level":"error","message":{"date":"2024-02-09T19:57:45.796Z","method":"GET","url":"/status"},"service":"user-service"}
+{"date":"2024-02-12T18:00:40.724Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-12T18:00:54.011Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-12T18:01:04.897Z","level":"error","message":"Invalid credentials","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-02-12T18:28:57.002Z","level":"error","message":"Invalid $project :: caused by :: $switch found an unknown argument: $branches","method":"GET","service":"user-service","url":"/creator-graph"}
+{"date":"2024-02-12T18:39:18.375Z","level":"error","message":"unknown operator: $year","method":"GET","service":"user-service","url":"/creator-graph"}
+{"date":"2024-02-12T18:43:36.147Z","level":"error","message":"earning is not defined","method":"GET","service":"user-service","url":"/creator-graph"}
+{"date":"2024-02-12T18:44:40.615Z","level":"error","message":"Cannot read properties of undefined (reading 'month')","method":"GET","service":"user-service","url":"/creator-graph"}
+{"date":"2024-02-12T18:44:48.871Z","level":"error","message":"Cannot read properties of undefined (reading 'month')","method":"GET","service":"user-service","url":"/creator-graph"}
+{"date":"2024-02-12T18:45:56.818Z","level":"error","message":"Cannot read properties of undefined (reading 'month')","method":"GET","service":"user-service","url":"/creator-graph"}
+{"date":"2024-02-12T18:46:21.377Z","level":"error","message":"Cannot read properties of undefined (reading 'month')","method":"GET","service":"user-service","url":"/creator-graph"}
+{"date":"2024-02-12T18:47:13.878Z","level":"error","message":"Cannot read properties of undefined (reading 'months')","method":"GET","service":"user-service","url":"/creator-graph"}
+{"date":"2024-02-12T18:48:08.022Z","level":"error","message":"Cannot read properties of undefined (reading 'month')","method":"GET","service":"user-service","url":"/creator-graph"}
+{"date":"2024-02-12T18:52:59.213Z","level":"error","message":"monthName is not defined","method":"GET","service":"user-service","url":"/creator-graph"}
+{"date":"2024-02-12T19:47:30.148Z","level":"error","message":"_ is not defined","method":"GET","service":"user-service","url":"/investor-graph"}
+{"date":"2024-02-12T19:48:30.375Z","level":"error","message":"_ is not defined","method":"GET","service":"user-service","url":"/investor-graph"}
+{"date":"2024-02-12T19:57:33.104Z","level":"error","message":"date is not defined","method":"GET","service":"user-service","url":"/investor-graph"}
+{"date":"2024-02-12T19:57:35.647Z","level":"error","message":"date is not defined","method":"GET","service":"user-service","url":"/investor-graph"}
