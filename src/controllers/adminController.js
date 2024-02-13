@@ -339,7 +339,7 @@ const releaseFunds = async (req, res) => {
             const payout = await stripe.payouts.create({
               amount: val.amount * 100,
               currency: val.currency,
-              method: "standrd",
+              method: "standard",
               destination: {
                 iban: excreatorProfile.iban,
               },
@@ -1746,6 +1746,92 @@ const dashboardStats = async (req, res) => {
   }
 };
 
+const generateGraph = async (req, res) => {
+  try {
+    //? pending: Total profit
+
+    // Total investment on the platform
+    let data = await Investment.aggregate([
+      {
+        $group: {
+          _id: {
+            month: { $month: "$createdAt" },
+            year: { $year: "$createdAt" },
+          },
+          totalAmount: { $sum: "$amount" },
+        },
+      },
+      {
+        $project: {
+          monthName: {
+            $switch: {
+              branches: [
+                { case: { $eq: ["$_id.month", 1] }, then: "January" },
+                { case: { $eq: ["$_id.month", 2] }, then: "February" },
+                { case: { $eq: ["$_id.month", 3] }, then: "March" },
+                { case: { $eq: ["$_id.month", 4] }, then: "April" },
+                { case: { $eq: ["$_id.month", 5] }, then: "May" },
+                { case: { $eq: ["$_id.month", 6] }, then: "June" },
+                { case: { $eq: ["$_id.month", 7] }, then: "July" },
+                { case: { $eq: ["$_id.month", 8] }, then: "August" },
+                { case: { $eq: ["$_id.month", 9] }, then: "September" },
+                { case: { $eq: ["$_id.month", 10] }, then: "October" },
+                { case: { $eq: ["$_id.month", 11] }, then: "November" },
+                { case: { $eq: ["$_id.month", 12] }, then: "December" },
+              ],
+            },
+          },
+          totalAmount: 1,
+          month: "$_id.month",
+          year: "$_id.year",
+          _id: 0,
+        },
+      },
+
+      {
+        $match: {
+          $or: [
+            req.body.year
+              ? { year: req.body.year }
+              : { year: new Date().getFullYear() },
+          ],
+        },
+      },
+    ]);
+    const monthNames = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+    const allMonths = Array.from({ length: 12 }, (_, i) => i + 1);
+    const amountMap = new Map(data.map((entry) => [entry.month, entry]));
+    data = allMonths.map((month) => {
+      const existingEntry = amountMap.get(month);
+      if (existingEntry) {
+        return existingEntry;
+      } else {
+        return {
+          year: req.body.year ? req.body.year : new Date().getFullYear(),
+          month: month,
+          monthName: `${monthNames[month - 1]}`,
+          totalAmount: 0,
+        };
+      }
+    });
+    return SuccessHandler({ mesage: "Fetched graph", data }, 200, res);
+  } catch (error) {
+    return ErrorHandler(error.mesage, 500, req, res);
+  }
+};
 module.exports = {
   approveCampaign,
   getCampaigns,
@@ -1769,4 +1855,5 @@ module.exports = {
   getProfile,
   updateProfile,
   dashboardStats,
+  generateGraph,
 };

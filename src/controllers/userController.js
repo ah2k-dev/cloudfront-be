@@ -170,6 +170,8 @@ const completeCreatorProfile = async (req, res) => {
       occupation,
       firstName,
       lastName,
+      spotifyId,
+      instagramId,
     } = req.body;
 
     const prvProfile = await creatorProfile.findOne({ creator: req.user._id });
@@ -208,6 +210,8 @@ const completeCreatorProfile = async (req, res) => {
       // expMonth,
       // cvc,
       occupation,
+      spotifyId,
+      instagramId,
     });
     await newProfile.save();
     if (req.body.password) {
@@ -361,6 +365,8 @@ const updateCreatorProfile = async (req, res) => {
       occupation,
       firstName,
       lastName,
+      spotifyId,
+      instagramId,
     } = req.body;
     const updated = await creatorProfile.findOneAndUpdate(
       {
@@ -393,6 +399,8 @@ const updateCreatorProfile = async (req, res) => {
           // expMonth,
           // cvc,
           occupation,
+          spotifyId,
+          instagramId,
         },
       }
     );

@@ -72,6 +72,8 @@ router
   .route("/update-profile")
   .put(isAuthenticated, adminAuth, admin.updateProfile);
 
+// dashboard Api
 router.route("/stats").get(isAuthenticated, adminAuth, admin.dashboardStats);
+router.route("/graph").post(isAuthenticated, adminAuth, admin.generateGraph);
 
 module.exports = router;

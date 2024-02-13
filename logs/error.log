@@ -553,3 +553,8 @@
 {"date":"2024-02-12T19:48:30.375Z","level":"error","message":"_ is not defined","method":"GET","service":"user-service","url":"/investor-graph"}
 {"date":"2024-02-12T19:57:33.104Z","level":"error","message":"date is not defined","method":"GET","service":"user-service","url":"/investor-graph"}
 {"date":"2024-02-12T19:57:35.647Z","level":"error","message":"date is not defined","method":"GET","service":"user-service","url":"/investor-graph"}
+{"level":"error","message":{"date":"2024-02-13T13:15:15.265Z","method":"POST","url":"/graph"},"service":"user-service"}
+{"level":"error","message":{"date":"2024-02-13T13:15:53.422Z","method":"POST","url":"/graph"},"service":"user-service"}
+{"level":"error","message":{"date":"2024-02-13T13:16:19.181Z","method":"POST","url":"/graph"},"service":"user-service"}
+{"level":"error","message":{"date":"2024-02-13T13:17:52.037Z","method":"POST","url":"/graph"},"service":"user-service"}
+{"level":"error","message":{"date":"2024-02-13T13:18:16.007Z","method":"POST","url":"/graph"},"service":"user-service"}

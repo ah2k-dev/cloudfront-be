@@ -114,6 +114,13 @@ const creatorProfileSchema = new Schema({
     type: String,
     default: null,
   },
+  //? new field
+  spotifyId: {
+    type: String,
+  },
+  instagramId: {
+    type: String,
+  },
 });
 
 const creatorProfile = mongoose.model("creatorProfile", creatorProfileSchema);
