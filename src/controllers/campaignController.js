@@ -491,12 +491,28 @@ const getAll = async (req, res) => {
       {
         $lookup: {
           from: "investments",
-          localField: "investment",
-          foreignField: "_id",
+          let: { investmentIds: "$investment" },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $in: ["$_id", "$$investmentIds"] },
+              },
+            },
+            {
+              $lookup: {
+                from: "users",
+                localField: "investor",
+                foreignField: "_id",
+                as: "investor",
+              },
+            },
+            {
+              $unwind: "$investor",
+            },
+          ],
           as: "investment",
         },
       },
-
       {
         $sort: sortOption,
       },
