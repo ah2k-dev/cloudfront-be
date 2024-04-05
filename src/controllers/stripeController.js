@@ -10,7 +10,7 @@ const path = require("path");
 const user = {
   name: "Sadia",
   //   email: "memonumer504@gmail.com",
-  //   email: "dotclickpostman@gmail.com",
+  email: "dotclickpostman@gmail.com",
   //   email: "seneri8749@ekposta.com",
   country: "US",
 };
@@ -56,7 +56,8 @@ const createAccount = async (req, res, next) => {
           requested: true,
         },
       },
-      business_type: "individual",
+      //   business_type: "individual",
+      business_type: "non_profit",
       business_profile: {
         mcc: "5718",
         url: "https://chat.openai.com/c/f2978386-c877-48eb-810a-d8fc652fc824",
