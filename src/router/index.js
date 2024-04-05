@@ -7,6 +7,7 @@ const uploader = require("./uploader");
 const blog = require("./blog");
 const contact = require("./contact");
 const notification = require("./notification");
+const stripe = require("./stripe");
 // module.exports = {
 //   auth,
 // };
@@ -21,5 +22,6 @@ router.use("/uploader", uploader);
 router.use("/blog", blog);
 router.use("/contact", contact);
 router.use("/notification", notification);
+router.use("/stripe", stripe);
 
 module.exports = router;
