@@ -9,8 +9,9 @@ const path = require("path");
 
 const user = {
   name: "Sadia",
-  // email: "memonumer504@gmail.com",
-  email: "seneri8749@ekposta.com",
+  //   email: "memonumer504@gmail.com",
+  //   email: "dotclickpostman@gmail.com",
+  //   email: "seneri8749@ekposta.com",
   country: "US",
 };
 
