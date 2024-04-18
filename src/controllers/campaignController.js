@@ -52,7 +52,7 @@ const create = async (req, res) => {
     if (prevCampaign) {
       if (prevCampaign.status === "pending") {
         return ErrorHandler(
-          "You already have pending campaign, cann't create new one",
+          "You already have pending campaign, can't create new one",
           401,
           req,
           res

@@ -9,7 +9,9 @@ const Investment = require("../models/Campaign/investments");
 const { Mongoose, mongo } = require("mongoose");
 const bcrypt = require("bcryptjs");
 const { default: mongoose } = require("mongoose");
-const { spotifyFunction } = require("../functions/socialMediaFollowersFunction");
+const {
+  spotifyFunction,
+} = require("../functions/socialMediaFollowersFunction");
 const updatePassword = async (req, res) => {
   // #swagger.tags = ['user']
   try {
@@ -83,10 +85,6 @@ const completeInvestorProfile = async (req, res) => {
         req,
         res
       );
-    }
-    let spotifyData = "";
-    if(req.body.spotifyId){
-      spotifyData = await spotifyFunction(req.body.spotifyId);
     }
     // const spotifyData = await spotifyFunction(req.body.spotifyId);
     const newProfile = new investorProfile({
@@ -189,6 +187,10 @@ const completeCreatorProfile = async (req, res) => {
         req,
         res
       );
+    }
+    let spotifyData = null;
+    if (req.body.spotifyId) {
+      spotifyData = await spotifyFunction(req.body.spotifyId);
     }
     const newProfile = new creatorProfile({
       creator: req.user._id,
@@ -375,8 +377,8 @@ const updateCreatorProfile = async (req, res) => {
       spotifyId,
       instagramId,
     } = req.body;
-    let spotifyData = "";
-    if(req.body.spotifyId){
+    let spotifyData = null;
+    if (req.body.spotifyId) {
       spotifyData = await spotifyFunction(req.body.spotifyId);
     }
     const updated = await creatorProfile.findOneAndUpdate(
@@ -1250,10 +1252,26 @@ const investorDetail = async (req, res) => {
         $count: "campaigns",
       },
     ]);
-    totalCampaigns = totalCampaigns[0].campaigns || 0;
+    totalCampaigns = totalCampaigns[0]?.campaigns || 0;
+
+    let completedCampaigns = await Project.aggregate([
+      {
+        $match: {
+          investment: {
+            $in: investmentIds.map((id) => mongoose.Types.ObjectId(id)),
+          },
+          status: "closed",
+        },
+      },
+      {
+        $count: "campaigns",
+      },
+    ]);
+
+    completedCampaigns = completedCampaigns[0]?.campaigns || 0;
 
     return SuccessHandler(
-      { message: "Fetched", totalInvestment, totalCampaigns },
+      { message: "Fetched", totalInvestment, totalCampaigns, completedCampaigns },
       200,
       res
     );

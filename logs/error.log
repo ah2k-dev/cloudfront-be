@@ -558,3 +558,5 @@
 {"level":"error","message":{"date":"2024-02-13T13:16:19.181Z","method":"POST","url":"/graph"},"service":"user-service"}
 {"level":"error","message":{"date":"2024-02-13T13:17:52.037Z","method":"POST","url":"/graph"},"service":"user-service"}
 {"level":"error","message":{"date":"2024-02-13T13:18:16.007Z","method":"POST","url":"/graph"},"service":"user-service"}
+{"date":"2024-04-18T11:05:19.304Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/login"}
+{"date":"2024-04-18T11:26:31.348Z","level":"error","message":"Cannot read properties of undefined (reading 'campaigns')","method":"GET","service":"user-service","url":"/investor-stats"}
