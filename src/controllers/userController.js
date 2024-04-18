@@ -9,6 +9,7 @@ const Investment = require("../models/Campaign/investments");
 const { Mongoose, mongo } = require("mongoose");
 const bcrypt = require("bcryptjs");
 const { default: mongoose } = require("mongoose");
+const { spotifyFunction } = require("../functions/socialMediaFollowersFunction");
 const updatePassword = async (req, res) => {
   // #swagger.tags = ['user']
   try {
@@ -83,6 +84,11 @@ const completeInvestorProfile = async (req, res) => {
         res
       );
     }
+    let spotifyData = "";
+    if(req.body.spotifyId){
+      spotifyData = await spotifyFunction(req.body.spotifyId);
+    }
+    // const spotifyData = await spotifyFunction(req.body.spotifyId);
     const newProfile = new investorProfile({
       investor: req.user._id,
       city,
@@ -102,6 +108,7 @@ const completeInvestorProfile = async (req, res) => {
       reference,
       bio,
       hearAboutBacked,
+      spotifyData,
     });
     await newProfile.save();
     if (req.body.password) {
@@ -368,6 +375,10 @@ const updateCreatorProfile = async (req, res) => {
       spotifyId,
       instagramId,
     } = req.body;
+    let spotifyData = "";
+    if(req.body.spotifyId){
+      spotifyData = await spotifyFunction(req.body.spotifyId);
+    }
     const updated = await creatorProfile.findOneAndUpdate(
       {
         creator: req.user._id,
@@ -401,6 +412,7 @@ const updateCreatorProfile = async (req, res) => {
           occupation,
           spotifyId,
           instagramId,
+          spotifyData,
         },
       }
     );

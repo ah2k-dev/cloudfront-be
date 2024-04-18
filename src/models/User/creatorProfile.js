@@ -79,6 +79,9 @@ const creatorProfileSchema = new Schema({
   spotifyData: {
     type: String,
   },
+  // spotifyId:{
+  //   type: String,
+  // },
   // instagramUsername: {
   //   type: String,
   // },

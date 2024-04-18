@@ -116,57 +116,29 @@ app.use((req, res, next) => {
 //   "America/Los_Angeles"
 // );
 
-// var fetchSocialData = new cron(
-//   "0 * * * * *",
-//   async function () {
-//     const allProfiles = await creatorProfile.find({ isActive: false });
-//     Promise.all(
-//       allProfiles.map(async (val, ind) => {
-//         let socialLinks = val?.socialMediaLinks;
-//         if (socialLinks?.length > 0) {
-//           const spotify = socialLinks.find((link) => {
-//             return link?.includes("spotify");
-//           });
-//           if (spotify) {
-//             const spotifyData = await spotifyFunction(spotify);
-//             await creatorProfile.findByIdAndUpdate(val._id, {
-//               $set: {
-//                 spotifyData: spotifyData,
-//               },
-//             });
-//           }
-//         }
-//         if (socialLinks?.length > 0) {
-//           const instagram = socialLinks.find((link) => {
-//             return link?.includes("instagram");
-//           });
-//           if (instagram) {
-//             const instaData = await fetchInstagramFollowers(instagram);
-//             await creatorProfile.findByIdAndUpdate(val._id, {
-//               $set: {
-//                 instaData: instaData,
-//               },
-//             });
-//           }
-//         }
-//         // let instaUsername = val?.socialMediaLinks;
-//         // if (socialLinks?.length > 0) {
-//         //   const instaData = await fetchInstagramFollowers(link);
-//         //   await creatorProfile.findByIdAndUpdate(val._id, {
-//         //     $set: {
-//         //       instaData: instaData,
-//         //     },
-//         //   });
-//         // }
-//       })
-//     );
-//   },
-//   null,
-//   true,
-//   "America/Los_Angeles"
-// );
+var fetchSocialData = new cron(
+  "0 * * * * *",
+  async function () {
+    const allProfiles = await creatorProfile.find({ isActive: false });
+    Promise.all(
+      allProfiles.map(async (val, ind) => {
+        if (val?.spotifyId) {
+          const spotifyData = await spotifyFunction(val.spotifyId);
+          await creatorProfile.findByIdAndUpdate(val._id, {
+            $set: {
+              spotifyData: spotifyData,
+            },
+          });
+        }
+      })
+    );
+  },
+  null,
+  true,
+  "America/Los_Angeles"
+);
 
-// fetchSocialData.start();
+fetchSocialData.start();
 // closeCampaigns.start();
 
 module.exports = app;
