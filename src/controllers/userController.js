@@ -1271,7 +1271,12 @@ const investorDetail = async (req, res) => {
     completedCampaigns = completedCampaigns[0]?.campaigns || 0;
 
     return SuccessHandler(
-      { message: "Fetched", totalInvestment, totalCampaigns, completedCampaigns },
+      {
+        message: "Fetched",
+        totalInvestment,
+        totalCampaigns,
+        completedCampaigns,
+      },
       200,
       res
     );
@@ -1608,6 +1613,37 @@ const generateInvestorGraph = async (req, res) => {
   }
 };
 
+const fetchFeaturedUsers = async (req, res) => {
+  try {
+    const { role } = req.query;
+    const roleList = ["creator", "investor"];
+
+    if (!roleList.includes(role)) {
+      return ErrorHandler("The provided role does not exist", 400, req, res);
+    }
+    const collection =
+      role === roleList[0] ? "creatorprofiles" : "investorprofiles";
+
+    const record = await User.aggregate([
+      { $match: { isFeatured: true, isActive: true } },
+      {
+        $lookup: {
+          from: collection,
+          localField: "_id",
+          foreignField: role,
+          as: "profile",
+        },
+      },
+      {
+        $unwind: "$profile",
+      },
+    ]);
+    return SuccessHandler(record, 400, res);
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   updatePassword,
   completeInvestorProfile,
@@ -1628,4 +1664,5 @@ module.exports = {
   creatorStats,
   generateCreatorGraph,
   generateInvestorGraph,
+  fetchFeaturedUsers,
 };

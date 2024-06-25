@@ -76,4 +76,8 @@ router
 router.route("/stats").get(isAuthenticated, adminAuth, admin.dashboardStats);
 router.route("/graph").post(isAuthenticated, adminAuth, admin.generateGraph);
 
+router
+  .route("/feature-user/:id")
+  .put(isAuthenticated, adminAuth, admin.toggleFeaturedStatus);
+
 module.exports = router;

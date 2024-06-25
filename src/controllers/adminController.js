@@ -1832,6 +1832,36 @@ const generateGraph = async (req, res) => {
     return ErrorHandler(error.mesage, 500, req, res);
   }
 };
+
+const toggleFeaturedStatus = async (req, res) => {
+  // #swagger.tags = ['admin']
+  try {
+    const { id } = req.params;
+    const isExist = User.findOne({
+      _id: id,
+      isActive: true,
+    });
+    if (!isExist) {
+      return ErrorHandler("User not found", 404, req, res);
+    }
+    const role = isExist.role;
+    const countFeatured = await User.countDocuments({ role, isFeatured: true });
+    if (countFeatured >= 3) {
+      return ErrorHandler(
+        "Only 3 featured users allowed per role",
+        400,
+        req,
+        res
+      );
+    }
+    isExist.isFeatured = !isExist.isFeatured;
+    await isExist.save();
+    return SuccessHandler("Featured status updated successfully", 400, res);
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   approveCampaign,
   getCampaigns,
@@ -1856,4 +1886,5 @@ module.exports = {
   updateProfile,
   dashboardStats,
   generateGraph,
+  toggleFeaturedStatus,
 };

@@ -1430,6 +1430,20 @@ const unsaveFavCampaigns = async (req, res) => {
   }
 };
 
+const fetchCompletedCampaigns = async (req, res) => {
+  try {
+    const { creatorId } = req.params;
+    const compaigns = await Project.find({
+      creator: creatorId,
+      isActive: true,
+      status: "closed",
+    });
+    return SuccessHandler(compaigns, 200, res);
+  } catch (error) {
+    return ErrorHandler(error.message, 500, req, res);
+  }
+};
+
 module.exports = {
   create,
   getAll,
@@ -1447,4 +1461,5 @@ module.exports = {
   saveFavCampaigns,
   getFavCampaigns,
   unsaveFavCampaigns,
+  fetchCompletedCampaigns,
 };

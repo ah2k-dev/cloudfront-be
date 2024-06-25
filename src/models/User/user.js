@@ -87,6 +87,11 @@ const userSchema = new Schema({
       ref: "campaign",
     },
   ],
+
+  isFeatured: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 //hash password before saving
