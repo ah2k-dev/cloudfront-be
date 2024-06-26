@@ -1837,16 +1837,16 @@ const toggleFeaturedStatus = async (req, res) => {
   // #swagger.tags = ['admin']
   try {
     const { id } = req.params;
-    const isExist = User.findOne({
+    const isExist = await User.findOne({
       _id: id,
       isActive: true,
     });
     if (!isExist) {
       return ErrorHandler("User not found", 404, req, res);
     }
-    const role = isExist.role;
+    const { role, isFeatured } = isExist;
     const countFeatured = await User.countDocuments({ role, isFeatured: true });
-    if (countFeatured >= 3) {
+    if (!isFeatured && countFeatured >= 3) {
       return ErrorHandler(
         "Only 3 featured users allowed per role",
         400,
