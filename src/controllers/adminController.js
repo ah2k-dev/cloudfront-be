@@ -1856,7 +1856,7 @@ const toggleFeaturedStatus = async (req, res) => {
     }
     isExist.isFeatured = !isExist.isFeatured;
     await isExist.save();
-    return SuccessHandler("Featured status updated successfully", 400, res);
+    return SuccessHandler("Featured status updated successfully", 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
