@@ -42,6 +42,6 @@ router
   .route("/investor-graph")
   .post(isAuthenticated, user.generateInvestorGraph);
 
-router.route("/featured").get(isAuthenticated, user.fetchFeaturedUsers);
+router.route("/featured").get( user.fetchFeaturedUsers);
 
 module.exports = router;
