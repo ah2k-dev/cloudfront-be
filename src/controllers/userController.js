@@ -1638,7 +1638,7 @@ const fetchFeaturedUsers = async (req, res) => {
         $unwind: "$profile",
       },
     ]);
-    return SuccessHandler(record, 400, res);
+    return SuccessHandler(record, 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }
