@@ -252,7 +252,7 @@
       }
     },
     "/user/investors": {
-      "post": {
+      "get": {
         "tags": [
           "user"
         ],
@@ -269,19 +269,14 @@
             "type": "string"
           },
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "example": "any"
-                },
-                "lastName": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "isFeatured",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
@@ -295,7 +290,7 @@
       }
     },
     "/user/creators": {
-      "post": {
+      "get": {
         "tags": [
           "user"
         ],
@@ -312,16 +307,14 @@
             "type": "string"
           },
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "firstName": {
-                  "example": "any"
-                }
-              }
-            }
+            "name": "isFeatured",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1031,24 +1024,12 @@
         "description": "",
         "parameters": [
           {
-            "name": "authorization",
-            "in": "header",
-            "type": "string"
-          },
-          {
             "name": "role",
             "in": "query",
             "type": "string"
           }
         ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+        "responses": {}
       }
     },
     "/chat/getChats": {

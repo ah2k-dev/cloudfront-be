@@ -4,8 +4,8 @@ const router = require("express").Router();
 
 // get
 router.route("/").get(isAuthenticated, user.getProfile);
-router.route("/investors").post(isAuthenticated, user.getAllInvestors);
-router.route("/creators").post(isAuthenticated, user.getAllCreators);
+router.route("/investors").get(isAuthenticated, user.getAllInvestors);
+router.route("/creators").get(isAuthenticated, user.getAllCreators);
 router.route("/investor/:id").get(isAuthenticated, user.getInvestorProfile);
 router.route("/creator/:id").get(isAuthenticated, user.getCreatorProfile);
 router
@@ -42,6 +42,6 @@ router
   .route("/investor-graph")
   .post(isAuthenticated, user.generateInvestorGraph);
 
-router.route("/featured").get( user.fetchFeaturedUsers);
+router.route("/featured").get(user.fetchFeaturedUsers);
 
 module.exports = router;

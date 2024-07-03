@@ -945,44 +945,71 @@ const getTransactions = async (req, res) => {
 const getAllInvestors = async (req, res) => {
   // #swagger.tags = ['user']
 
-  const profilePerPage = 3;
+  const profilePerPage = 10;
   const pageNumber = Number(req.query.page) || 1;
   const skipProfiles = (pageNumber - 1) * profilePerPage;
+  const { isFeatured, search } = req.query;
 
   try {
-    let investors;
-    if (req.body.firstName || req.body.lastName) {
-      investors = await investorProfile
-        .find({ investor: { $ne: null } })
-        .populate({
-          path: "investor",
-          match: {
-            // _id: { $ne: null },
-            firstName: {
-              $regex: req.body.firstName,
-              $options: "i",
-            },
-          },
-        })
-        .sort({ createdAt: -1 });
-      console.log("Filter");
-    } else {
-      console.log("No Filter");
-      investors = investors = await investorProfile
-        .find()
-        .populate("investor")
-        .sort({ createdAt: -1 })
-        .skip(skipProfiles)
-        .limit(profilePerPage);
-    }
+    const isFeaturedFilter = !!isFeatured
+      ? { "investor.isFeatured": true }
+      : {};
 
-    const countInvestors = investors.length;
+    const searchFilter = search
+      ? {
+          $or: [
+            {
+              "investor.firstName": {
+                $regex: search,
+                $options: "i",
+              },
+              "investor.lastName": {
+                $regex: search,
+                $options: "i",
+              },
+            },
+          ],
+        }
+      : {};
+
+    const investors = await investorProfile.aggregate([
+      {
+        $match: { investor: { $ne: null } },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "investor",
+          foreignField: "_id",
+          as: "investor",
+        },
+      },
+      {
+        $unwind: "$investor",
+      },
+      {
+        $match: { ...searchFilter, ...isFeaturedFilter },
+      },
+
+      {
+        $sort: { createdAt: -1 },
+      },
+      {
+        $skip: +skipProfiles,
+      },
+      {
+        $limit: +profilePerPage,
+      },
+    ]);
+
+    const countInvestors = await investorProfile.countDocuments({
+      isActive: true,
+    });
     return SuccessHandler(
       {
         message: `Investors fetched successfully!`,
         countInvestors,
         investors: investors,
-        // filterInvestors,
       },
       200,
       res
@@ -994,34 +1021,85 @@ const getAllInvestors = async (req, res) => {
 
 const getAllCreators = async (req, res) => {
   // #swagger.tags = ['user']
-
-  const profilePerPage = 8;
-  const pageNumber = Number(req.query.page) || 1;
-  const skipProfiles = (pageNumber - 1) * profilePerPage;
-
-  const firstNameFilter = req.body.firstName
-    ? {
-        firstName: {
-          $regex: req.body.firstName,
-          $options: "i",
-        },
-      }
-    : {};
-
   try {
-    const creatorsCount = await creatorProfile.countDocuments();
-    const creators = await creatorProfile
-      .find()
-      .populate("creator")
-      .skip(skipProfiles)
-      .limit(profilePerPage);
+    const profilePerPage = 8;
+    const pageNumber = Number(req.query.page) || 1;
+    const skipProfiles = (pageNumber - 1) * profilePerPage;
+    const { isFeatured, search } = req.query;
+
+    // const firstNameFilter = req.body.firstName
+    //   ? {
+    //       firstName: {
+    //         $regex: req.body.firstName,
+    //         $options: "i",
+    //       },
+    //     }
+    //   : {};
+
+    //   const creatorsCount = await creatorProfile.countDocuments({
+    //     isActive: true,
+    //   });
+    //   const creators = await creatorProfile
+    //     .find()
+    //     .populate("creator")
+    //     .skip(skipProfiles)
+    //     .limit(profilePerPage);
+
+    const isFeaturedFilter = !!isFeatured ? { "creator.isFeatured": true } : {};
+
+    const searchFilter = search
+      ? {
+          $or: [
+            {
+              "creator.firstName": {
+                $regex: search,
+                $options: "i",
+              },
+              "creator.lastName": {
+                $regex: search,
+                $options: "i",
+              },
+            },
+          ],
+        }
+      : {};
+
+    const creators = await creatorProfile.aggregate([
+      {
+        $match: { creator: { $ne: null } },
+      },
+      {
+        $lookup: {
+          from: "users",
+          localField: "creator",
+          foreignField: "_id",
+          as: "creator",
+        },
+      },
+      {
+        $unwind: "$creator",
+      },
+      {
+        $match: { ...searchFilter, ...isFeaturedFilter },
+      },
+
+      {
+        $sort: { createdAt: -1 },
+      },
+      {
+        $skip: +skipProfiles,
+      },
+      {
+        $limit: +profilePerPage,
+      },
+    ]);
 
     return SuccessHandler(
       {
         message: `Creators fetched successfully!`,
         creatorsCount,
-        creators: creators,
-        filterInvestors,
+        creators,
+        // filterInvestors,
       },
       200,
       res
