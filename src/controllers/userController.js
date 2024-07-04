@@ -106,7 +106,7 @@ const completeInvestorProfile = async (req, res) => {
       reference,
       bio,
       hearAboutBacked,
-      spotifyData,
+      // spotifyData,
     });
     await newProfile.save();
     if (req.body.password) {
