@@ -2,6 +2,7 @@ const User = require("../models/User/user");
 const sendMail = require("../utils/sendMail");
 const SuccessHandler = require("../utils/SuccessHandler");
 const ErrorHandler = require("../utils/ErrorHandler");
+const ejs = require("ejs");
 //register
 const register = async (req, res) => {
   // #swagger.tags = ['auth']
@@ -55,10 +56,16 @@ const requestEmailToken = async (req, res) => {
     user.emailVerificationToken = emailVerificationToken;
     user.emailVerificationTokenExpires = emailVerificationTokenExpires;
     await user.save();
-    const message = `Your email verification token is ${emailVerificationToken} and it expires in 10 minutes`;
+    const template = await ejs.renderFile(
+      `${__dirname}/../ejs/verifyEmail.ejs`,
+      {
+        otp: emailVerificationToken,
+      }
+    );
+
     const subject = `Email verification token`;
-    console.log(emailVerificationToken);
-    await sendMail(email, subject, message);
+    await sendMail(email, subject, template);
+
     return SuccessHandler(
       `Email verification token sent to ${email}`,
       200,
@@ -163,9 +170,15 @@ const forgotPassword = async (req, res) => {
     user.passwordResetToken = passwordResetToken;
     user.passwordResetTokenExpires = passwordResetTokenExpires;
     await user.save();
-    const message = `Your password reset token is ${passwordResetToken} and it expires in 10 minutes`;
+    const template = await ejs.renderFile(
+      `${__dirname}/../ejs/resetPassword.ejs`,
+      {
+        otp: passwordResetToken,
+      }
+    );
     const subject = `Password reset token`;
-    await sendMail(email, subject, message);
+    await sendMail(email, subject, template);
+    // await sendMail(email, subject, message);
     return SuccessHandler(`Password reset token sent to ${email}`, 200, res);
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
@@ -231,7 +244,10 @@ const thirdPartyAuth = async (req, res) => {
     if (userWithEmail.isActive === false) {
       return ErrorHandler("Email has been blocked", 400, req, res);
     }
-    if(userWithEmail.accessToken === accessToken && userWithEmail?.provider === provider){
+    if (
+      userWithEmail.accessToken === accessToken &&
+      userWithEmail?.provider === provider
+    ) {
       jwtToken = userWithEmail.getJWTToken();
       let userData = {
         firstName: userWithEmail.firstName,
@@ -250,10 +266,14 @@ const thirdPartyAuth = async (req, res) => {
         res
       );
     }
-    if(userWithEmail.provider !== provider){
-      return ErrorHandler("You are registered with " + userWithEmail.provider, 400, req, res);
+    if (userWithEmail.provider !== provider) {
+      return ErrorHandler(
+        "You are registered with " + userWithEmail.provider,
+        400,
+        req,
+        res
+      );
     }
-
   } catch (error) {
     return ErrorHandler(error.message, 500, req, res);
   }

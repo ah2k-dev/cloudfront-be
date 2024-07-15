@@ -560,3 +560,5 @@
 {"level":"error","message":{"date":"2024-02-13T13:18:16.007Z","method":"POST","url":"/graph"},"service":"user-service"}
 {"date":"2024-04-18T11:05:19.304Z","level":"error","message":"User does not exist","method":"POST","service":"user-service","url":"/login"}
 {"date":"2024-04-18T11:26:31.348Z","level":"error","message":"Cannot read properties of undefined (reading 'campaigns')","method":"GET","service":"user-service","url":"/investor-stats"}
+{"date":"2024-07-15T10:26:53.063Z","level":"error","message":"subject is not defined","method":"POST","service":"user-service","url":"/forgotPassword"}
+{"date":"2024-07-15T10:36:54.383Z","level":"error","message":"The provided authorization grant is invalid, expired, or revoked","method":"POST","service":"user-service","url":"/forgotPassword"}
